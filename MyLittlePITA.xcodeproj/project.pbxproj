@@ -1,0 +1,492 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		23DE1F5018AA81650072B8EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F4F18AA81650072B8EB /* Foundation.framework */; };
+		23DE1F5218AA81650072B8EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5118AA81650072B8EB /* CoreGraphics.framework */; };
+		23DE1F5418AA81650072B8EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5318AA81650072B8EB /* UIKit.framework */; };
+		23DE1F5618AA81650072B8EB /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5518AA81650072B8EB /* SpriteKit.framework */; };
+		23DE1F5C18AA81650072B8EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23DE1F5A18AA81650072B8EB /* InfoPlist.strings */; };
+		23DE1F5E18AA81650072B8EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F5D18AA81650072B8EB /* main.m */; };
+		23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F6118AA81650072B8EB /* PTAppDelegate.m */; };
+		23DE1F6518AA81650072B8EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23DE1F6318AA81650072B8EB /* Main.storyboard */; };
+		23DE1F6818AA81650072B8EB /* PTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F6718AA81650072B8EB /* PTViewController.m */; };
+		23DE1F6B18AA81650072B8EB /* PTMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F6A18AA81650072B8EB /* PTMyScene.m */; };
+		23DE1F6D18AA81650072B8EB /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 23DE1F6C18AA81650072B8EB /* Spaceship.png */; };
+		23DE1F6F18AA81650072B8EB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23DE1F6E18AA81650072B8EB /* Images.xcassets */; };
+		23DE1F7618AA81660072B8EB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F7518AA81660072B8EB /* XCTest.framework */; };
+		23DE1F7718AA81660072B8EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F4F18AA81650072B8EB /* Foundation.framework */; };
+		23DE1F7818AA81660072B8EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5318AA81650072B8EB /* UIKit.framework */; };
+		23DE1F8018AA81660072B8EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23DE1F7E18AA81660072B8EB /* InfoPlist.strings */; };
+		23DE1F8218AA81660072B8EB /* MyLittlePITATests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F8118AA81660072B8EB /* MyLittlePITATests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		23DE1F7918AA81660072B8EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 23DE1F4418AA81650072B8EB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 23DE1F4B18AA81650072B8EB;
+			remoteInfo = MyLittlePITA;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		23DE1F4C18AA81650072B8EB /* MyLittlePITA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLittlePITA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		23DE1F4F18AA81650072B8EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		23DE1F5118AA81650072B8EB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		23DE1F5318AA81650072B8EB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		23DE1F5518AA81650072B8EB /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		23DE1F5918AA81650072B8EB /* MyLittlePITA-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyLittlePITA-Info.plist"; sourceTree = "<group>"; };
+		23DE1F5B18AA81650072B8EB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		23DE1F5D18AA81650072B8EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		23DE1F5F18AA81650072B8EB /* MyLittlePITA-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyLittlePITA-Prefix.pch"; sourceTree = "<group>"; };
+		23DE1F6018AA81650072B8EB /* PTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PTAppDelegate.h; sourceTree = "<group>"; };
+		23DE1F6118AA81650072B8EB /* PTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PTAppDelegate.m; sourceTree = "<group>"; };
+		23DE1F6418AA81650072B8EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		23DE1F6618AA81650072B8EB /* PTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PTViewController.h; sourceTree = "<group>"; };
+		23DE1F6718AA81650072B8EB /* PTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PTViewController.m; sourceTree = "<group>"; };
+		23DE1F6918AA81650072B8EB /* PTMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PTMyScene.h; sourceTree = "<group>"; };
+		23DE1F6A18AA81650072B8EB /* PTMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PTMyScene.m; sourceTree = "<group>"; };
+		23DE1F6C18AA81650072B8EB /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		23DE1F6E18AA81650072B8EB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		23DE1F7418AA81660072B8EB /* MyLittlePITATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyLittlePITATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		23DE1F7518AA81660072B8EB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		23DE1F7D18AA81660072B8EB /* MyLittlePITATests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyLittlePITATests-Info.plist"; sourceTree = "<group>"; };
+		23DE1F7F18AA81660072B8EB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		23DE1F8118AA81660072B8EB /* MyLittlePITATests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLittlePITATests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		23DE1F4918AA81650072B8EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23DE1F5218AA81650072B8EB /* CoreGraphics.framework in Frameworks */,
+				23DE1F5418AA81650072B8EB /* UIKit.framework in Frameworks */,
+				23DE1F5618AA81650072B8EB /* SpriteKit.framework in Frameworks */,
+				23DE1F5018AA81650072B8EB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23DE1F7118AA81660072B8EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23DE1F7618AA81660072B8EB /* XCTest.framework in Frameworks */,
+				23DE1F7818AA81660072B8EB /* UIKit.framework in Frameworks */,
+				23DE1F7718AA81660072B8EB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		23DE1F4318AA81650072B8EB = {
+			isa = PBXGroup;
+			children = (
+				23DE1F5718AA81650072B8EB /* MyLittlePITA */,
+				23DE1F7B18AA81660072B8EB /* MyLittlePITATests */,
+				23DE1F4E18AA81650072B8EB /* Frameworks */,
+				23DE1F4D18AA81650072B8EB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		23DE1F4D18AA81650072B8EB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				23DE1F4C18AA81650072B8EB /* MyLittlePITA.app */,
+				23DE1F7418AA81660072B8EB /* MyLittlePITATests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		23DE1F4E18AA81650072B8EB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23DE1F4F18AA81650072B8EB /* Foundation.framework */,
+				23DE1F5118AA81650072B8EB /* CoreGraphics.framework */,
+				23DE1F5318AA81650072B8EB /* UIKit.framework */,
+				23DE1F5518AA81650072B8EB /* SpriteKit.framework */,
+				23DE1F7518AA81660072B8EB /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		23DE1F5718AA81650072B8EB /* MyLittlePITA */ = {
+			isa = PBXGroup;
+			children = (
+				23DE1F6018AA81650072B8EB /* PTAppDelegate.h */,
+				23DE1F6118AA81650072B8EB /* PTAppDelegate.m */,
+				23DE1F6318AA81650072B8EB /* Main.storyboard */,
+				23DE1F6618AA81650072B8EB /* PTViewController.h */,
+				23DE1F6718AA81650072B8EB /* PTViewController.m */,
+				23DE1F6918AA81650072B8EB /* PTMyScene.h */,
+				23DE1F6A18AA81650072B8EB /* PTMyScene.m */,
+				23DE1F6C18AA81650072B8EB /* Spaceship.png */,
+				23DE1F6E18AA81650072B8EB /* Images.xcassets */,
+				23DE1F5818AA81650072B8EB /* Supporting Files */,
+			);
+			path = MyLittlePITA;
+			sourceTree = "<group>";
+		};
+		23DE1F5818AA81650072B8EB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				23DE1F5918AA81650072B8EB /* MyLittlePITA-Info.plist */,
+				23DE1F5A18AA81650072B8EB /* InfoPlist.strings */,
+				23DE1F5D18AA81650072B8EB /* main.m */,
+				23DE1F5F18AA81650072B8EB /* MyLittlePITA-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		23DE1F7B18AA81660072B8EB /* MyLittlePITATests */ = {
+			isa = PBXGroup;
+			children = (
+				23DE1F8118AA81660072B8EB /* MyLittlePITATests.m */,
+				23DE1F7C18AA81660072B8EB /* Supporting Files */,
+			);
+			path = MyLittlePITATests;
+			sourceTree = "<group>";
+		};
+		23DE1F7C18AA81660072B8EB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				23DE1F7D18AA81660072B8EB /* MyLittlePITATests-Info.plist */,
+				23DE1F7E18AA81660072B8EB /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		23DE1F4B18AA81650072B8EB /* MyLittlePITA */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23DE1F8518AA81660072B8EB /* Build configuration list for PBXNativeTarget "MyLittlePITA" */;
+			buildPhases = (
+				23DE1F4818AA81650072B8EB /* Sources */,
+				23DE1F4918AA81650072B8EB /* Frameworks */,
+				23DE1F4A18AA81650072B8EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyLittlePITA;
+			productName = MyLittlePITA;
+			productReference = 23DE1F4C18AA81650072B8EB /* MyLittlePITA.app */;
+			productType = "com.apple.product-type.application";
+		};
+		23DE1F7318AA81660072B8EB /* MyLittlePITATests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23DE1F8818AA81660072B8EB /* Build configuration list for PBXNativeTarget "MyLittlePITATests" */;
+			buildPhases = (
+				23DE1F7018AA81660072B8EB /* Sources */,
+				23DE1F7118AA81660072B8EB /* Frameworks */,
+				23DE1F7218AA81660072B8EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				23DE1F7A18AA81660072B8EB /* PBXTargetDependency */,
+			);
+			name = MyLittlePITATests;
+			productName = MyLittlePITATests;
+			productReference = 23DE1F7418AA81660072B8EB /* MyLittlePITATests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		23DE1F4418AA81650072B8EB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PT;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "My Little PITA Group";
+				TargetAttributes = {
+					23DE1F7318AA81660072B8EB = {
+						TestTargetID = 23DE1F4B18AA81650072B8EB;
+					};
+				};
+			};
+			buildConfigurationList = 23DE1F4718AA81650072B8EB /* Build configuration list for PBXProject "MyLittlePITA" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 23DE1F4318AA81650072B8EB;
+			productRefGroup = 23DE1F4D18AA81650072B8EB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				23DE1F4B18AA81650072B8EB /* MyLittlePITA */,
+				23DE1F7318AA81660072B8EB /* MyLittlePITATests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		23DE1F4A18AA81650072B8EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23DE1F5C18AA81650072B8EB /* InfoPlist.strings in Resources */,
+				23DE1F6F18AA81650072B8EB /* Images.xcassets in Resources */,
+				23DE1F6D18AA81650072B8EB /* Spaceship.png in Resources */,
+				23DE1F6518AA81650072B8EB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23DE1F7218AA81660072B8EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23DE1F8018AA81660072B8EB /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		23DE1F4818AA81650072B8EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */,
+				23DE1F6818AA81650072B8EB /* PTViewController.m in Sources */,
+				23DE1F6B18AA81650072B8EB /* PTMyScene.m in Sources */,
+				23DE1F5E18AA81650072B8EB /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23DE1F7018AA81660072B8EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23DE1F8218AA81660072B8EB /* MyLittlePITATests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		23DE1F7A18AA81660072B8EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 23DE1F4B18AA81650072B8EB /* MyLittlePITA */;
+			targetProxy = 23DE1F7918AA81660072B8EB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		23DE1F5A18AA81650072B8EB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23DE1F5B18AA81650072B8EB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		23DE1F6318AA81650072B8EB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23DE1F6418AA81650072B8EB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		23DE1F7E18AA81660072B8EB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23DE1F7F18AA81660072B8EB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		23DE1F8318AA81660072B8EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		23DE1F8418AA81660072B8EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		23DE1F8618AA81660072B8EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyLittlePITA/MyLittlePITA-Prefix.pch";
+				INFOPLIST_FILE = "MyLittlePITA/MyLittlePITA-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		23DE1F8718AA81660072B8EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyLittlePITA/MyLittlePITA-Prefix.pch";
+				INFOPLIST_FILE = "MyLittlePITA/MyLittlePITA-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		23DE1F8918AA81660072B8EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MyLittlePITA.app/MyLittlePITA";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyLittlePITA/MyLittlePITA-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "MyLittlePITATests/MyLittlePITATests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		23DE1F8A18AA81660072B8EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MyLittlePITA.app/MyLittlePITA";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyLittlePITA/MyLittlePITA-Prefix.pch";
+				INFOPLIST_FILE = "MyLittlePITATests/MyLittlePITATests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		23DE1F4718AA81650072B8EB /* Build configuration list for PBXProject "MyLittlePITA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23DE1F8318AA81660072B8EB /* Debug */,
+				23DE1F8418AA81660072B8EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		23DE1F8518AA81660072B8EB /* Build configuration list for PBXNativeTarget "MyLittlePITA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23DE1F8618AA81660072B8EB /* Debug */,
+				23DE1F8718AA81660072B8EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		23DE1F8818AA81660072B8EB /* Build configuration list for PBXNativeTarget "MyLittlePITATests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23DE1F8918AA81660072B8EB /* Debug */,
+				23DE1F8A18AA81660072B8EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 23DE1F4418AA81650072B8EB /* Project object */;
+}
