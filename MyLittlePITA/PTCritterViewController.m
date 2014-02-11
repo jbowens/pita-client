@@ -1,15 +1,15 @@
 //
-//  PTViewController.m
+//  PTCritterViewController.m
 //  MyLittlePITA
 //
 //  Created by Jacob Stern on 2/11/14.
 //  Copyright (c) 2014 My Little PITA Group. All rights reserved.
 //
 
-#import "PTViewController.h"
-#import "PTMyScene.h"
+#import "PTCritterViewController.h"
+#import "PTCritterScene.h"
 
-@implementation PTViewController
+@implementation PTCritterViewController
 
 - (void)viewDidLoad
 {
@@ -21,7 +21,7 @@
     skView.showsNodeCount = YES;
     
     // Create and configure the scene.
-    SKScene * scene = [PTMyScene sceneWithSize:skView.bounds.size];
+    SKScene * scene = [PTCritterScene sceneWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
