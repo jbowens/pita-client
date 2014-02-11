@@ -1,15 +1,15 @@
 //
-//  PTCritterViewController.m
+//  PTGameViewController.m
 //  MyLittlePITA
 //
 //  Created by Jacob Stern on 2/11/14.
 //  Copyright (c) 2014 My Little PITA Group. All rights reserved.
 //
 
-#import "PTCritterViewController.h"
+#import "PTGameViewController.h"
 #import "PTCritterScene.h"
 
-@implementation PTCritterViewController
+@implementation PTGameViewController
 
 - (void)viewDidLoad
 {

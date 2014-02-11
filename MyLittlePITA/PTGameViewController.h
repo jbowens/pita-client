@@ -1,5 +1,5 @@
 //
-//  PTCritterViewController.h
+//  PTGameViewController.h
 //  MyLittlePITA
 //
 
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
 
-@interface PTCritterViewController : UIViewController
+@interface PTGameViewController : UIViewController
 
 @end

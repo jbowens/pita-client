@@ -15,7 +15,7 @@
 		23DE1F5E18AA81650072B8EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F5D18AA81650072B8EB /* main.m */; };
 		23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F6118AA81650072B8EB /* PTAppDelegate.m */; };
 		23DE1F6518AA81650072B8EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23DE1F6318AA81650072B8EB /* Main.storyboard */; };
-		23DE1F6818AA81650072B8EB /* PTCritterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F6718AA81650072B8EB /* PTCritterViewController.m */; };
+		23DE1F6818AA81650072B8EB /* PTGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F6718AA81650072B8EB /* PTGameViewController.m */; };
 		23DE1F6B18AA81650072B8EB /* PTCritterScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F6A18AA81650072B8EB /* PTCritterScene.m */; };
 		23DE1F6D18AA81650072B8EB /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 23DE1F6C18AA81650072B8EB /* Spaceship.png */; };
 		23DE1F6F18AA81650072B8EB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23DE1F6E18AA81650072B8EB /* Images.xcassets */; };
@@ -49,8 +49,8 @@
 		23DE1F6018AA81650072B8EB /* PTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PTAppDelegate.h; sourceTree = "<group>"; };
 		23DE1F6118AA81650072B8EB /* PTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PTAppDelegate.m; sourceTree = "<group>"; };
 		23DE1F6418AA81650072B8EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		23DE1F6618AA81650072B8EB /* PTCritterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PTCritterViewController.h; sourceTree = "<group>"; };
-		23DE1F6718AA81650072B8EB /* PTCritterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PTCritterViewController.m; sourceTree = "<group>"; };
+		23DE1F6618AA81650072B8EB /* PTGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PTGameViewController.h; sourceTree = "<group>"; };
+		23DE1F6718AA81650072B8EB /* PTGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PTGameViewController.m; sourceTree = "<group>"; };
 		23DE1F6918AA81650072B8EB /* PTCritterScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PTCritterScene.h; sourceTree = "<group>"; };
 		23DE1F6A18AA81650072B8EB /* PTCritterScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PTCritterScene.m; sourceTree = "<group>"; };
 		23DE1F6C18AA81650072B8EB /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
@@ -124,8 +124,8 @@
 				23DE1F6018AA81650072B8EB /* PTAppDelegate.h */,
 				23DE1F6118AA81650072B8EB /* PTAppDelegate.m */,
 				23DE1F6318AA81650072B8EB /* Main.storyboard */,
-				23DE1F6618AA81650072B8EB /* PTCritterViewController.h */,
-				23DE1F6718AA81650072B8EB /* PTCritterViewController.m */,
+				23DE1F6618AA81650072B8EB /* PTGameViewController.h */,
+				23DE1F6718AA81650072B8EB /* PTGameViewController.m */,
 				23DE1F6918AA81650072B8EB /* PTCritterScene.h */,
 				23DE1F6A18AA81650072B8EB /* PTCritterScene.m */,
 				23DE1F6C18AA81650072B8EB /* Spaceship.png */,
@@ -264,7 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */,
-				23DE1F6818AA81650072B8EB /* PTCritterViewController.m in Sources */,
+				23DE1F6818AA81650072B8EB /* PTGameViewController.m in Sources */,
 				23DE1F6B18AA81650072B8EB /* PTCritterScene.m in Sources */,
 				23DE1F5E18AA81650072B8EB /* main.m in Sources */,
 			);
