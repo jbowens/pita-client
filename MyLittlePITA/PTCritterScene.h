@@ -8,6 +8,16 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+@class PTCritterScene;
+
+@protocol PTCritterSceneDelegate <NSObject>
+
+- (void)critterSceneRegisteredCameraClick:(PTCritterScene*)critterScene;
+
+@end
+
 @interface PTCritterScene : SKScene
+
+@property (nonatomic) id<PTCritterSceneDelegate> delegate;
 
 @end

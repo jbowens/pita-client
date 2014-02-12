@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
 
+#import "PTCritterScene.h"
+
 @interface PTGameViewController : UIViewController
+    <PTCritterSceneDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
