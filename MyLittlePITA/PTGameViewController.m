@@ -28,6 +28,7 @@
     
     // Create and configure the scene.
     PTAttractScene *attractScene = [PTAttractScene sceneWithSize:skView.bounds.size];
+    attractScene.scaleMode = SKSceneScaleModeAspectFill;
     attractScene.delegate = self;
     self.attractScene = attractScene;
     
