@@ -12,6 +12,8 @@
 		233715DD18B041FC006E375F /* tail.png in Resources */ = {isa = PBXBuildFile; fileRef = 233715DA18B041FC006E375F /* tail.png */; };
 		233715DE18B041FC006E375F /* legs.png in Resources */ = {isa = PBXBuildFile; fileRef = 233715DB18B041FC006E375F /* legs.png */; };
 		233715DF18B041FC006E375F /* face.png in Resources */ = {isa = PBXBuildFile; fileRef = 233715DC18B041FC006E375F /* face.png */; };
+		233715E218B0687A006E375F /* PTAttractScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 233715E118B0687A006E375F /* PTAttractScene.m */; };
+		233715E418B068BD006E375F /* logo_cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 233715E318B068BD006E375F /* logo_cropped.png */; };
 		23DE1F5018AA81650072B8EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F4F18AA81650072B8EB /* Foundation.framework */; };
 		23DE1F5218AA81650072B8EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5118AA81650072B8EB /* CoreGraphics.framework */; };
 		23DE1F5418AA81650072B8EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5318AA81650072B8EB /* UIKit.framework */; };
@@ -48,6 +50,9 @@
 		233715DA18B041FC006E375F /* tail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tail.png; sourceTree = "<group>"; };
 		233715DB18B041FC006E375F /* legs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = legs.png; sourceTree = "<group>"; };
 		233715DC18B041FC006E375F /* face.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face.png; sourceTree = "<group>"; };
+		233715E018B0687A006E375F /* PTAttractScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTAttractScene.h; sourceTree = "<group>"; };
+		233715E118B0687A006E375F /* PTAttractScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTAttractScene.m; sourceTree = "<group>"; };
+		233715E318B068BD006E375F /* logo_cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_cropped.png; sourceTree = "<group>"; };
 		23DE1F4C18AA81650072B8EB /* MyLittlePITA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLittlePITA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DE1F4F18AA81650072B8EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		23DE1F5118AA81650072B8EB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -132,12 +137,15 @@
 		23DE1F5718AA81650072B8EB /* MyLittlePITA */ = {
 			isa = PBXGroup;
 			children = (
+				233715E318B068BD006E375F /* logo_cropped.png */,
 				233715DA18B041FC006E375F /* tail.png */,
 				233715DB18B041FC006E375F /* legs.png */,
 				233715DC18B041FC006E375F /* face.png */,
 				233715D818AEDD6B006E375F /* body.png */,
 				23DE1F6018AA81650072B8EB /* PTAppDelegate.h */,
 				23DE1F6118AA81650072B8EB /* PTAppDelegate.m */,
+				233715E018B0687A006E375F /* PTAttractScene.h */,
+				233715E118B0687A006E375F /* PTAttractScene.m */,
 				23DE1F6318AA81650072B8EB /* Main.storyboard */,
 				233715D518AE947B006E375F /* PTCritterNode.h */,
 				233715D618AE947B006E375F /* PTCritterNode.m */,
@@ -260,6 +268,7 @@
 			files = (
 				23DE1F5C18AA81650072B8EB /* InfoPlist.strings in Resources */,
 				233715DE18B041FC006E375F /* legs.png in Resources */,
+				233715E418B068BD006E375F /* logo_cropped.png in Resources */,
 				233715D918AEDD6B006E375F /* body.png in Resources */,
 				233715DF18B041FC006E375F /* face.png in Resources */,
 				23DE1F6F18AA81650072B8EB /* Images.xcassets in Resources */,
@@ -284,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				233715E218B0687A006E375F /* PTAttractScene.m in Sources */,
 				23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */,
 				23DE1F6818AA81650072B8EB /* PTGameViewController.m in Sources */,
 				23DE1F6B18AA81650072B8EB /* PTCritterScene.m in Sources */,

@@ -7,7 +7,13 @@
 //
 
 #import "PTGameViewController.h"
-#import "PTCritterScene.h"
+
+@interface PTGameViewController()
+
+@property (nonatomic) PTAttractScene *attractScene;
+@property (nonatomic) PTCritterScene *critterScene;
+
+@end
 
 @implementation PTGameViewController
 
@@ -21,12 +27,17 @@
     skView.showsNodeCount = YES;
     
     // Create and configure the scene.
-    PTCritterScene* scene = [PTCritterScene sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    scene.delegate = self;
+    PTAttractScene *attractScene = [PTAttractScene sceneWithSize:skView.bounds.size];
+    attractScene.delegate = self;
+    self.attractScene = attractScene;
+    
+    PTCritterScene *critterScene = [PTCritterScene sceneWithSize:skView.bounds.size];
+    critterScene.scaleMode = SKSceneScaleModeAspectFill;
+    critterScene.delegate = self;
+    self.critterScene = critterScene;
     
     // Present the scene.
-    [skView presentScene:scene];
+    [skView presentScene:self.attractScene];
 }
 
 - (BOOL)shouldAutorotate
@@ -47,6 +58,14 @@
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)attractSceneRegisteredScreenTap:(PTAttractScene *)scene;
+{
+    SKView * skView = (SKView *)self.view;
+    
+    SKTransition *doorsOpen = [SKTransition doorsOpenHorizontalWithDuration:1];
+    [skView presentScene:self.critterScene transition:doorsOpen];
 }
 
 - (void)critterSceneRegisteredCameraClick:(PTCritterScene*)critterScene;
