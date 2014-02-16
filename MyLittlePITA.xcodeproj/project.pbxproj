@@ -14,6 +14,7 @@
 		233715DF18B041FC006E375F /* face.png in Resources */ = {isa = PBXBuildFile; fileRef = 233715DC18B041FC006E375F /* face.png */; };
 		233715E218B0687A006E375F /* PTAttractScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 233715E118B0687A006E375F /* PTAttractScene.m */; };
 		233715E418B068BD006E375F /* logo_cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 233715E318B068BD006E375F /* logo_cropped.png */; };
+		233715E718B08143006E375F /* PTCritter.m in Sources */ = {isa = PBXBuildFile; fileRef = 233715E618B08143006E375F /* PTCritter.m */; };
 		23DE1F5018AA81650072B8EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F4F18AA81650072B8EB /* Foundation.framework */; };
 		23DE1F5218AA81650072B8EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5118AA81650072B8EB /* CoreGraphics.framework */; };
 		23DE1F5418AA81650072B8EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5318AA81650072B8EB /* UIKit.framework */; };
@@ -53,6 +54,8 @@
 		233715E018B0687A006E375F /* PTAttractScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTAttractScene.h; sourceTree = "<group>"; };
 		233715E118B0687A006E375F /* PTAttractScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTAttractScene.m; sourceTree = "<group>"; };
 		233715E318B068BD006E375F /* logo_cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_cropped.png; sourceTree = "<group>"; };
+		233715E518B08143006E375F /* PTCritter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTCritter.h; sourceTree = "<group>"; };
+		233715E618B08143006E375F /* PTCritter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTCritter.m; sourceTree = "<group>"; };
 		23DE1F4C18AA81650072B8EB /* MyLittlePITA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLittlePITA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DE1F4F18AA81650072B8EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		23DE1F5118AA81650072B8EB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -147,6 +150,8 @@
 				233715E018B0687A006E375F /* PTAttractScene.h */,
 				233715E118B0687A006E375F /* PTAttractScene.m */,
 				23DE1F6318AA81650072B8EB /* Main.storyboard */,
+				233715E518B08143006E375F /* PTCritter.h */,
+				233715E618B08143006E375F /* PTCritter.m */,
 				233715D518AE947B006E375F /* PTCritterNode.h */,
 				233715D618AE947B006E375F /* PTCritterNode.m */,
 				23DE1F6918AA81650072B8EB /* PTCritterScene.h */,
@@ -295,6 +300,7 @@
 			files = (
 				233715E218B0687A006E375F /* PTAttractScene.m in Sources */,
 				23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */,
+				233715E718B08143006E375F /* PTCritter.m in Sources */,
 				23DE1F6818AA81650072B8EB /* PTGameViewController.m in Sources */,
 				23DE1F6B18AA81650072B8EB /* PTCritterScene.m in Sources */,
 				23DE1F5E18AA81650072B8EB /* main.m in Sources */,
