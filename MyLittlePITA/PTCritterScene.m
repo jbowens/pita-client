@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 My Little PITA Group. All rights reserved.
 //
 
+#import "PTCritterNode.h"
 #import "PTCritterScene.h"
 
 @implementation PTCritterScene
@@ -14,16 +15,12 @@
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
+        self.backgroundColor = [SKColor colorWithWhite:0.95 alpha:1];
         
-        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+        PTCritterNode *critterNode = [PTCritterNode critterNodeWithVisualProperties:nil];
+        critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         
-        myLabel.text = @"Hello, World!";
-        myLabel.fontSize = 30;
-        myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                       CGRectGetMidY(self.frame));
-        
-        [self addChild:myLabel];
+        [self addChild:critterNode];
     }
     return self;
 }
