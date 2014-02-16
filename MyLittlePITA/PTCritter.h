@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    PTCritterAppearanceNormal,
-    PTCritterAppearanceAngry,
-    PTCritterAppearanceTired,
-    PTCritterAppearanceHappy
-} PTCritterAppearance;
+    PTCritterStatusIdle,
+    PTCritterStatusAngry,
+    PTCritterStatusTired,
+    PTCritterStatusHappy
+} PTCritterStatus;
 
 @interface PTCritter : NSObject
 
-@property (nonatomic, readonly) PTCritterAppearance currentAppearance;
+@property (nonatomic, readonly) PTCritterStatus currentStatus;
 
 + (instancetype)critterWithProperties:(NSDictionary *)properties;
 - (instancetype)initWithProperties:(NSDictionary *)properties;

@@ -22,7 +22,7 @@
     
     if (self) {
         self.properties = properties;
-        _currentAppearance = PTCritterAppearanceNormal;
+        _currentStatus = PTCritterStatusIdle;
     }
     
     return self;
