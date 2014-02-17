@@ -35,9 +35,9 @@
     [self.delegate attractSceneRegisteredScreenTap:self];
 }
 
-- (void)fadeOutContentWithDuration:(NSTimeInterval)sec completion:(void (^)(void))block {
-    SKAction *fadeOut = [SKAction fadeOutWithDuration:sec];
-    [self.logoSprite runAction:fadeOut completion:block];
+- (void)runExitSequence {
+    SKAction *fadeOut = [SKAction fadeOutWithDuration:.5];
+    [self.logoSprite runAction:fadeOut];
 }
 
 @end

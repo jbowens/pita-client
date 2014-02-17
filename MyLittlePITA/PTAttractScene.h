@@ -20,6 +20,6 @@
 
 @property (nonatomic) id<PTAttractSceneDelegate> delegate;
 
-- (void)fadeOutContentWithDuration:(NSTimeInterval)sec completion:(void (^)(void))block;
+- (void)runExitSequence;
 
 @end

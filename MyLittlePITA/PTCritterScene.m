@@ -9,18 +9,26 @@
 #import "PTCritterNode.h"
 #import "PTCritterScene.h"
 
+@interface PTCritterScene ()
+
+@property (nonatomic) PTCritterNode *critterNode;
+
+@end
+
 @implementation PTCritterScene
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
+
         /* Setup your scene here */
         
         self.backgroundColor = [SKColor colorWithWhite:0.95 alpha:1];
         
         PTCritterNode *critterNode = [PTCritterNode critterNodeWithVisualProperties:nil];
-        critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        
         [self addChild:critterNode];
+        
+        self.critterNode = critterNode;
+
     }
     return self;
 }
@@ -49,6 +57,21 @@
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
+}
+
+- (void)runEntranceSequence {
+    [self.critterNode removeAllActions];
+    
+    CGPoint start = CGPointMake(CGRectGetMidX(self.frame), -100);
+    CGPoint center = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    
+    self.critterNode.position = start;
+
+    SKAction *moveToCenter = [SKAction moveTo:center duration:1];
+    moveToCenter.timingMode = SKActionTimingEaseOut;
+    
+    SKAction *critterEntrance = [SKAction sequence:@[moveToCenter]];
+    [self.critterNode runAction:critterEntrance];
 }
 
 @end

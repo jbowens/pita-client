@@ -66,7 +66,11 @@
     SKView * skView = (SKView *)self.view;
     
     SKTransition *doorsOpen = [SKTransition doorsOpenHorizontalWithDuration:1];
-    [self.attractScene fadeOutContentWithDuration:.75 completion:^{
+    doorsOpen.pausesIncomingScene = NO;
+    doorsOpen.pausesOutgoingScene = NO;
+    [self.attractScene runExitSequence];
+    [self.attractScene runAction:[SKAction waitForDuration:.3] completion:^{
+        [self.critterScene runEntranceSequence];
         [skView presentScene:self.critterScene transition:doorsOpen];
     }];
 }

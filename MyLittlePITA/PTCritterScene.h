@@ -20,4 +20,6 @@
 
 @property (nonatomic) id<PTCritterSceneDelegate> delegate;
 
+- (void)runEntranceSequence;
+
 @end
