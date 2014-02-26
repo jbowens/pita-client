@@ -7,6 +7,7 @@
 //
 
 #import "PTGameViewController.h"
+#import "PTServer.h"
 
 @interface PTGameViewController()
 
@@ -17,9 +18,13 @@
 
 @implementation PTGameViewController
 
+PTServer *server;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    server = [[PTServer alloc] init];
 
     // Configure the view.
     SKView * skView = (SKView *)self.view;
