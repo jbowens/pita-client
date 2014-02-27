@@ -25,6 +25,7 @@ PTServer *server;
     [super viewDidLoad];
     
     server = [[PTServer alloc] init];
+    [server newAccount: @"Jackson" phone:@"4402892895" email:@"jackson_owens@brown.edu" error:nil];
 
     // Configure the view.
     SKView * skView = (SKView *)self.view;

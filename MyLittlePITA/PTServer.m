@@ -10,7 +10,11 @@
 #import "PTError.h"
 #import "Reachability.h"
 
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
 @implementation PTServer
+
+NSString * const ServerHost = @"api.mylittlepita.com";
 
 Reachability *reachability;
 BOOL networkAvailable;
@@ -70,7 +74,28 @@ BOOL networkAvailable;
     NSLog(@"network is %@", networkAvailable ? @"available" : @"unavailable");
 }
 
-- (BOOL)newAccount:(NSError **)errorPtr
+- (void)sendRequest:(NSString *)endpoint withParams:(NSDictionary *)params
+{
+    NSString *fullUrlString = [NSString stringWithFormat:@"http://%@%@", ServerHost, endpoint];
+    NSURL *url = [[NSURL alloc] initWithString:fullUrlString];
+    NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL: url];
+    [req setHTTPMethod: @"POST"];
+
+    // The user has an account. Send the authentication headers too.
+    if (self.accountId) {
+        [req addValue:accountId forHTTPHeaderField:@"X-PITA-ACCOUNT-ID"];
+        [req addValue:accountKey forHTTPHeaderField:@"X-PITA-SECRET"];
+    }
+
+    [NSURLConnection sendAsynchronousRequest:req
+                                       queue:[[NSOperationQueue alloc] init]
+                           completionHandler:^(NSURLResponse *resp, NSData *data, NSError *error)
+                           {
+                               NSLog(@"do shit with data: %@", data); 
+                           }];
+}
+
+- (BOOL)newAccount:(NSString *)name phone:(NSString *)phone email:(NSString *)email error:(NSError **)errorPtr
 {
     if (self.accountId != nil || self.accountKey != nil) {
         if (errorPtr) {
@@ -85,6 +110,10 @@ BOOL networkAvailable;
         }
         return NO;
     }
+
+    NSDictionary *params = @{ @"name": name, @"phone": phone, @"email": email };
+
+    [self sendRequest:@"/accounts/new" withParams:params];
 
     return YES;
 }

@@ -30,6 +30,6 @@
 /*
  * Creates a new account.
  */
-- (BOOL)newAccount:(NSError **)errorPtr;
+- (BOOL)newAccount:(NSString *)name phone:(NSString *)phone email:(NSString *)email error:(NSError **)errorPtr;
 
 @end
