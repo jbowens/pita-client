@@ -112,6 +112,11 @@
 		23DE1F7818AA81660072B8EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5318AA81650072B8EB /* UIKit.framework */; };
 		23DE1F8018AA81660072B8EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23DE1F7E18AA81660072B8EB /* InfoPlist.strings */; };
 		23DE1F8218AA81660072B8EB /* MyLittlePITATests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F8118AA81660072B8EB /* MyLittlePITATests.m */; };
+		C4D38FB618BE8330009A1B3F /* PTServer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FB518BE8330009A1B3F /* PTServer.m */; };
+		C4D38FB918BEA161009A1B3F /* PTErrorDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FB818BEA161009A1B3F /* PTErrorDomain.m */; };
+		C4D38FBC18BEA24D009A1B3F /* PTError.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FBB18BEA24D009A1B3F /* PTError.m */; };
+		C4D38FBF18BEAB0D009A1B3F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FBE18BEAB0D009A1B3F /* Reachability.m */; };
+		C4D38FC118BEAE5F009A1B3F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -239,6 +244,15 @@
 		23DE1F7D18AA81660072B8EB /* MyLittlePITATests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyLittlePITATests-Info.plist"; sourceTree = "<group>"; };
 		23DE1F7F18AA81660072B8EB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23DE1F8118AA81660072B8EB /* MyLittlePITATests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLittlePITATests.m; sourceTree = "<group>"; };
+		C4D38FB418BE8330009A1B3F /* PTServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTServer.h; sourceTree = "<group>"; };
+		C4D38FB518BE8330009A1B3F /* PTServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTServer.m; sourceTree = "<group>"; };
+		C4D38FB718BEA161009A1B3F /* PTErrorDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTErrorDomain.h; sourceTree = "<group>"; };
+		C4D38FB818BEA161009A1B3F /* PTErrorDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTErrorDomain.m; sourceTree = "<group>"; };
+		C4D38FBA18BEA24D009A1B3F /* PTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTError.h; sourceTree = "<group>"; };
+		C4D38FBB18BEA24D009A1B3F /* PTError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTError.m; sourceTree = "<group>"; };
+		C4D38FBD18BEAB0D009A1B3F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		C4D38FBE18BEAB0D009A1B3F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4D38FC118BEAE5F009A1B3F /* SystemConfiguration.framework in Frameworks */,
 				23DE1F5218AA81650072B8EB /* CoreGraphics.framework in Frameworks */,
 				23DE1F5418AA81650072B8EB /* UIKit.framework in Frameworks */,
 				23DE1F5618AA81650072B8EB /* SpriteKit.framework in Frameworks */,
@@ -375,6 +390,7 @@
 		23DE1F4E18AA81650072B8EB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */,
 				23DE1F4F18AA81650072B8EB /* Foundation.framework */,
 				23DE1F5118AA81650072B8EB /* CoreGraphics.framework */,
 				23DE1F5318AA81650072B8EB /* UIKit.framework */,
@@ -409,6 +425,12 @@
 				23DE1F6C18AA81650072B8EB /* Spaceship.png */,
 				23DE1F6E18AA81650072B8EB /* Images.xcassets */,
 				23DE1F5818AA81650072B8EB /* Supporting Files */,
+				C4D38FB418BE8330009A1B3F /* PTServer.h */,
+				C4D38FB518BE8330009A1B3F /* PTServer.m */,
+				C4D38FB718BEA161009A1B3F /* PTErrorDomain.h */,
+				C4D38FB818BEA161009A1B3F /* PTErrorDomain.m */,
+				C4D38FBA18BEA24D009A1B3F /* PTError.h */,
+				C4D38FBB18BEA24D009A1B3F /* PTError.m */,
 			);
 			path = MyLittlePITA;
 			sourceTree = "<group>";
@@ -626,8 +648,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4D38FB618BE8330009A1B3F /* PTServer.m in Sources */,
 				233715E218B0687A006E375F /* PTAttractScene.m in Sources */,
+				C4D38FBC18BEA24D009A1B3F /* PTError.m in Sources */,
+				C4D38FBF18BEAB0D009A1B3F /* Reachability.m in Sources */,
 				23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */,
+				C4D38FB918BEA161009A1B3F /* PTErrorDomain.m in Sources */,
 				233715E718B08143006E375F /* PTCritter.m in Sources */,
 				23DE1F6818AA81650072B8EB /* PTGameViewController.m in Sources */,
 				23DE1F6B18AA81650072B8EB /* PTCritterScene.m in Sources */,
