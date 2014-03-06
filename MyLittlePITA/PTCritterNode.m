@@ -13,18 +13,27 @@ static const int kSpriteSheetFramesX = 6;
 static const int kSpriteSheetFramesY = 4;
 static const int kSpriteSheetFrameSize = 220;
 
+static const NSString *kSpriteAnimationIdleKey = @"idle";
+
 @interface PTCritterNode()
 
 @property (nonatomic) NSDictionary *textures;
-@property (nonatomic) SKSpriteNode *bodySprite;
+@property (nonatomic) NSDictionary *components;
+
++ (NSArray *)spriteComponentKeys;
 
 - (void)generateTexturesFromVisualProperties:(NSDictionary *)properties;
-+ (NSArray *)texturesFromSpriteSheetImageNamed:(NSString *)name;
-+ (NSArray *)spriteComponentKeys;
++ (NSDictionary *)texturesFromAtlasNamed:(NSString *)name;
 
 @end
 
 @implementation PTCritterNode
+
++ (NSArray *)spriteComponentKeys
+{
+    return @[@"tail", @"legs", @"body", @"face"];
+    //return @[@"body"];
+}
 
 - (instancetype)initWithVisualProperties:(NSDictionary *)properties
 {
@@ -33,9 +42,15 @@ static const int kSpriteSheetFrameSize = 220;
     if (self) {
         [self generateTexturesFromVisualProperties:properties];
         
+        NSDictionary *idleTextures = [self.textures objectForKey:kSpriteAnimationIdleKey];
         for (NSString *key in [PTCritterNode spriteComponentKeys]) {
-            SKTexture *componentTexture = [[self.textures objectForKey:key] objectAtIndex:0];
-            SKSpriteNode *component = [SKSpriteNode spriteNodeWithTexture:componentTexture];
+            SKSpriteNode *component = [SKSpriteNode node];
+            component.size = CGSizeMake(kSpriteSheetFrameSize, kSpriteSheetFrameSize);
+            
+            NSArray *componentFrames = [idleTextures objectForKey:key];
+            SKAction *idleAnimation = [SKAction animateWithTextures:componentFrames timePerFrame:0.1];
+            [component runAction:[SKAction repeatActionForever:idleAnimation]];
+            
             [self addChild:component];
         }
 
@@ -61,43 +76,35 @@ static const int kSpriteSheetFrameSize = 220;
 {
     NSMutableDictionary *textures = [NSMutableDictionary dictionary];
     
-    for (NSString *key in [PTCritterNode spriteComponentKeys]) {
-        [textures setObject:[PTCritterNode texturesFromSpriteSheetImageNamed:key] forKey:key];
+    for (NSString *animationKey in @[kSpriteAnimationIdleKey]) {
+        [textures setObject:[PTCritterNode texturesFromAtlasNamed:animationKey] forKey:animationKey];
     }
     
     self.textures = textures;
 }
 
-+ (NSArray *)texturesFromSpriteSheetImageNamed:(NSString *)name
++ (NSDictionary *)texturesFromAtlasNamed:(NSString *)name
 {
-    NSMutableArray *animationTextures = [NSMutableArray array];
-
-    SKTexture *spriteSheetTexture = [SKTexture textureWithImageNamed:name];
-    NSAssert(spriteSheetTexture != nil, @"Failed to load sprite sheet texture.");
+    NSArray *spriteComponentKeys = [PTCritterNode spriteComponentKeys];
     
-    int framesAdded = 0;
-    for (int j = 0; j < kSpriteSheetFramesY; j++) {
-        for (int i = 0; i < kSpriteSheetFramesX; i++) {
-            CGRect rect = CGRectMake(i / (1.f * kSpriteSheetFramesX),
-                                     j / (1.f * kSpriteSheetFramesY),
-                                     1.f / kSpriteSheetFramesX,
-                                     1.f / kSpriteSheetFramesY);
-            SKTexture *texture = [SKTexture textureWithRect:rect inTexture:spriteSheetTexture];
-            
-            [animationTextures addObject:texture];
-            
-            ++framesAdded;
-            if (framesAdded >= kSpriteSheetAnimationFrames)
-                break;
+    NSMutableDictionary *textures = [NSMutableDictionary dictionaryWithCapacity:spriteComponentKeys.count];
+    for (NSString *componentKey in spriteComponentKeys) {
+        NSMutableArray *frames = [NSMutableArray arrayWithCapacity:kSpriteSheetAnimationFrames];
+        for (int i = 0; i < kSpriteSheetAnimationFrames; i++) {
+            int index = i + 1;
+            NSString *textureName;
+            if (index < 10) {
+                textureName = [NSString stringWithFormat:@"%@_000%d", componentKey, index];
+            } else if (index < 100) {
+                textureName = [NSString stringWithFormat:@"%@_00%d", componentKey, index];
+            }
+            NSLog(@"%@", textureName);
+            [frames addObject:[SKTexture textureWithImageNamed:textureName]];
         }
+        [textures setObject:frames forKey:componentKey];
     }
     
-    return animationTextures;
-}
-
-+ (NSArray *)spriteComponentKeys
-{
-    return @[@"tail", @"legs", @"body", @"face"];
+    return textures;
 }
 
 @end
