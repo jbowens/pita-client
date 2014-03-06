@@ -1,22 +1,21 @@
 //
-//  PTGameViewController.m
+//  PTViewController.m
 //  MyLittlePITA
 //
 //  Created by Jacob Stern on 2/11/14.
 //  Copyright (c) 2014 My Little PITA Group. All rights reserved.
 //
 
-#import "PTGameViewController.h"
+#import "PTViewController.h"
 #import "PTServer.h"
 
-@interface PTGameViewController()
+@interface PTViewController()
 
-@property (nonatomic) PTAttractScene *attractScene;
-@property (nonatomic) PTCritterScene *critterScene;
+@property (nonatomic) PTGameScene *critterScene;
 
 @end
 
-@implementation PTGameViewController
+@implementation PTViewController
 
 PTServer *server;
 
@@ -32,19 +31,11 @@ PTServer *server;
     skView.showsFPS = YES;
     skView.showsNodeCount = YES;
     
-    // Create and configure the scene.
-    PTAttractScene *attractScene = [PTAttractScene sceneWithSize:skView.bounds.size];
-    attractScene.scaleMode = SKSceneScaleModeAspectFill;
-    attractScene.delegate = self;
-    self.attractScene = attractScene;
-    
-    PTCritterScene *critterScene = [PTCritterScene sceneWithSize:skView.bounds.size];
-    critterScene.scaleMode = SKSceneScaleModeAspectFill;
-    critterScene.delegate = self;
-    self.critterScene = critterScene;
+    PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size];
+    critterScene.scaleMode = SKSceneScaleModeAspectFill;    self.critterScene = critterScene;
     
     // Present the scene.
-    [skView presentScene:self.attractScene];
+    [skView presentScene:self.critterScene];
 }
 
 - (BOOL)shouldAutorotate
@@ -67,21 +58,7 @@ PTServer *server;
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)attractSceneRegisteredScreenTap:(PTAttractScene *)scene;
-{
-    SKView * skView = (SKView *)self.view;
-    
-    SKTransition *doorsOpen = [SKTransition doorsOpenHorizontalWithDuration:1];
-    doorsOpen.pausesIncomingScene = NO;
-    doorsOpen.pausesOutgoingScene = NO;
-    [self.attractScene runExitSequence];
-    [self.attractScene runAction:[SKAction waitForDuration:.3] completion:^{
-        [self.critterScene runEntranceSequence];
-        [skView presentScene:self.critterScene transition:doorsOpen];
-    }];
-}
-
-- (void)critterSceneRegisteredCameraClick:(PTCritterScene*)critterScene;
+- (void)critterSceneRegisteredCameraClick:(PTGameScene*)critterScene;
 {
     if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
     {

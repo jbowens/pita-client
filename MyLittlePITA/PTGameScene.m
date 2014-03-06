@@ -1,5 +1,5 @@
 //
-//  PTCritterScene.m
+//  PTGameScene.m
 //  MyLittlePITA
 //
 //  Created by Jacob Stern on 2/11/14.
@@ -7,15 +7,15 @@
 //
 
 #import "PTCritterNode.h"
-#import "PTCritterScene.h"
+#import "PTGameScene.h"
 
-@interface PTCritterScene ()
+@interface PTGameScene ()
 
 @property (nonatomic) PTCritterNode *critterNode;
 
 @end
 
-@implementation PTCritterScene
+@implementation PTGameScene
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
@@ -35,24 +35,6 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
-    
-    [self.delegate critterSceneRegisteredCameraClick:self];
-    
-    /*
-    for (UITouch *touch in touches) {
-        CGPoint location = [touch locationInNode:self];
-        
-        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-        
-        sprite.position = location;
-        
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-        
-        [sprite runAction:[SKAction repeatActionForever:action]];
-        
-        [self addChild:sprite];
-    }
-     */
 }
 
 -(void)update:(CFTimeInterval)currentTime {
