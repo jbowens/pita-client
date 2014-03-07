@@ -8,7 +8,15 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+typedef enum {
+    PTCritterNodeStatusHappy,
+    PTCritterNodeStatusVeryHappy,
+    PTCritterNodeStatusNormal
+} PTCritterNodeStatus;
+
 @interface PTCritterNode : SKNode
+
+@property (nonatomic) PTCritterNodeStatus status;
 
 - (instancetype)initWithVisualProperties:(NSDictionary *)properties;
 + (instancetype)critterNodeWithVisualProperties:(NSDictionary *)properties;

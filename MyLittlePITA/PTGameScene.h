@@ -12,6 +12,9 @@
 
 @interface PTGameScene : SKScene
 
+- (instancetype)initWithSize:(CGSize)size critterProperties:(NSDictionary *)properties;
++ (instancetype)sceneWithSize:(CGSize)size critterProperties:(NSDictionary *)properties;
+
 - (void)runEntranceSequence;
 
 @end

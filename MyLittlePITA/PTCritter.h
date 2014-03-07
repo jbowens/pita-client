@@ -8,16 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum {
-    PTCritterStatusIdle,
-    PTCritterStatusAngry,
-    PTCritterStatusTired,
-    PTCritterStatusHappy
-} PTCritterStatus;
-
 @interface PTCritter : NSObject
 
-@property (nonatomic, readonly) PTCritterStatus currentStatus;
+@property NSNumber *happiness;
 
 + (instancetype)critterWithProperties:(NSDictionary *)properties;
 - (instancetype)initWithProperties:(NSDictionary *)properties;
