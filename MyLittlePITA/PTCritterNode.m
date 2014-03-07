@@ -32,7 +32,6 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
 + (NSArray *)spriteComponentKeys
 {
     return @[@"tail", @"legs", @"body", @"face"];
-    //return @[@"body"];
 }
 
 - (instancetype)initWithVisualProperties:(NSDictionary *)properties
@@ -40,27 +39,10 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
     self = [super init];
 
     if (self) {
-        [self generateTexturesFromVisualProperties:properties];
         
-        NSDictionary *idleTextures = [self.textures objectForKey:kSpriteAnimationIdleKey];
-        for (NSString *key in [PTCritterNode spriteComponentKeys]) {
-            SKSpriteNode *component = [SKSpriteNode node];
-            component.size = CGSizeMake(kSpriteSheetFrameSize, kSpriteSheetFrameSize);
-            
-            NSArray *componentFrames = [idleTextures objectForKey:key];
-            SKAction *idleAnimation = [SKAction animateWithTextures:componentFrames timePerFrame:0.1];
-            [component runAction:[SKAction repeatActionForever:idleAnimation]];
-            
-            [self addChild:component];
-        }
-
-        /*
-        SKSpriteNode *bodySprite = [SKSpriteNode node];
+        SKSpriteNode *bodySprite = [SKSpriteNode spriteNodeWithImageNamed:@"sprite_happy.png"];
+        [self addChild:bodySprite];
         
-        SKAction *idle = [SKAction animateWithTextures:[self.textures objectForKey:@"body"] timePerFrame:0.042];
-        bodySprite.size = CGSizeMake(kSpriteSheetFrameSize, kSpriteSheetFrameSize);
-        [bodySprite runAction:[SKAction repeatActionForever:idle]];
-         */
     }
     
     return self;

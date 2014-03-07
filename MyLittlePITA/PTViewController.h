@@ -15,6 +15,6 @@
 @interface PTViewController : UIViewController
     <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-@property PTCritter *critter;
+@property PTCritter *userCritter;
 
 @end

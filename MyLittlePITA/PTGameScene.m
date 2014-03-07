@@ -25,6 +25,7 @@
         self.backgroundColor = [SKColor colorWithWhite:0.95 alpha:1];
         
         PTCritterNode *critterNode = [PTCritterNode critterNodeWithVisualProperties:nil];
+        critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * .6);
         [self addChild:critterNode];
         
         self.critterNode = critterNode;
