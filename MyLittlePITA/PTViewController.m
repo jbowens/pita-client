@@ -31,8 +31,9 @@ PTServer *server;
     skView.showsFPS = YES;
     skView.showsNodeCount = YES;
     
-    PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size];
-    critterScene.scaleMode = SKSceneScaleModeAspectFill;    self.critterScene = critterScene;
+    PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size critterProperties:@{@"colorRotation": @2.f}];
+    critterScene.scaleMode = SKSceneScaleModeAspectFill;
+    self.critterScene = critterScene;
     
     // Present the scene.
     [skView presentScene:self.critterScene];

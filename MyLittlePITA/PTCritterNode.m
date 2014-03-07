@@ -40,7 +40,9 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
 
     if (self) {
         
-        SKSpriteNode *bodySprite = [SKSpriteNode spriteNodeWithImageNamed:@"sprite_happy.png"];
+        [self generateTexturesFromVisualProperties:properties];
+        
+        SKSpriteNode *bodySprite = [SKSpriteNode spriteNodeWithTexture:[self.textures objectForKey:@"happy" ]];
         [self addChild:bodySprite];
         
     }
@@ -58,9 +60,22 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
 {
     NSMutableDictionary *textures = [NSMutableDictionary dictionary];
     
-    for (NSString *animationKey in @[kSpriteAnimationIdleKey]) {
-        [textures setObject:[PTCritterNode texturesFromAtlasNamed:animationKey] forKey:animationKey];
+    NSString* imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"sprite_happy.png"];
+    CIImage *image = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:imagePath]];
+    CIContext *context = [CIContext contextWithOptions:nil];
+    
+    if ([properties objectForKey:@"colorRotation"]) {
+        NSNumber *colorRotation = [properties objectForKey:@"colorRotation"];
+        CIFilter *hueAdjust = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:
+                     kCIInputImageKey, image,
+                     kCIInputAngleKey, colorRotation,
+                     nil];
+        image = [hueAdjust valueForKey: kCIOutputImageKey];
     }
+    
+    CGImageRef cgImage = [context createCGImage:image fromRect:[image extent]];
+    
+    [textures setObject:[SKTexture textureWithCGImage:cgImage] forKey:@"happy"];
     
     self.textures = textures;
 }
