@@ -9,6 +9,8 @@
 #import "PTCritterNode.h"
 #import "PTGameScene.h"
 
+static const float kDefaultVerticalPosition = .6;
+
 @interface PTGameScene ()
 
 @property (nonatomic) PTCritterNode *critterNode;
@@ -29,7 +31,7 @@
         self.backgroundColor = [SKColor colorWithWhite:0.95 alpha:1];
         
         PTCritterNode *critterNode = [PTCritterNode critterNodeWithVisualProperties:properties];
-        critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * .6);
+        critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * kDefaultVerticalPosition);
         [self addChild:critterNode];
         
         self.critterNode = critterNode;
@@ -54,12 +56,11 @@
 - (void)runEntranceSequence {
     [self.critterNode removeAllActions];
     
-    CGPoint start = CGPointMake(CGRectGetMidX(self.frame), -100);
-    CGPoint center = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    CGPoint dest = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * kDefaultVerticalPosition);
+    CGPoint src = CGPointMake(dest.x, dest.y * .9);
     
-    self.critterNode.position = start;
-
-    SKAction *moveToCenter = [SKAction moveTo:center duration:1];
+    self.critterNode.position = src;
+    SKAction *moveToCenter = [SKAction moveTo:dest duration:.6];
     moveToCenter.timingMode = SKActionTimingEaseOut;
     
     SKAction *critterEntrance = [SKAction sequence:@[moveToCenter]];
