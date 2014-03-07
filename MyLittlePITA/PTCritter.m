@@ -8,11 +8,6 @@
 
 #import "PTCritter.h"
 
-@interface PTCritter()
-
-@property NSDictionary *properties;
-
-@end
 
 @implementation PTCritter
 
@@ -21,8 +16,10 @@
     self = [super init];
     
     if (self) {
-        self.properties = properties;
-        _currentStatus = PTCritterStatusIdle;
+        self.happiness = @255;
+        if ([properties objectForKey:@"happiness"]) {
+            self.happiness = [properties objectForKey:@"happiness"];
+        }
     }
     
     return self;
