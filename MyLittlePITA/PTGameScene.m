@@ -19,31 +19,15 @@ static const float kDefaultVerticalPosition = .6;
 
 @implementation PTGameScene
 
--(id)initWithSize:(CGSize)size {    
-    return [self initWithSize:size critterProperties:[NSDictionary dictionary]];
-}
-
-- (instancetype)initWithSize:(CGSize)size critterProperties:(NSDictionary *)properties {
+- (instancetype)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         
         /* Setup your scene here */
         
         self.backgroundColor = [SKColor colorWithWhite:0.95 alpha:1];
         
-        PTCritterNode *critterNode = [PTCritterNode critterNodeWithVisualProperties:properties];
-        critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * kDefaultVerticalPosition);
-        critterNode.status = PTCritterNodeStatusVeryHappy;
-        [self addChild:critterNode];
-        
-        self.critterNode = critterNode;
-        
     }
     return self;
-}
-
-
-+ (instancetype)sceneWithSize:(CGSize)size critterProperties:(NSDictionary *)properties {
-    return [[PTGameScene alloc] initWithSize:size critterProperties:properties];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -66,6 +50,15 @@ static const float kDefaultVerticalPosition = .6;
     
     SKAction *critterEntrance = [SKAction sequence:@[moveToCenter]];
     [self.critterNode runAction:critterEntrance];
+}
+
+- (void)setCritter:(PTCritter *)critter {
+    PTCritterNode *critterNode = [PTCritterNode critterNodeWithVisualProperties:critter.visualProperties];
+    critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * kDefaultVerticalPosition);
+    critterNode.status = PTCritterNodeStatusVeryHappy;
+
+    [self addChild:critterNode];
+    self.critterNode = critterNode;
 }
 
 @end

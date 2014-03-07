@@ -22,6 +22,8 @@
         }
     }
     
+    _visualProperties = properties;
+    
     return self;
 }
 

@@ -10,7 +10,8 @@
 
 @interface PTCritter : NSObject
 
-@property NSNumber *happiness;
+@property (atomic) NSNumber *happiness;
+@property (nonatomic, readonly) NSDictionary *visualProperties;
 
 + (instancetype)critterWithProperties:(NSDictionary *)properties;
 - (instancetype)initWithProperties:(NSDictionary *)properties;

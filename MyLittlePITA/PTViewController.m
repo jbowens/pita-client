@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 My Little PITA Group. All rights reserved.
 //
 
+#import "PTCritter.h"
 #import "PTViewController.h"
 #import "PTServer.h"
 
@@ -33,9 +34,11 @@ PTServer *server;
     skView.showsFPS = YES;
     skView.showsNodeCount = YES;
     
-    PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size critterProperties:
-                                 @{@"colorRotation": @2.f}];
+    self.userCritter = [[PTCritter alloc] initWithProperties:@{@"colorRotation": @2.f}];
+
+    PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size];
     critterScene.scaleMode = SKSceneScaleModeAspectFill;
+    critterScene.critter = self.userCritter;
     [critterScene runEntranceSequence];
     
     self.critterScene = critterScene;

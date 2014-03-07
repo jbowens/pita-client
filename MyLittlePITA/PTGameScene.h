@@ -7,13 +7,11 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-
-@class PTGameScene;
+#import "PTCritter.h"
 
 @interface PTGameScene : SKScene
 
-- (instancetype)initWithSize:(CGSize)size critterProperties:(NSDictionary *)properties;
-+ (instancetype)sceneWithSize:(CGSize)size critterProperties:(NSDictionary *)properties;
+@property (nonatomic) PTCritter *critter;
 
 - (void)runEntranceSequence;
 
