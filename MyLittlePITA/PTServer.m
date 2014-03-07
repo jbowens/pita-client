@@ -58,6 +58,21 @@ BOOL networkAvailable;
     NSLog(@"network is %@", networkAvailable ? @"available" : @"unavailable");
 }
 
+- (NSData *)encodeFormData:(NSDictionary *)formData
+{
+    NSMutableString *encodedString = [[NSMutableString alloc] init];
+    BOOL first = YES;
+    for (id key in formData) {
+        if (!first) {
+            [encodedString appendString:@"&"];
+        }
+        [encodedString appendFormat:@"%@=%@", key, [formData valueForKey:key]];
+        first = NO;
+    }
+    
+    return [encodedString dataUsingEncoding:NSUTF8StringEncoding];
+}
+
 - (void)networkChanged:(NSNotification *)notification
 {
     NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
@@ -80,7 +95,8 @@ BOOL networkAvailable;
     NSURL *url = [[NSURL alloc] initWithString:fullUrlString];
     NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL: url];
     [req setHTTPMethod: @"POST"];
-
+    [req setHTTPBody:[self encodeFormData:params]];
+    
     // The user has an account. Send the authentication headers too.
     if (self.accountId) {
         [req addValue:accountId forHTTPHeaderField:@"X-PITA-ACCOUNT-ID"];
@@ -91,7 +107,23 @@ BOOL networkAvailable;
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *resp, NSData *data, NSError *error)
                            {
-                               NSLog(@"do shit with data: %@", data); 
+                               if (![[resp MIMEType] isEqualToString:@"application/json"]) {
+                                   // Disastrous case! No graceful error case should ever
+                                   // return a nonJSON payload.
+                                   // TODO: Figure out how we want to error out.
+                                   return;
+                               }
+                               NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*) resp;
+                               int responseStatusCode = [httpResponse statusCode];
+                               NSLog(@"%@ => %d", endpoint, responseStatusCode);
+                               NSError *e = nil;
+                               NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error: &e];
+                               if (responseStatusCode == 200) {
+                                   // Call the provided callback block.
+                               } else {
+                                   // There was some sort of error.
+                                   // TODO: Handle gracefully.
+                               }
                            }];
 }
 
