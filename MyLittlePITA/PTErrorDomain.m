@@ -12,8 +12,8 @@
 
 + (NSString *)domain
 {
-    NSAssert(NO, @"This is an abstract method and should be overridden");
-    return nil;
+    // lol i didn't know what was going on so i did this lol
+    return @"com.mylittlepita.app.PTErrorDomain";
 }
 
 - (NSString *)domain

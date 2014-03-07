@@ -17,6 +17,11 @@ NSString * const PTErrorDomainConst = @"com.mylittlepita.app.PTErrorDomain";
     return PTErrorDomainConst;
 }
 
+- (NSString *)domain
+{
+    return PTErrorDomainConst;
+}
+
 + (NSError *)alreadyAuthenticated
 {
     return [self errorWithErrorCode:PTErrorCode_AlreadyAuthenticated];
@@ -24,7 +29,17 @@ NSString * const PTErrorDomainConst = @"com.mylittlepita.app.PTErrorDomain";
 
 + (NSError *)internetUnavailable
 {
-    return [self errorWithErrorCode:PTErrorCode_internetUnavailable];
+    return [self errorWithErrorCode:PTErrorCode_InternetUnavailable];
+}
+
++ (NSError *)badParameters:(NSDictionary *)params
+{
+    return [self errorWithErrorCode:PTErrorCode_BadParameters userInfo:params];
+}
+
++ (NSError *)serverError
+{
+    return [self errorWithErrorCode:PTErrorCode_ServerError];
 }
 
 @end

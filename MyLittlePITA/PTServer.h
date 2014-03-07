@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^ServerCompletionHandler)(NSDictionary *, NSError *);
+
 @interface PTServer : NSObject
 
 @property (nonatomic, retain) NSString *accountId;
@@ -30,6 +32,11 @@
 /*
  * Creates a new account.
  */
-- (BOOL)newAccount:(NSString *)name phone:(NSString *)phone email:(NSString *)email error:(NSError **)errorPtr;
+- (void)newAccount:(NSString *)name phone:(NSString *)phone email:(NSString *)email completionHandler:(ServerCompletionHandler)completionHandler;
+
+/*
+ * Records an error by POSTing the error info to the server.
+ */
+- (void)recordError:(NSString *)message;
 
 @end

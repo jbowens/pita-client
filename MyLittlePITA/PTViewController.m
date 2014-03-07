@@ -24,7 +24,9 @@ PTServer *server;
     [super viewDidLoad];
     
     server = [[PTServer alloc] init];
-    [server newAccount: @"Jackson" phone:@"4402892895" email:@"jackson_owens@brown.edu" error:nil];
+    [server newAccount: @"Jackson" phone:@"4402892895" email:@"jackson_owens@brown.edu" completionHandler:^(NSDictionary *results, NSError *err) {
+        // TODO: Hook this up to an actual UI for the user to enter details with.
+    }];
 
     // Configure the view.
     SKView * skView = (SKView *)self.view;

@@ -12,6 +12,8 @@
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
+typedef void (^PostResponseHandler)(NSDictionary *, NSError *);
+
 @implementation PTServer
 
 NSString * const ServerHost = @"api.mylittlepita.com";
@@ -89,7 +91,7 @@ BOOL networkAvailable;
     NSLog(@"network is %@", networkAvailable ? @"available" : @"unavailable");
 }
 
-- (void)sendRequest:(NSString *)endpoint withParams:(NSDictionary *)params
+- (void)sendRequest:(NSString *)endpoint withParams:(NSDictionary *)params responseHandler:(PostResponseHandler)responseHandler
 {
     NSString *fullUrlString = [NSString stringWithFormat:@"http://%@%@", ServerHost, endpoint];
     NSURL *url = [[NSURL alloc] initWithString:fullUrlString];
@@ -110,7 +112,8 @@ BOOL networkAvailable;
                                if (![[resp MIMEType] isEqualToString:@"application/json"]) {
                                    // Disastrous case! No graceful error case should ever
                                    // return a nonJSON payload.
-                                   // TODO: Figure out how we want to error out.
+                                   if (responseHandler)
+                                       responseHandler(nil, [PTError serverError]);
                                    return;
                                }
                                NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*) resp;
@@ -118,36 +121,44 @@ BOOL networkAvailable;
                                NSLog(@"%@ => %d", endpoint, responseStatusCode);
                                NSError *e = nil;
                                NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error: &e];
-                               if (responseStatusCode == 200) {
+                               if (responseStatusCode == 200 && responseHandler) {
                                    // Call the provided callback block.
+                                   responseHandler(res, nil);
                                } else {
                                    // There was some sort of error.
-                                   // TODO: Handle gracefully.
+                                   responseHandler(nil, [PTError badParameters:res]);
                                }
                            }];
 }
 
-- (BOOL)newAccount:(NSString *)name phone:(NSString *)phone email:(NSString *)email error:(NSError **)errorPtr
+- (void)newAccount:(NSString *)name phone:(NSString *)phone email:(NSString *)email completionHandler:(ServerCompletionHandler)completionHandler
 {
     if (self.accountId != nil || self.accountKey != nil) {
-        if (errorPtr) {
-            *errorPtr = [PTError alreadyAuthenticated];
-        }
-        return NO;
+        completionHandler(nil, [PTError alreadyAuthenticated]);
+        return;
     }
 
     if (!networkAvailable) {
-        if (errorPtr) {
-            *errorPtr = [PTError internetUnavailable];
-        }
-        return NO;
+        completionHandler(nil, [PTError internetUnavailable]);
+        return;
     }
 
     NSDictionary *params = @{ @"name": name, @"phone": phone, @"email": email };
+    [self sendRequest:@"/accounts/new" withParams:params responseHandler:^(NSDictionary *resp, NSError *err) {
+        if (resp && [resp objectForKey:@"aid"] != nil && [resp objectForKey:@"key"] != nil) {
+            self.accountId = [resp objectForKey:@"aid"];
+            self.accountKey = [resp objectForKey:@"key"];
+        }
+        completionHandler(resp, err);
+    }];
+}
 
-    [self sendRequest:@"/accounts/new" withParams:params];
-
-    return YES;
+- (void)recordError:(NSString *)message
+{
+    if (message == nil) {
+        return;
+    }
+    [self sendRequest:@"/error" withParams:@{@"message": message} responseHandler:nil];
 }
 
 @end

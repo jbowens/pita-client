@@ -10,8 +10,13 @@
 
 @interface PTError : PTErrorDomain
 
++ (NSString *)domain;
+- (NSString *)domain;
+
 + (NSError *)alreadyAuthenticated;
 + (NSError *)internetUnavailable;
++ (NSError *)badParameters:(NSDictionary *)params;
++ (NSError *)serverError;
 
 @end
 
@@ -20,5 +25,7 @@ extern NSString * const PTErrorDomainConst;
 typedef enum PTErrorCode {
     PTErrorCode_Undefined = 0,
     PTErrorCode_AlreadyAuthenticated,
-    PTErrorCode_internetUnavailable
+    PTErrorCode_InternetUnavailable,
+    PTErrorCode_BadParameters,
+    PTErrorCode_ServerError
 } PTErrorCode;
