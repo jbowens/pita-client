@@ -32,6 +32,7 @@ static const float kDefaultVerticalPosition = .6;
         
         PTCritterNode *critterNode = [PTCritterNode critterNodeWithVisualProperties:properties];
         critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * kDefaultVerticalPosition);
+        critterNode.status = PTCritterNodeStatusVeryHappy;
         [self addChild:critterNode];
         
         self.critterNode = critterNode;
