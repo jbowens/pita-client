@@ -53,12 +53,34 @@ static const float kDefaultVerticalPosition = .6;
 }
 
 - (void)setCritter:(PTCritter *)critter {
+    [_critter removeObserver:self forKeyPath:@"happiness"];
+    
     PTCritterNode *critterNode = [PTCritterNode critterNodeWithVisualProperties:critter.visualProperties];
     critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * kDefaultVerticalPosition);
-    critterNode.status = PTCritterNodeStatusVeryHappy;
+    critterNode.status = PTCritterStatusVeryHappy;
 
     [self addChild:critterNode];
     self.critterNode = critterNode;
+    
+    [critter addObserver:self forKeyPath:@"happiness" options:NSKeyValueObservingOptionNew context:nil];
+    
+    _critter = critter;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (object == self.critter) {
+        if ([keyPath isEqualToString:@"happiness"]) {
+            NSNumber *happiness = [change objectForKey:NSKeyValueChangeNewKey];
+            if (happiness && [happiness respondsToSelector:@selector(unsignedIntegerValue)]) {
+                NSUInteger happinessValue = [happiness unsignedIntegerValue];
+                if (150 < happinessValue && happinessValue <= 200) {
+                    self.critterNode.status = PTCritterStatusNormal;
+                } else if (happinessValue <= 150) {
+                    self.critterNode.status = PTCritterStatusMad;
+                }
+            }
+        }
+    }
 }
 
 @end

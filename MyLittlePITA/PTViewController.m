@@ -94,4 +94,13 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (self.userCritter.happiness < 100) {
+        self.userCritter.happiness = 0;
+    } else {
+        self.userCritter.happiness -= 100;
+    }
+}
+
 @end

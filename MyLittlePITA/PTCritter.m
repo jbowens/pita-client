@@ -16,9 +16,10 @@
     self = [super init];
     
     if (self) {
-        self.happiness = @255;
-        if ([properties objectForKey:@"happiness"]) {
-            self.happiness = [properties objectForKey:@"happiness"];
+        self.happiness = 255;
+        NSNumber *happiness = [properties objectForKey:@"happiness"];
+        if (happiness && [happiness respondsToSelector:@selector(unsignedIntegerValue)]) {
+            self.happiness = [happiness unsignedIntegerValue];
         }
     }
     
@@ -31,6 +32,22 @@
 + (instancetype)critterWithProperties:(NSDictionary *)properties
 {
     return [[PTCritter alloc] initWithProperties:properties];
+}
+
+- (id)valueForKey:(NSString *)key
+{
+    if ([key isEqualToString:@"happiness"]) {
+        return [NSNumber numberWithUnsignedInteger:self.happiness];
+    }
+    
+    return nil;
+}
+
+- (void)setValue:(id)value forKey:(NSString *)key
+{
+    if ([key isEqualToString:@"happiness"] && [value respondsToSelector:@selector(unsignedIntegerValue)]) {
+        self.happiness = [value unsignedIntegerValue];
+    }
 }
 
 @end

@@ -65,7 +65,7 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
 {
     NSMutableDictionary *textures = [NSMutableDictionary dictionary];
     
-    for (NSString *key in @[@"normal", @"happy", @"happy_very"]) {
+    for (NSString *key in @[@"normal", @"sad", @"happy_very", @"mad"]) {
     
         NSString* imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"sprite_%@.png", key]];
         CIImage *image = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:imagePath]];
@@ -112,18 +112,20 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
     return textures;
 }
 
-- (void)setStatus:(PTCritterNodeStatus)status
+- (void)setStatus:(PTCritterStatus)status
 {
     switch (status) {
-        case PTCritterNodeStatusHappy:
-            self.bodySprite.texture = [self.textures objectForKey:@"happy"];
+        case PTCritterStatusSad:
+            self.bodySprite.texture = [self.textures objectForKey:@"sad"];
             break;
-        case PTCritterNodeStatusVeryHappy:
+        case PTCritterStatusVeryHappy:
             self.bodySprite.texture = [self.textures objectForKey:@"happy_very"];
             break;
-        case PTCritterNodeStatusNormal:
+        case PTCritterStatusNormal:
             self.bodySprite.texture = [self.textures objectForKey:@"normal"];
             break;
+        case PTCritterStatusMad:
+            self.bodySprite.texture = [self.textures objectForKey:@"mad"];
         default:
             break;
     }
