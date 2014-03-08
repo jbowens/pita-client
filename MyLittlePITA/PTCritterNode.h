@@ -15,6 +15,8 @@ typedef enum {
     PTCritterStatusMad
 } PTCritterStatus;
 
+const static NSString *kPTHueAdjustKey = @"PTHueAdjust";
+
 @interface PTCritterNode : SKNode
 
 @property (nonatomic) PTCritterStatus status;

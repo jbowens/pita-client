@@ -71,8 +71,8 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
         CIImage *image = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:imagePath]];
         CIContext *context = [CIContext contextWithOptions:nil];
         
-        if ([properties objectForKey:@"colorRotation"]) {
-            NSNumber *colorRotation = [properties objectForKey:@"colorRotation"];
+        if ([properties objectForKey:kPTHueAdjustKey]) {
+            NSNumber *colorRotation = [properties objectForKey:kPTHueAdjustKey];
             CIFilter *hueAdjust = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:
                          kCIInputImageKey, image,
                          kCIInputAngleKey, colorRotation,
@@ -81,8 +81,8 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
         }
         
         CGImageRef cgImage = [context createCGImage:image fromRect:[image extent]];
-        
         [textures setObject:[SKTexture textureWithCGImage:cgImage] forKey:key];
+        CGImageRelease(cgImage);
         
         self.textures = textures;
     }

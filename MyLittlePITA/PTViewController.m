@@ -7,6 +7,7 @@
 //
 
 #import "PTCritter.h"
+#import "PTCritterNode.h"
 #import "PTViewController.h"
 #import "PTServer.h"
 
@@ -34,7 +35,7 @@ PTServer *server;
     skView.showsFPS = YES;
     skView.showsNodeCount = YES;
     
-    self.userCritter = [[PTCritter alloc] initWithProperties:@{@"colorRotation": @2.f}];
+    self.userCritter = [[PTCritter alloc] initWithProperties:@{kPTHueAdjustKey: @2.f}];
 
     PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size];
     critterScene.scaleMode = SKSceneScaleModeAspectFill;
