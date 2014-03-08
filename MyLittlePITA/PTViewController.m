@@ -32,8 +32,6 @@ PTServer *server;
 
     // Configure the view.
     SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
     
     self.userCritter = [[PTCritter alloc] initWithProperties:@{kPTHueAdjustKey: @2.f}];
 
