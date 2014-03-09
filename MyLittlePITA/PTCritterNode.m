@@ -63,16 +63,13 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
 
 - (void)generateTexturesFromVisualProperties:(NSDictionary *)properties
 {
-    NSLog(@"Generating textures...");
+    NSLog(@"Loading textures...");
     
     NSMutableDictionary *textures = [NSMutableDictionary dictionary];
-
-    NSString *spotsImagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"spots.png"];
-    CIImage *spotsImage = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:spotsImagePath]];
     
-    for (NSString *key in @[@"normal", @"sad", @"happy_very", @"mad"]) {
+    for (NSString *key in @[@"neutral"]) {
     
-        NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"sprite_%@.png", key]];
+        NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_body.png", key]];
         CIImage *image = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:imagePath]];
         CIContext *context = [CIContext contextWithOptions:nil];
         
@@ -85,31 +82,13 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
             image = [hueAdjust valueForKey:kCIOutputImageKey];
         }
         
-        NSNumber *spotsPresent = [properties objectForKey:kPTSpotsPresentKey];
-        if (spotsPresent && spotsPresent.boolValue) {
-            
-            NSNumber *spotsHue = [properties objectForKey:kPTSpotsHueKey];
-            if (spotsHue) {
-                CIFilter *spotsHueAdjust = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:
-                                            kCIInputImageKey, spotsImage.copy,
-                                            kCIInputAngleKey, spotsHue,
-                                            nil];
-                spotsImage = [spotsHueAdjust valueForKey:kCIOutputImageKey];
-            }
-            
-            CIFilter *sourceOver = [CIFilter filterWithName:@"CISourceOverCompositing" keysAndValues:
-                                    kCIInputImageKey, spotsImage,
-                                    kCIInputBackgroundImageKey, image,
-                                    nil];
-            image = [sourceOver valueForKey:kCIOutputImageKey];
-        }
-        
         CGImageRef cgImage = [context createCGImage:image fromRect:[image extent]];
         [textures setObject:[SKTexture textureWithCGImage:cgImage] forKey:key];
         CGImageRelease(cgImage);
         
-        self.textures = textures;
     }
+    
+    self.textures = textures;
     
     NSLog(@"Done.");
 }
@@ -140,21 +119,39 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
 
 - (void)setStatus:(PTCritterStatus)status
 {
+    SKTexture *atlasTexture;
+    
     switch (status) {
         case PTCritterStatusSad:
-            self.bodySprite.texture = [self.textures objectForKey:@"sad"];
+            atlasTexture = [self.textures objectForKey:@"neutral"];
             break;
         case PTCritterStatusVeryHappy:
-            self.bodySprite.texture = [self.textures objectForKey:@"happy_very"];
+            atlasTexture = [self.textures objectForKey:@"neutral"];
             break;
         case PTCritterStatusNormal:
-            self.bodySprite.texture = [self.textures objectForKey:@"normal"];
+            atlasTexture = [self.textures objectForKey:@"neutral"];
             break;
         case PTCritterStatusMad:
-            self.bodySprite.texture = [self.textures objectForKey:@"mad"];
+            atlasTexture = [self.textures objectForKey:@"neutral"];
+            break;
         default:
             break;
     }
+    
+    NSMutableArray *animationTextures = [NSMutableArray array];
+    
+    // From http://stackoverflow.com/questions/20271812/use-a-one-image-sprite-sheet-in-sprite-kit-ios
+    int atlasWidth = 5, atlasHeight = 4;
+    float frameWidth = 1.f / atlasWidth, frameHeight = 1.f / atlasHeight;
+    for (int j = atlasHeight - 1; j >= 0; j--) {
+        for (int i = 0; i < atlasWidth; i++) {
+            CGRect rect = CGRectMake(i * frameWidth, j * frameHeight, frameWidth, frameHeight);
+            [animationTextures addObject:[SKTexture textureWithRect:rect inTexture:atlasTexture]];
+        }
+    }
+    
+    SKAction *animation = [SKAction animateWithTextures:animationTextures timePerFrame:0.042];
+    [self.bodySprite runAction:[SKAction repeatActionForever:animation]];
 }
 
 @end
