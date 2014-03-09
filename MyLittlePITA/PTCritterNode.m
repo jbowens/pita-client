@@ -140,7 +140,6 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
     
     NSMutableArray *animationTextures = [NSMutableArray array];
     
-    // From http://stackoverflow.com/questions/20271812/use-a-one-image-sprite-sheet-in-sprite-kit-ios
     int atlasWidth = 5, atlasHeight = 4;
     float frameWidth = 1.f / atlasWidth, frameHeight = 1.f / atlasHeight;
     for (int j = atlasHeight - 1; j >= 0; j--) {
