@@ -8,7 +8,7 @@
 
 #import "CameraInteraction.h"
 
-@interface CameraInteraction ()<UIImagePickerControllerDelegate, UIAccelerometerDelegate>
+@interface CameraInteraction ()<UIImagePickerControllerDelegate>
 
 @property UIImagePickerController* picker;
 @property UIImageView* circleImage;

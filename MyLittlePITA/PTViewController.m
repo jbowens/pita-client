@@ -11,11 +11,15 @@
 #import "PTViewController.h"
 #import "PTServer.h"
 #import "CameraInteraction.h"
+#import "ProximitySensorInteraction.h"
+#import "AudioInteraction.h"
 
 @interface PTViewController()
 
 @property (nonatomic) PTGameScene *critterScene;
 @property (strong, nonatomic) CameraInteraction* cameraInteraction;
+@property (strong, nonatomic) ProximitySensorInteraction* proximityInteraction;
+@property (strong, nonatomic) AudioInteraction* audioInteraction;
 
 @end
 
@@ -26,8 +30,6 @@ PTServer *server;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.cameraInteraction = [[CameraInteraction alloc] init];
     
     server = [[PTServer alloc] init];
     [server newAccount: @"Jackson" phone:@"4402892895" email:@"jackson_owens@brown.edu" completionHandler:^(NSDictionary *results, NSError *err) {
@@ -48,6 +50,7 @@ PTServer *server;
     
     // Present the scene.
     [skView presentScene:self.critterScene];
+    [self prepareAllInteractionButtons];
 }
 
 - (BOOL)shouldAutorotate
@@ -70,8 +73,23 @@ PTServer *server;
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)prepareAllInteractionButtons
+{
+    [self presentTheCameraButton];
+    [self presentTheAudioButton];
+    [self prepareTheProximityChange];
+}
+
+- (void)prepareTheProximityChange
+{
+    self.proximityInteraction = [[ProximitySensorInteraction alloc] init];
+    [self.proximityInteraction handleProximitySensor];
+}
+
 - (void)presentTheCameraButton
 {
+    self.cameraInteraction = [[CameraInteraction alloc] init];
+    
     UIImageView* cameraButton = [self.cameraInteraction putCameraButtonInView:self.view];
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(transitionToCameraView)];
@@ -85,6 +103,31 @@ PTServer *server;
 {
     [self.cameraInteraction transitionToCameraView:self];
 }
+
+- (void)presentTheAudioButton
+{
+    self.audioInteraction = [[AudioInteraction alloc] init];
+    
+    UIImageView* audioButton = [self.audioInteraction putAudioButtonInView:self.view];
+    
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleAudio:)];
+    audioButton.userInteractionEnabled = YES;
+    
+    [audioButton addGestureRecognizer:panGesture];
+}
+
+- (void)handleAudio:(UIPanGestureRecognizer*)theGesture
+{
+    if([theGesture state] == UIGestureRecognizerStateBegan)
+    {
+        [self.audioInteraction startRecording];
+    }
+    else if([theGesture state] == UIGestureRecognizerStateEnded)
+    {
+        [self.audioInteraction playRecording];
+    }
+}
+
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
