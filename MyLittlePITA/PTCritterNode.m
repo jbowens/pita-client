@@ -15,14 +15,12 @@ static const int kSpriteSheetFrameSize = 220;
 
 static const NSString *kSpriteAnimationIdleKey = @"idle";
 
-@interface PTCritterNode()
+@interface PTCritterNode() {
+    NSArray *componentKeys;
+}
 
 @property (nonatomic) NSDictionary *textures;
 @property (nonatomic) NSDictionary *components;
-
-@property (nonatomic) SKSpriteNode *bodySprite;
-
-+ (NSArray *)spriteComponentKeys;
 
 - (void)generateTexturesFromVisualProperties:(NSDictionary *)properties;
 + (NSDictionary *)texturesFromAtlasNamed:(NSString *)name;
@@ -31,14 +29,11 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
 
 @implementation PTCritterNode
 
-+ (NSArray *)spriteComponentKeys
-{
-    return @[@"tail", @"legs", @"body", @"face"];
-}
-
 - (instancetype)initWithVisualProperties:(NSDictionary *)properties
 {
     self = [super init];
+    
+    componentKeys = @[@"tail", @"body"];
 
     if (self) {
         
@@ -48,8 +43,9 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
         bodySprite.size = CGSizeMake(250.f, 250.f);
         [self addChild:bodySprite];
         
-        self.bodySprite = bodySprite;
-        
+        for (NSString *key in componentKeys) {
+            // SKSpriteNode componentSprite
+        }
     }
     
     return self;
@@ -67,25 +63,30 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
     
     NSMutableDictionary *textures = [NSMutableDictionary dictionary];
     
-    for (NSString *key in @[@"neutral"]) {
-    
-        NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_body.png", key]];
-        CIImage *image = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:imagePath]];
-        CIContext *context = [CIContext contextWithOptions:nil];
+    for (NSString *componentKey in @[@"tail", @"body"]) {
+        NSMutableDictionary *componentTextures = [NSMutableDictionary dictionary];
         
-        NSNumber *bodyHue = [properties objectForKey:kPTBodyHueKey];
-        if (bodyHue) {
-            CIFilter *hueAdjust = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:
-                         kCIInputImageKey, image,
-                         kCIInputAngleKey, bodyHue,
-                         nil];
-            image = [hueAdjust valueForKey:kCIOutputImageKey];
+        for (NSString *animationKey in @[@"neutral"]) {
+        
+            NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@.png", animationKey, componentKey]];
+            CIImage *image = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:imagePath]];
+            CIContext *context = [CIContext contextWithOptions:nil];
+            
+            NSNumber *bodyHue = [properties objectForKey:kPTBodyHueKey];
+            if (bodyHue) {
+                CIFilter *hueAdjust = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:
+                             kCIInputImageKey, image,
+                             kCIInputAngleKey, bodyHue,
+                             nil];
+                image = [hueAdjust valueForKey:kCIOutputImageKey];
+            }
+            
+            CGImageRef cgImage = [context createCGImage:image fromRect:[image extent]];
+            [componentTextures setObject:[SKTexture textureWithCGImage:cgImage] forKey:componentKey];
+            CGImageRelease(cgImage);
         }
         
-        CGImageRef cgImage = [context createCGImage:image fromRect:[image extent]];
-        [textures setObject:[SKTexture textureWithCGImage:cgImage] forKey:key];
-        CGImageRelease(cgImage);
-        
+        [textures setObject:componentTextures forKey:componentKey];
     }
     
     self.textures = textures;
@@ -119,38 +120,40 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
 
 - (void)setStatus:(PTCritterStatus)status
 {
+    for (NSString *componentKey in @[@"tail", @"body"]) {
     SKTexture *atlasTexture;
     
-    switch (status) {
-        case PTCritterStatusSad:
-            atlasTexture = [self.textures objectForKey:@"neutral"];
-            break;
-        case PTCritterStatusVeryHappy:
-            atlasTexture = [self.textures objectForKey:@"neutral"];
-            break;
-        case PTCritterStatusNormal:
-            atlasTexture = [self.textures objectForKey:@"neutral"];
-            break;
-        case PTCritterStatusMad:
-            atlasTexture = [self.textures objectForKey:@"neutral"];
-            break;
-        default:
-            break;
-    }
-    
-    NSMutableArray *animationTextures = [NSMutableArray array];
-    
-    int atlasWidth = 5, atlasHeight = 4;
-    float frameWidth = 1.f / atlasWidth, frameHeight = 1.f / atlasHeight;
-    for (int j = atlasHeight - 1; j >= 0; j--) {
-        for (int i = 0; i < atlasWidth; i++) {
-            CGRect rect = CGRectMake(i * frameWidth, j * frameHeight, frameWidth, frameHeight);
-            [animationTextures addObject:[SKTexture textureWithRect:rect inTexture:atlasTexture]];
+        switch (status) {
+            case PTCritterStatusSad:
+                atlasTexture = [self.textures objectForKey:@"neutral"];
+                break;
+            case PTCritterStatusVeryHappy:
+                atlasTexture = [self.textures objectForKey:@"neutral"];
+                break;
+            case PTCritterStatusNormal:
+                atlasTexture = [self.textures objectForKey:@"neutral"];
+                break;
+            case PTCritterStatusMad:
+                atlasTexture = [self.textures objectForKey:@"neutral"];
+                break;
+            default:
+                break;
         }
+        
+        NSMutableArray *animationTextures = [NSMutableArray array];
+        
+        int atlasWidth = 5, atlasHeight = 4;
+        float frameWidth = 1.f / atlasWidth, frameHeight = 1.f / atlasHeight;
+        for (int j = atlasHeight - 1; j >= 0; j--) {
+            for (int i = 0; i < atlasWidth; i++) {
+                CGRect rect = CGRectMake(i * frameWidth, j * frameHeight, frameWidth, frameHeight);
+                [animationTextures addObject:[SKTexture textureWithRect:rect inTexture:atlasTexture]];
+            }
+        }
+        
+        SKAction *animation = [SKAction animateWithTextures:animationTextures timePerFrame:0.042];
+        [self.bodySprite runAction:[SKAction repeatActionForever:animation]];
     }
-    
-    SKAction *animation = [SKAction animateWithTextures:animationTextures timePerFrame:0.042];
-    [self.bodySprite runAction:[SKAction repeatActionForever:animation]];
 }
 
 @end

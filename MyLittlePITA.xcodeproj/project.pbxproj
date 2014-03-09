@@ -317,7 +317,7 @@
 				ORGANIZATIONNAME = "My Little PITA Group";
 				TargetAttributes = {
 					23DE1F4B18AA81650072B8EB = {
-						DevelopmentTeam = 58M2Y4N75J;
+						DevelopmentTeam = 4FKGCP89QR;
 					};
 					23DE1F7318AA81660072B8EB = {
 						TestTargetID = 23DE1F4B18AA81650072B8EB;
@@ -363,6 +363,7 @@
 				238B907118CA422900A6A7BD /* sprite_sad.png in Resources */,
 				F1B1CA6218CCF8FD0057ECC2 /* camera.png in Resources */,
 				23B9B27418C947FE0015DBC2 /* sprite_happy.png in Resources */,
+				F1B1CA6E18CD01420057ECC2 /* microphoneRecording.png in Resources */,
 				23CA905C18CCF7190029F912 /* neutral_body.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
