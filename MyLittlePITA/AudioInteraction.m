@@ -118,6 +118,7 @@
     self.recorder.meteringEnabled = YES;
     [self.recorder record];
     NSLog(@"Record2");
+    self.circleImage.image =[UIImage imageNamed:@"microphoneRecording.png"];
 }
 
 -(void)playRecording
@@ -149,6 +150,7 @@
         self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:nil];
         [self.player setDelegate:self];
         
+        self.circleImage.image =[UIImage imageNamed:@"microphone.png"];
         [self.player play];
     }
     
