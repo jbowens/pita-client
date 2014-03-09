@@ -10,10 +10,16 @@
 #import "PTCritterNode.h"
 #import "PTViewController.h"
 #import "PTServer.h"
+#import "CameraInteraction.h"
+#import "ProximitySensorInteraction.h"
+#import "AudioInteraction.h"
 
 @interface PTViewController()
 
 @property (nonatomic) PTGameScene *critterScene;
+@property (strong, nonatomic) CameraInteraction* cameraInteraction;
+@property (strong, nonatomic) ProximitySensorInteraction* proximityInteraction;
+@property (strong, nonatomic) AudioInteraction* audioInteraction;
 
 @end
 
@@ -44,6 +50,7 @@ PTServer *server;
     
     // Present the scene.
     [skView presentScene:self.critterScene];
+    [self prepareAllInteractionButtons];
 }
 
 - (BOOL)shouldAutorotate
@@ -66,32 +73,61 @@ PTServer *server;
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)critterSceneRegisteredCameraClick:(PTGameScene*)critterScene;
+- (void)prepareAllInteractionButtons
 {
-    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
+    [self presentTheCameraButton];
+    [self presentTheAudioButton];
+    [self prepareTheProximityChange];
+}
+
+- (void)prepareTheProximityChange
+{
+    self.proximityInteraction = [[ProximitySensorInteraction alloc] init];
+    [self.proximityInteraction handleProximitySensor];
+}
+
+- (void)presentTheCameraButton
+{
+    self.cameraInteraction = [[CameraInteraction alloc] init];
+    
+    UIImageView* cameraButton = [self.cameraInteraction putCameraButtonInView:self.view];
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(transitionToCameraView)];
+    singleTap.numberOfTapsRequired = 1;
+    cameraButton.userInteractionEnabled = YES;
+    
+    [cameraButton addGestureRecognizer:singleTap];
+}
+
+- (void)transitionToCameraView
+{
+    [self.cameraInteraction transitionToCameraView:self];
+}
+
+- (void)presentTheAudioButton
+{
+    self.audioInteraction = [[AudioInteraction alloc] init];
+    
+    UIImageView* audioButton = [self.audioInteraction putAudioButtonInView:self.view];
+    
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleAudio:)];
+    audioButton.userInteractionEnabled = YES;
+    
+    [audioButton addGestureRecognizer:panGesture];
+}
+
+- (void)handleAudio:(UIPanGestureRecognizer*)theGesture
+{
+    if([theGesture state] == UIGestureRecognizerStateBegan)
     {
-        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-        imagePicker.delegate = self;
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        imagePicker.allowsEditing = NO;
-        [self presentViewController:imagePicker animated:YES completion:nil];
-    } else {
-        NSLog(@"Failed to find camera device.");
+        [self.audioInteraction startRecording];
+    }
+    else if([theGesture state] == UIGestureRecognizerStateEnded)
+    {
+        [self.audioInteraction playRecording];
     }
 }
 
--(void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    // TODO: Use results of photo
-}
-
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
