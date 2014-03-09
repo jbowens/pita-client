@@ -63,7 +63,12 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
 
 - (void)generateTexturesFromVisualProperties:(NSDictionary *)properties
 {
+    NSLog(@"Generating textures...");
+    
     NSMutableDictionary *textures = [NSMutableDictionary dictionary];
+
+    NSString *spotsImagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"spots.png"];
+    CIImage *spotsImage = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:spotsImagePath]];
     
     for (NSString *key in @[@"normal", @"sad", @"happy_very", @"mad"]) {
     
@@ -82,13 +87,11 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
         
         NSNumber *spotsPresent = [properties objectForKey:kPTSpotsPresentKey];
         if (spotsPresent && spotsPresent.boolValue) {
-            NSString *spotsImagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"spots.png"];
-            CIImage *spotsImage = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:spotsImagePath]];
             
             NSNumber *spotsHue = [properties objectForKey:kPTSpotsHueKey];
             if (spotsHue) {
                 CIFilter *spotsHueAdjust = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:
-                                            kCIInputImageKey, spotsImage,
+                                            kCIInputImageKey, spotsImage.copy,
                                             kCIInputAngleKey, spotsHue,
                                             nil];
                 spotsImage = [spotsHueAdjust valueForKey:kCIOutputImageKey];
@@ -107,6 +110,8 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
         
         self.textures = textures;
     }
+    
+    NSLog(@"Done.");
 }
 
 + (NSDictionary *)texturesFromAtlasNamed:(NSString *)name
