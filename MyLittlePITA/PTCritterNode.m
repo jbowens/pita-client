@@ -67,17 +67,38 @@ static const NSString *kSpriteAnimationIdleKey = @"idle";
     
     for (NSString *key in @[@"normal", @"sad", @"happy_very", @"mad"]) {
     
-        NSString* imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"sprite_%@.png", key]];
+        NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"sprite_%@.png", key]];
         CIImage *image = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:imagePath]];
         CIContext *context = [CIContext contextWithOptions:nil];
         
-        if ([properties objectForKey:kPTHueAdjustKey]) {
-            NSNumber *colorRotation = [properties objectForKey:kPTHueAdjustKey];
+        NSNumber *bodyHue = [properties objectForKey:kPTBodyHueKey];
+        if (bodyHue) {
             CIFilter *hueAdjust = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:
                          kCIInputImageKey, image,
-                         kCIInputAngleKey, colorRotation,
+                         kCIInputAngleKey, bodyHue,
                          nil];
-            image = [hueAdjust valueForKey: kCIOutputImageKey];
+            image = [hueAdjust valueForKey:kCIOutputImageKey];
+        }
+        
+        NSNumber *spotsPresent = [properties objectForKey:kPTSpotsPresentKey];
+        if (spotsPresent && spotsPresent.boolValue) {
+            NSString *spotsImagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"spots.png"];
+            CIImage *spotsImage = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:spotsImagePath]];
+            
+            NSNumber *spotsHue = [properties objectForKey:kPTSpotsHueKey];
+            if (spotsHue) {
+                CIFilter *spotsHueAdjust = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:
+                                            kCIInputImageKey, spotsImage,
+                                            kCIInputAngleKey, spotsHue,
+                                            nil];
+                spotsImage = [spotsHueAdjust valueForKey:kCIOutputImageKey];
+            }
+            
+            CIFilter *sourceOver = [CIFilter filterWithName:@"CISourceOverCompositing" keysAndValues:
+                                    kCIInputImageKey, spotsImage,
+                                    kCIInputBackgroundImageKey, image,
+                                    nil];
+            image = [sourceOver valueForKey:kCIOutputImageKey];
         }
         
         CGImageRef cgImage = [context createCGImage:image fromRect:[image extent]];

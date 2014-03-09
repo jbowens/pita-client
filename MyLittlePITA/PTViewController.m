@@ -33,7 +33,7 @@ PTServer *server;
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     
-    self.userCritter = [[PTCritter alloc] initWithProperties:@{kPTHueAdjustKey: @2.f}];
+    self.userCritter = [[PTCritter alloc] initWithProperties:@{kPTBodyHueKey: @2.f, kPTSpotsPresentKey: @YES, kPTSpotsHueKey: @0.2f}];
 
     PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size];
     critterScene.scaleMode = SKSceneScaleModeAspectFill;

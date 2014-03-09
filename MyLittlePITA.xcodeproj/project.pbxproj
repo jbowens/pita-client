@@ -15,6 +15,7 @@
 		23B9B27418C947FE0015DBC2 /* sprite_happy.png in Resources */ = {isa = PBXBuildFile; fileRef = 23B9B27318C947FE0015DBC2 /* sprite_happy.png */; };
 		23B9B27618C980790015DBC2 /* sprite_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 23B9B27518C980790015DBC2 /* sprite_normal.png */; };
 		23B9B27818C9807F0015DBC2 /* sprite_happy_very.png in Resources */ = {isa = PBXBuildFile; fileRef = 23B9B27718C9807F0015DBC2 /* sprite_happy_very.png */; };
+		23CA905A18CCE02C0029F912 /* spots.png in Resources */ = {isa = PBXBuildFile; fileRef = 23CA905918CCE02C0029F912 /* spots.png */; };
 		23DE1F5018AA81650072B8EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F4F18AA81650072B8EB /* Foundation.framework */; };
 		23DE1F5218AA81650072B8EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5118AA81650072B8EB /* CoreGraphics.framework */; };
 		23DE1F5418AA81650072B8EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5318AA81650072B8EB /* UIKit.framework */; };
@@ -60,6 +61,7 @@
 		23B9B27318C947FE0015DBC2 /* sprite_happy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprite_happy.png; sourceTree = "<group>"; };
 		23B9B27518C980790015DBC2 /* sprite_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprite_normal.png; sourceTree = "<group>"; };
 		23B9B27718C9807F0015DBC2 /* sprite_happy_very.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprite_happy_very.png; sourceTree = "<group>"; };
+		23CA905918CCE02C0029F912 /* spots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spots.png; sourceTree = "<group>"; };
 		23DE1F4C18AA81650072B8EB /* MyLittlePITA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLittlePITA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DE1F4F18AA81650072B8EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		23DE1F5118AA81650072B8EB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -155,6 +157,7 @@
 		23DE1F5718AA81650072B8EB /* MyLittlePITA */ = {
 			isa = PBXGroup;
 			children = (
+				23CA905918CCE02C0029F912 /* spots.png */,
 				23B9B27718C9807F0015DBC2 /* sprite_happy_very.png */,
 				23B9B27518C980790015DBC2 /* sprite_normal.png */,
 				23B9B27318C947FE0015DBC2 /* sprite_happy.png */,
@@ -303,6 +306,7 @@
 				23DE1F6D18AA81650072B8EB /* Spaceship.png in Resources */,
 				238B907318CA560600A6A7BD /* sprite_mad.png in Resources */,
 				23B9B27818C9807F0015DBC2 /* sprite_happy_very.png in Resources */,
+				23CA905A18CCE02C0029F912 /* spots.png in Resources */,
 				23DE1F6518AA81650072B8EB /* Main.storyboard in Resources */,
 				238B907118CA422900A6A7BD /* sprite_sad.png in Resources */,
 				23B9B27418C947FE0015DBC2 /* sprite_happy.png in Resources */,
