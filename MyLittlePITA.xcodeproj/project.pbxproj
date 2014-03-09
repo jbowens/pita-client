@@ -38,6 +38,8 @@
 		C4D38FBC18BEA24D009A1B3F /* PTError.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FBB18BEA24D009A1B3F /* PTError.m */; };
 		C4D38FBF18BEAB0D009A1B3F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FBE18BEAB0D009A1B3F /* Reachability.m */; };
 		C4D38FC118BEAE5F009A1B3F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */; };
+		F1B1CA5F18CCF83C0057ECC2 /* CameraInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B1CA5E18CCF83C0057ECC2 /* CameraInteraction.m */; };
+		F1B1CA6218CCF8FD0057ECC2 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = F1B1CA6118CCF8FD0057ECC2 /* camera.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +96,9 @@
 		C4D38FBD18BEAB0D009A1B3F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C4D38FBE18BEAB0D009A1B3F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F1B1CA5D18CCF83C0057ECC2 /* CameraInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraInteraction.h; sourceTree = "<group>"; };
+		F1B1CA5E18CCF83C0057ECC2 /* CameraInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraInteraction.m; sourceTree = "<group>"; };
+		F1B1CA6118CCF8FD0057ECC2 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +183,8 @@
 				23DE1F6618AA81650072B8EB /* PTViewController.h */,
 				23DE1F6718AA81650072B8EB /* PTViewController.m */,
 				23DE1F6C18AA81650072B8EB /* Spaceship.png */,
+				F1B1CA6018CCF8FD0057ECC2 /* images */,
+				F1B1CA5C18CCF8110057ECC2 /* UserInteractions */,
 				23DE1F6E18AA81650072B8EB /* Images.xcassets */,
 				23DE1F5818AA81650072B8EB /* Supporting Files */,
 				C4D38FB418BE8330009A1B3F /* PTServer.h */,
@@ -217,6 +224,23 @@
 				23DE1F7E18AA81660072B8EB /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F1B1CA5C18CCF8110057ECC2 /* UserInteractions */ = {
+			isa = PBXGroup;
+			children = (
+				F1B1CA5D18CCF83C0057ECC2 /* CameraInteraction.h */,
+				F1B1CA5E18CCF83C0057ECC2 /* CameraInteraction.m */,
+			);
+			name = UserInteractions;
+			sourceTree = "<group>";
+		};
+		F1B1CA6018CCF8FD0057ECC2 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				F1B1CA6118CCF8FD0057ECC2 /* camera.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,7 +292,7 @@
 				ORGANIZATIONNAME = "My Little PITA Group";
 				TargetAttributes = {
 					23DE1F4B18AA81650072B8EB = {
-						DevelopmentTeam = 4FKGCP89QR;
+						DevelopmentTeam = 58M2Y4N75J;
 					};
 					23DE1F7318AA81660072B8EB = {
 						TestTargetID = 23DE1F4B18AA81650072B8EB;
@@ -309,6 +333,7 @@
 				23CA905A18CCE02C0029F912 /* spots.png in Resources */,
 				23DE1F6518AA81650072B8EB /* Main.storyboard in Resources */,
 				238B907118CA422900A6A7BD /* sprite_sad.png in Resources */,
+				F1B1CA6218CCF8FD0057ECC2 /* camera.png in Resources */,
 				23B9B27418C947FE0015DBC2 /* sprite_happy.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +363,7 @@
 				23DE1F6B18AA81650072B8EB /* PTGameScene.m in Sources */,
 				23DE1F5E18AA81650072B8EB /* main.m in Sources */,
 				233715D718AE947B006E375F /* PTCritterNode.m in Sources */,
+				F1B1CA5F18CCF83C0057ECC2 /* CameraInteraction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
