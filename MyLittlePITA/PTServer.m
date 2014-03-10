@@ -181,7 +181,8 @@ BOOL networkAvailable;
 - (void)createRandomPita:(ServerCompletionHandler)completionHandler
 {
     [self sendRequest:@"/pitas/random" withParams:@{} responseHandler:^(NSDictionary *resp, NSError *err) {
-        if (resp && err != nil) {
+        if (resp && [resp count] > 0) {
+            NSLog(@"Pita retrieved with properties: %@", resp);
             NSDictionary *results = @{@"pita": [PTCritter critterWithProperties:resp]};
             completionHandler(results, nil);
         } else {
