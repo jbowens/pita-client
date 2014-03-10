@@ -36,24 +36,30 @@ PTServer *server;
     [super viewDidLoad];
     
     server = [[PTServer alloc] init];
-    [server newAccount: @"Jackson" phone:@"4402892895" email:@"jackson_owens@brown.edu" completionHandler:^(NSDictionary *results, NSError *err) {
-        // TODO: Hook this up to an actual UI for the user to enter details with.
+    [server newAccount:nil  phone:nil email:nil completionHandler:^(NSDictionary *results, NSError *err) {
+        [server createRandomPita:^(NSDictionary *results, NSError *err) {
+            if ([results objectForKey:@"pita"]) {
+                // We successfully made a new pita.
+                PTCritter *pita = [results objectForKey:@"pita"];
+                // Configure the view.
+                SKView * skView = (SKView *)self.view;
+                
+                //self.userCritter = [[PTCritter alloc] initWithProperties:@{kPTBodyHueKey: @2.f, kPTSpotsPresentKey: @YES, kPTSpotsHueKey: @0.2f}];
+                self.userCritter = pita;
+                
+                PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size];
+                critterScene.scaleMode = SKSceneScaleModeAspectFill;
+                critterScene.critter = self.userCritter;
+                [critterScene runEntranceSequence];
+                
+                self.critterScene = critterScene;
+                
+                // Present the scene.
+                [skView presentScene:self.critterScene];
+            }
+        }];
     }];
 
-    // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    
-    self.userCritter = [[PTCritter alloc] initWithProperties:@{kPTBodyHueKey: @2.f, kPTSpotsPresentKey: @YES, kPTSpotsHueKey: @0.2f}];
-
-    PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size];
-    critterScene.scaleMode = SKSceneScaleModeAspectFill;
-    critterScene.critter = self.userCritter;
-    [critterScene runEntranceSequence];
-    
-    self.critterScene = critterScene;
-    
-    // Present the scene.
-    [skView presentScene:self.critterScene];
     [self prepareAllInteractionButtons];
 }
 

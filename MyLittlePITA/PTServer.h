@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PTCritter.h"
 
 typedef void (^ServerCompletionHandler)(NSDictionary *, NSError *);
 
@@ -38,5 +39,11 @@ typedef void (^ServerCompletionHandler)(NSDictionary *, NSError *);
  * Records an error by POSTing the error info to the server.
  */
 - (void)recordError:(NSString *)message;
+
+/*
+ * Creates a random pita on the server and returns the pita's
+ * properties.
+ */
+- (void)createRandomPita:(ServerCompletionHandler)completionHandler;
 
 @end
