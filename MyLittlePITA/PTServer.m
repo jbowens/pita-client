@@ -143,7 +143,24 @@ BOOL networkAvailable;
         return;
     }
 
-    NSDictionary *params = @{ @"name": name, @"phone": phone, @"email": email };
+    // Get the CFUUID and send it with the request.
+    CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
+    NSString *uuidString = (NSString *)CFBridgingRelease(CFUUIDCreateString(NULL,uuidRef));
+    CFRelease(uuidRef);
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:uuidString forKey:@"uuid"];
+    
+    if (name) {
+        [params setObject:name forKey:@"name"];
+    }
+    if (phone) {
+        [params setObject:phone forKey:@"phone"];
+    }
+    if (email) {
+        [params setObject:email forKey:@"email"];
+    }
+
     [self sendRequest:@"/accounts/new" withParams:params responseHandler:^(NSDictionary *resp, NSError *err) {
         if (resp && [resp objectForKey:@"aid"] != nil && [resp objectForKey:@"key"] != nil) {
             self.accountId = [resp objectForKey:@"aid"];
