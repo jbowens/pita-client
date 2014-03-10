@@ -101,7 +101,7 @@ BOOL networkAvailable;
     
     // The user has an account. Send the authentication headers too.
     if (self.accountId) {
-        [req addValue:accountId forHTTPHeaderField:@"X-PITA-ACCOUNT-ID"];
+        [req addValue:[NSString stringWithFormat:@"%@", self.accountId] forHTTPHeaderField:@"X-PITA-ACCOUNT-ID"];
         [req addValue:accountKey forHTTPHeaderField:@"X-PITA-SECRET"];
     }
 
@@ -176,6 +176,18 @@ BOOL networkAvailable;
         return;
     }
     [self sendRequest:@"/error" withParams:@{@"message": message} responseHandler:nil];
+}
+
+- (void)createRandomPita:(ServerCompletionHandler)completionHandler
+{
+    [self sendRequest:@"/pitas/random" withParams:@{} responseHandler:^(NSDictionary *resp, NSError *err) {
+        if (resp && err != nil) {
+            NSDictionary *results = @{@"pita": [PTCritter critterWithProperties:resp]};
+            completionHandler(results, nil);
+        } else {
+            completionHandler(resp, err);
+        }
+    }];
 }
 
 @end

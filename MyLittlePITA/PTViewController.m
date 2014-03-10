@@ -33,7 +33,12 @@ PTServer *server;
     
     server = [[PTServer alloc] init];
     [server newAccount:nil  phone:nil email:nil completionHandler:^(NSDictionary *results, NSError *err) {
-        NSLog(@"Created a new account. %@ %@", results, err);
+        [server createRandomPita:^(NSDictionary *results, NSError *err) {
+            if ([results objectForKey:@"pita"]) {
+                // We successfully made a new pita.
+                PTCritter *pita = [results objectForKey:@"pita"];
+            }
+        }];
     }];
 
     // Configure the view.
