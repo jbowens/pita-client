@@ -13,6 +13,8 @@
 #import "CameraInteraction.h"
 #import "ProximitySensorInteraction.h"
 #import "AudioInteraction.h"
+#import "SocialInteractionButton.h"
+#import "SpongeInteraction.h"
 
 @interface PTViewController()
 
@@ -20,6 +22,8 @@
 @property (strong, nonatomic) CameraInteraction* cameraInteraction;
 @property (strong, nonatomic) ProximitySensorInteraction* proximityInteraction;
 @property (strong, nonatomic) AudioInteraction* audioInteraction;
+@property (strong, nonatomic) SocialInteractionButton* socialInteractionButton;
+@property (strong, nonatomic) SpongeInteraction* spongeInteractionSponge;
 
 @end
 
@@ -77,6 +81,8 @@ PTServer *server;
 {
     [self presentTheCameraButton];
     [self presentTheAudioButton];
+    [self presentTheSocialButton];
+    [self presentCleaningSponge];
     [self prepareTheProximityChange];
 }
 
@@ -128,6 +134,51 @@ PTServer *server;
     }
 }
 
+- (void)presentTheSocialButton
+{
+    self.socialInteractionButton = [[SocialInteractionButton alloc] init];
+    
+    UIImageView* socialButton = [self.socialInteractionButton putSocialButtonInView:self.view];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(requestSocialPage)];
+    tapGesture.numberOfTapsRequired = 1;
+    socialButton.userInteractionEnabled = YES;
+    
+    [socialButton addGestureRecognizer:tapGesture];
+}
+
+- (void)requestSocialPage
+{
+    [self.socialInteractionButton openupSocialPage:self];
+}
+
+- (void)presentCleaningSponge
+{
+    self.spongeInteractionSponge = [[SpongeInteraction alloc] init];
+    
+    UIImageView* spongeDrawing = [self.spongeInteractionSponge putSpongeInView:self.view];
+    
+    UIPanGestureRecognizer *movingSpongeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(spongeMoved:)];
+    spongeDrawing.userInteractionEnabled = YES;
+    
+    [spongeDrawing addGestureRecognizer:movingSpongeGesture];
+}
+
+- (void)spongeMoved:(UIPanGestureRecognizer*)panGesture
+{
+    CGPoint translation = [panGesture translationInView:self.view];
+    if([panGesture state] == UIGestureRecognizerStateBegan)
+    {
+    }
+    else if([panGesture state] == UIGestureRecognizerStateChanged)
+    {
+        [self.spongeInteractionSponge changeInSpongeLocationInX:translation.x inY:translation.y inView:self.view];
+    }
+    else if([panGesture state] == UIGestureRecognizerStateEnded)
+    {
+        [self.spongeInteractionSponge returnToOriginalLocationInView:self.view];
+    }
+}
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {

@@ -38,12 +38,17 @@
 		C4D38FBC18BEA24D009A1B3F /* PTError.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FBB18BEA24D009A1B3F /* PTError.m */; };
 		C4D38FBF18BEAB0D009A1B3F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FBE18BEAB0D009A1B3F /* Reachability.m */; };
 		C4D38FC118BEAE5F009A1B3F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */; };
+		F186FEC418CD7C22000C1B2B /* SpongeInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F186FEC318CD7C22000C1B2B /* SpongeInteraction.m */; };
+		F186FEC718CD829D000C1B2B /* social.png in Resources */ = {isa = PBXBuildFile; fileRef = F186FEC518CD829D000C1B2B /* social.png */; };
+		F186FEC818CD829D000C1B2B /* sponge.png in Resources */ = {isa = PBXBuildFile; fileRef = F186FEC618CD829D000C1B2B /* sponge.png */; };
 		F1B1CA5F18CCF83C0057ECC2 /* CameraInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B1CA5E18CCF83C0057ECC2 /* CameraInteraction.m */; };
 		F1B1CA6218CCF8FD0057ECC2 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = F1B1CA6118CCF8FD0057ECC2 /* camera.png */; };
 		F1B1CA6518CCF9690057ECC2 /* ProximitySensorInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B1CA6418CCF9690057ECC2 /* ProximitySensorInteraction.m */; };
 		F1B1CA6818CCFAC20057ECC2 /* AudioInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B1CA6718CCFAC20057ECC2 /* AudioInteraction.m */; };
 		F1B1CA6C18CCFF030057ECC2 /* microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F1B1CA6B18CCFF030057ECC2 /* microphone.png */; };
 		F1B1CA6E18CD01420057ECC2 /* microphoneRecording.png in Resources */ = {isa = PBXBuildFile; fileRef = F1B1CA6D18CD01420057ECC2 /* microphoneRecording.png */; };
+		F1B1CA7518CD0A790057ECC2 /* SocialInteractionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B1CA7418CD0A790057ECC2 /* SocialInteractionButton.m */; };
+		F1B1CA7818CD0BE80057ECC2 /* PTSocialListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B1CA7718CD0BE80057ECC2 /* PTSocialListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +105,10 @@
 		C4D38FBD18BEAB0D009A1B3F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C4D38FBE18BEAB0D009A1B3F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F186FEC218CD7C22000C1B2B /* SpongeInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpongeInteraction.h; sourceTree = "<group>"; };
+		F186FEC318CD7C22000C1B2B /* SpongeInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpongeInteraction.m; sourceTree = "<group>"; };
+		F186FEC518CD829D000C1B2B /* social.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = social.png; sourceTree = "<group>"; };
+		F186FEC618CD829D000C1B2B /* sponge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponge.png; sourceTree = "<group>"; };
 		F1B1CA5D18CCF83C0057ECC2 /* CameraInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraInteraction.h; sourceTree = "<group>"; };
 		F1B1CA5E18CCF83C0057ECC2 /* CameraInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraInteraction.m; sourceTree = "<group>"; };
 		F1B1CA6118CCF8FD0057ECC2 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
@@ -109,6 +118,10 @@
 		F1B1CA6718CCFAC20057ECC2 /* AudioInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioInteraction.m; sourceTree = "<group>"; };
 		F1B1CA6B18CCFF030057ECC2 /* microphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microphone.png; sourceTree = "<group>"; };
 		F1B1CA6D18CD01420057ECC2 /* microphoneRecording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microphoneRecording.png; sourceTree = "<group>"; };
+		F1B1CA7318CD0A790057ECC2 /* SocialInteractionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialInteractionButton.h; sourceTree = "<group>"; };
+		F1B1CA7418CD0A790057ECC2 /* SocialInteractionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialInteractionButton.m; sourceTree = "<group>"; };
+		F1B1CA7618CD0BE80057ECC2 /* PTSocialListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTSocialListViewController.h; sourceTree = "<group>"; };
+		F1B1CA7718CD0BE80057ECC2 /* PTSocialListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTSocialListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +207,7 @@
 				23DE1F6718AA81650072B8EB /* PTViewController.m */,
 				23DE1F6C18AA81650072B8EB /* Spaceship.png */,
 				F1B1CA6018CCF8FD0057ECC2 /* images */,
+				F1B1CA6F18CD0A570057ECC2 /* SocialInteraction */,
 				F1B1CA5C18CCF8110057ECC2 /* UserInteractions */,
 				23DE1F6E18AA81650072B8EB /* Images.xcassets */,
 				23DE1F5818AA81650072B8EB /* Supporting Files */,
@@ -245,6 +259,8 @@
 				F1B1CA6418CCF9690057ECC2 /* ProximitySensorInteraction.m */,
 				F1B1CA6618CCFAC20057ECC2 /* AudioInteraction.h */,
 				F1B1CA6718CCFAC20057ECC2 /* AudioInteraction.m */,
+				F186FEC218CD7C22000C1B2B /* SpongeInteraction.h */,
+				F186FEC318CD7C22000C1B2B /* SpongeInteraction.m */,
 			);
 			name = UserInteractions;
 			sourceTree = "<group>";
@@ -254,9 +270,22 @@
 			children = (
 				F1B1CA6118CCF8FD0057ECC2 /* camera.png */,
 				F1B1CA6B18CCFF030057ECC2 /* microphone.png */,
+				F186FEC518CD829D000C1B2B /* social.png */,
+				F186FEC618CD829D000C1B2B /* sponge.png */,
 				F1B1CA6D18CD01420057ECC2 /* microphoneRecording.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		F1B1CA6F18CD0A570057ECC2 /* SocialInteraction */ = {
+			isa = PBXGroup;
+			children = (
+				F1B1CA7318CD0A790057ECC2 /* SocialInteractionButton.h */,
+				F1B1CA7418CD0A790057ECC2 /* SocialInteractionButton.m */,
+				F1B1CA7618CD0BE80057ECC2 /* PTSocialListViewController.h */,
+				F1B1CA7718CD0BE80057ECC2 /* PTSocialListViewController.m */,
+			);
+			name = SocialInteraction;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,8 +377,10 @@
 				238B907318CA560600A6A7BD /* sprite_mad.png in Resources */,
 				23B9B27818C9807F0015DBC2 /* sprite_happy_very.png in Resources */,
 				23CA905A18CCE02C0029F912 /* spots.png in Resources */,
+				F186FEC818CD829D000C1B2B /* sponge.png in Resources */,
 				23DE1F6518AA81650072B8EB /* Main.storyboard in Resources */,
 				238B907118CA422900A6A7BD /* sprite_sad.png in Resources */,
+				F186FEC718CD829D000C1B2B /* social.png in Resources */,
 				F1B1CA6218CCF8FD0057ECC2 /* camera.png in Resources */,
 				23B9B27418C947FE0015DBC2 /* sprite_happy.png in Resources */,
 				F1B1CA6E18CD01420057ECC2 /* microphoneRecording.png in Resources */,
@@ -372,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4D38FB618BE8330009A1B3F /* PTServer.m in Sources */,
+				F1B1CA7518CD0A790057ECC2 /* SocialInteractionButton.m in Sources */,
 				C4D38FBC18BEA24D009A1B3F /* PTError.m in Sources */,
 				C4D38FBF18BEAB0D009A1B3F /* Reachability.m in Sources */,
 				23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */,
@@ -380,8 +412,10 @@
 				23DE1F6818AA81650072B8EB /* PTViewController.m in Sources */,
 				23DE1F6B18AA81650072B8EB /* PTGameScene.m in Sources */,
 				23DE1F5E18AA81650072B8EB /* main.m in Sources */,
+				F186FEC418CD7C22000C1B2B /* SpongeInteraction.m in Sources */,
 				233715D718AE947B006E375F /* PTCritterNode.m in Sources */,
 				F1B1CA6518CCF9690057ECC2 /* ProximitySensorInteraction.m in Sources */,
+				F1B1CA7818CD0BE80057ECC2 /* PTSocialListViewController.m in Sources */,
 				F1B1CA5F18CCF83C0057ECC2 /* CameraInteraction.m in Sources */,
 				F1B1CA6818CCFAC20057ECC2 /* AudioInteraction.m in Sources */,
 			);
