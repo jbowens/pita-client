@@ -101,7 +101,7 @@ BOOL networkAvailable;
     
     // The user has an account. Send the authentication headers too.
     if (self.accountId) {
-        [req addValue:accountId forHTTPHeaderField:@"X-PITA-ACCOUNT-ID"];
+        [req addValue:[NSString stringWithFormat:@"%@", self.accountId] forHTTPHeaderField:@"X-PITA-ACCOUNT-ID"];
         [req addValue:accountKey forHTTPHeaderField:@"X-PITA-SECRET"];
     }
 
@@ -143,7 +143,24 @@ BOOL networkAvailable;
         return;
     }
 
-    NSDictionary *params = @{ @"name": name, @"phone": phone, @"email": email };
+    // Get the CFUUID and send it with the request.
+    CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
+    NSString *uuidString = (NSString *)CFBridgingRelease(CFUUIDCreateString(NULL,uuidRef));
+    CFRelease(uuidRef);
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:uuidString forKey:@"uuid"];
+    
+    if (name) {
+        [params setObject:name forKey:@"name"];
+    }
+    if (phone) {
+        [params setObject:phone forKey:@"phone"];
+    }
+    if (email) {
+        [params setObject:email forKey:@"email"];
+    }
+
     [self sendRequest:@"/accounts/new" withParams:params responseHandler:^(NSDictionary *resp, NSError *err) {
         if (resp && [resp objectForKey:@"aid"] != nil && [resp objectForKey:@"key"] != nil) {
             self.accountId = [resp objectForKey:@"aid"];
@@ -159,6 +176,19 @@ BOOL networkAvailable;
         return;
     }
     [self sendRequest:@"/error" withParams:@{@"message": message} responseHandler:nil];
+}
+
+- (void)createRandomPita:(ServerCompletionHandler)completionHandler
+{
+    [self sendRequest:@"/pitas/random" withParams:@{} responseHandler:^(NSDictionary *resp, NSError *err) {
+        if (resp && [resp count] > 0) {
+            NSLog(@"Pita retrieved with properties: %@", resp);
+            NSDictionary *results = @{@"pita": [PTCritter critterWithProperties:resp]};
+            completionHandler(results, nil);
+        } else {
+            completionHandler(resp, err);
+        }
+    }];
 }
 
 @end

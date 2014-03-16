@@ -15,9 +15,9 @@ typedef enum {
     PTCritterStatusMad
 } PTCritterStatus;
 
-const static NSString *kPTBodyHueKey        = @"PTBodyHue";
-const static NSString *kPTSpotsHueKey       = @"PTSpotsHue";
-const static NSString *kPTSpotsPresentKey   = @"PTSpotsPresent";
+const static NSString *kPTBodyHueKey        = @"body_hue";
+const static NSString *kPTSpotsHueKey       = @"spots_hue";
+const static NSString *kPTSpotsPresentKey   = @"has_spots";
 
 @interface PTCritterNode : SKNode
 

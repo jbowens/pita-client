@@ -7,7 +7,7 @@
 //
 
 #import "PTCritter.h"
-
+#import "PTCritterNode.h"
 
 @implementation PTCritter
 
@@ -23,7 +23,18 @@
         }
     }
     
-    _visualProperties = properties;
+    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+    [f setNumberStyle:NSNumberFormatterDecimalStyle];
+
+    NSMutableDictionary *visualProps = [[NSMutableDictionary alloc] init];
+    [visualProps setObject:[properties objectForKey:kPTBodyHueKey] forKey:kPTBodyHueKey];
+    [visualProps setObject:[properties objectForKey:kPTSpotsHueKey] forKey:kPTSpotsHueKey];
+    NSNumber *spots = @NO;
+    if ([properties objectForKey:kPTSpotsPresentKey])
+        spots = @YES;
+    [visualProps setObject:spots forKey:kPTSpotsPresentKey];
+        
+    _visualProperties = visualProps;
     
     return self;
 }
