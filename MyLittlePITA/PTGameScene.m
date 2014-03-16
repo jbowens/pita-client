@@ -25,7 +25,7 @@ static const float kDefaultVerticalPosition = .6;
         /* Setup your scene here */
         
         self.backgroundColor = [SKColor colorWithWhite:0.95 alpha:1];
-        
+        _critter = nil;
     }
     return self;
 }
@@ -54,11 +54,12 @@ static const float kDefaultVerticalPosition = .6;
 
 - (void)setCritter:(PTCritter *)critter {
     [_critter removeObserver:self forKeyPath:@"happiness"];
-    
+
     PTCritterNode *critterNode = [PTCritterNode critterNodeWithVisualProperties:critter.visualProperties];
     critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * kDefaultVerticalPosition);
     critterNode.status = PTCritterStatusVeryHappy;
 
+    
     [self addChild:critterNode];
     self.critterNode = critterNode;
     
