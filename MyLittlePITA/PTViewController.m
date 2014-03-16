@@ -35,27 +35,27 @@ PTServer *server;
 {
     [super viewDidLoad];
     
+    // Configure the view.
+    SKView * skView = (SKView *)self.view;
+    PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size];
+    critterScene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    self.critterScene = critterScene;
+
+    // Present the scene.
+    [skView presentScene:self.critterScene];
+    
     server = [[PTServer alloc] init];
     [server newAccount:nil  phone:nil email:nil completionHandler:^(NSDictionary *results, NSError *err) {
         [server createRandomPita:^(NSDictionary *results, NSError *err) {
             if ([results objectForKey:@"pita"]) {
                 // We successfully made a new pita.
                 PTCritter *pita = [results objectForKey:@"pita"];
-                // Configure the view.
-                SKView * skView = (SKView *)self.view;
-                
-                //self.userCritter = [[PTCritter alloc] initWithProperties:@{kPTBodyHueKey: @2.f, kPTSpotsPresentKey: @YES, kPTSpotsHueKey: @0.2f}];
+
                 self.userCritter = pita;
-                
-                PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size];
-                critterScene.scaleMode = SKSceneScaleModeAspectFill;
+
                 critterScene.critter = self.userCritter;
                 [critterScene runEntranceSequence];
-                
-                self.critterScene = critterScene;
-                
-                // Present the scene.
-                [skView presentScene:self.critterScene];
             }
         }];
     }];
