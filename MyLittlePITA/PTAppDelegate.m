@@ -8,11 +8,21 @@
 
 #import "PTAppDelegate.h"
 
+#import "DDLog.h"
+#import "DDASLLogger.h"
+#import "DDTTYLogger.h"
+
+static const int ddLogLevel = LOG_LEVEL_INFO;
+
 @implementation PTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    
+    DDLogInfo(@"Hello, Lumberjack!");
+    
     return YES;
 }
 							

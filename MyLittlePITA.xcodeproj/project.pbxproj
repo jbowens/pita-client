@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		232537EC18D5EA9A00DCC092 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 232537E218D5EA9A00DCC092 /* CLIColor.m */; };
+		232537ED18D5EA9A00DCC092 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 232537E418D5EA9A00DCC092 /* DDASLLogger.m */; };
+		232537EE18D5EA9A00DCC092 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 232537E618D5EA9A00DCC092 /* DDFileLogger.m */; };
+		232537EF18D5EA9A00DCC092 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 232537E918D5EA9A00DCC092 /* DDLog.m */; };
+		232537F018D5EA9A00DCC092 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 232537EB18D5EA9A00DCC092 /* DDTTYLogger.m */; };
 		233715D718AE947B006E375F /* PTCritterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 233715D618AE947B006E375F /* PTCritterNode.m */; };
 		233715E418B068BD006E375F /* logo_cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 233715E318B068BD006E375F /* logo_cropped.png */; };
 		233715E718B08143006E375F /* PTCritter.m in Sources */ = {isa = PBXBuildFile; fileRef = 233715E618B08143006E375F /* PTCritter.m */; };
@@ -65,6 +70,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		232537E118D5EA9A00DCC092 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
+		232537E218D5EA9A00DCC092 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
+		232537E318D5EA9A00DCC092 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		232537E418D5EA9A00DCC092 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		232537E518D5EA9A00DCC092 /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		232537E618D5EA9A00DCC092 /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		232537E718D5EA9A00DCC092 /* DDLog+LOGV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDLog+LOGV.h"; sourceTree = "<group>"; };
+		232537E818D5EA9A00DCC092 /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		232537E918D5EA9A00DCC092 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		232537EA18D5EA9A00DCC092 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		232537EB18D5EA9A00DCC092 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
 		233715D518AE947B006E375F /* PTCritterNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTCritterNode.h; sourceTree = "<group>"; };
 		233715D618AE947B006E375F /* PTCritterNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTCritterNode.m; sourceTree = "<group>"; };
 		233715E318B068BD006E375F /* logo_cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_cropped.png; sourceTree = "<group>"; };
@@ -156,6 +172,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		232537DF18D5EA9A00DCC092 /* Lumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				232537E018D5EA9A00DCC092 /* CLI */,
+				232537E318D5EA9A00DCC092 /* DDASLLogger.h */,
+				232537E418D5EA9A00DCC092 /* DDASLLogger.m */,
+				232537E518D5EA9A00DCC092 /* DDFileLogger.h */,
+				232537E618D5EA9A00DCC092 /* DDFileLogger.m */,
+				232537E718D5EA9A00DCC092 /* DDLog+LOGV.h */,
+				232537E818D5EA9A00DCC092 /* DDLog.h */,
+				232537E918D5EA9A00DCC092 /* DDLog.m */,
+				232537EA18D5EA9A00DCC092 /* DDTTYLogger.h */,
+				232537EB18D5EA9A00DCC092 /* DDTTYLogger.m */,
+			);
+			path = Lumberjack;
+			sourceTree = SOURCE_ROOT;
+		};
+		232537E018D5EA9A00DCC092 /* CLI */ = {
+			isa = PBXGroup;
+			children = (
+				232537E118D5EA9A00DCC092 /* CLIColor.h */,
+				232537E218D5EA9A00DCC092 /* CLIColor.m */,
+			);
+			path = CLI;
+			sourceTree = "<group>";
+		};
 		23DE1F4318AA81650072B8EB = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +233,7 @@
 		23DE1F5718AA81650072B8EB /* MyLittlePITA */ = {
 			isa = PBXGroup;
 			children = (
+				232537DF18D5EA9A00DCC092 /* Lumberjack */,
 				23CA905B18CCF7190029F912 /* neutral_body.png */,
 				23CA906118CD05260029F912 /* neutral_body_test.png */,
 				23CA905D18CCF7240029F912 /* neutral_tail.png */,
@@ -414,19 +457,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				232537EF18D5EA9A00DCC092 /* DDLog.m in Sources */,
 				C4D38FB618BE8330009A1B3F /* PTServer.m in Sources */,
 				F1B1CA7518CD0A790057ECC2 /* SocialInteractionButton.m in Sources */,
 				C4D38FBC18BEA24D009A1B3F /* PTError.m in Sources */,
 				C4D38FBF18BEAB0D009A1B3F /* Reachability.m in Sources */,
+				232537EE18D5EA9A00DCC092 /* DDFileLogger.m in Sources */,
 				23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */,
 				C4D38FB918BEA161009A1B3F /* PTErrorDomain.m in Sources */,
 				233715E718B08143006E375F /* PTCritter.m in Sources */,
 				23DE1F6818AA81650072B8EB /* PTViewController.m in Sources */,
 				23DE1F6B18AA81650072B8EB /* PTGameScene.m in Sources */,
+				232537EC18D5EA9A00DCC092 /* CLIColor.m in Sources */,
+				232537F018D5EA9A00DCC092 /* DDTTYLogger.m in Sources */,
 				23DE1F5E18AA81650072B8EB /* main.m in Sources */,
 				F186FEC418CD7C22000C1B2B /* SpongeInteraction.m in Sources */,
 				233715D718AE947B006E375F /* PTCritterNode.m in Sources */,
 				F1B1CA6518CCF9690057ECC2 /* ProximitySensorInteraction.m in Sources */,
+				232537ED18D5EA9A00DCC092 /* DDASLLogger.m in Sources */,
 				F1B1CA7818CD0BE80057ECC2 /* PTSocialListViewController.m in Sources */,
 				F1B1CA5F18CCF83C0057ECC2 /* CameraInteraction.m in Sources */,
 				F1B1CA6818CCFAC20057ECC2 /* AudioInteraction.m in Sources */,
