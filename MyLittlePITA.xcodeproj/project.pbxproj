@@ -81,6 +81,7 @@
 		232537E918D5EA9A00DCC092 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
 		232537EA18D5EA9A00DCC092 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
 		232537EB18D5EA9A00DCC092 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		232537F118D5ED2D00DCC092 /* PTLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PTLog.h; sourceTree = "<group>"; };
 		233715D518AE947B006E375F /* PTCritterNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTCritterNode.h; sourceTree = "<group>"; };
 		233715D618AE947B006E375F /* PTCritterNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTCritterNode.m; sourceTree = "<group>"; };
 		233715E318B068BD006E375F /* logo_cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_cropped.png; sourceTree = "<group>"; };
@@ -269,6 +270,7 @@
 				C4D38FB818BEA161009A1B3F /* PTErrorDomain.m */,
 				C4D38FBA18BEA24D009A1B3F /* PTError.h */,
 				C4D38FBB18BEA24D009A1B3F /* PTError.m */,
+				232537F118D5ED2D00DCC092 /* PTLog.h */,
 			);
 			path = MyLittlePITA;
 			sourceTree = "<group>";

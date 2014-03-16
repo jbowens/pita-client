@@ -7,6 +7,7 @@
 //
 
 #import "PTCritterNode.h"
+#import "PTLog.h"
 
 static const NSString *kSpriteTailComponentKey = @"tail";
 static const NSString *kSpriteBodyComponentKey = @"body";
@@ -63,7 +64,7 @@ static const NSString *kSpriteIdleAnimationKey = @"neutral";
 
 - (void)generateTexturesFromVisualProperties:(NSDictionary *)properties
 {
-    NSLog(@"Loading textures...");
+    DDLogInfo(@"Loading textures...");
     
     NSMutableDictionary *textures = [NSMutableDictionary dictionary];
     
@@ -96,7 +97,7 @@ static const NSString *kSpriteIdleAnimationKey = @"neutral";
     
     self.textures = textures;
     
-    NSLog(@"Done.");
+    DDLogInfo(@"Done.");
 }
 
 - (void)setStatus:(PTCritterStatus)status
