@@ -17,6 +17,7 @@
 		233715E718B08143006E375F /* PTCritter.m in Sources */ = {isa = PBXBuildFile; fileRef = 233715E618B08143006E375F /* PTCritter.m */; };
 		238B907118CA422900A6A7BD /* sprite_sad.png in Resources */ = {isa = PBXBuildFile; fileRef = 238B907018CA422900A6A7BD /* sprite_sad.png */; };
 		238B907318CA560600A6A7BD /* sprite_mad.png in Resources */ = {isa = PBXBuildFile; fileRef = 238B907218CA560600A6A7BD /* sprite_mad.png */; };
+		23B6608818D6A8540007125D /* JSOpenGLTexture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23B6608718D6A8540007125D /* JSOpenGLTexture2D.cpp */; };
 		23B9B27418C947FE0015DBC2 /* sprite_happy.png in Resources */ = {isa = PBXBuildFile; fileRef = 23B9B27318C947FE0015DBC2 /* sprite_happy.png */; };
 		23B9B27618C980790015DBC2 /* sprite_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 23B9B27518C980790015DBC2 /* sprite_normal.png */; };
 		23B9B27818C9807F0015DBC2 /* sprite_happy_very.png in Resources */ = {isa = PBXBuildFile; fileRef = 23B9B27718C9807F0015DBC2 /* sprite_happy_very.png */; };
@@ -92,6 +93,8 @@
 		233715E618B08143006E375F /* PTCritter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTCritter.m; sourceTree = "<group>"; };
 		238B907018CA422900A6A7BD /* sprite_sad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprite_sad.png; sourceTree = "<group>"; };
 		238B907218CA560600A6A7BD /* sprite_mad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprite_mad.png; sourceTree = "<group>"; };
+		23B6608618D6A8540007125D /* JSOpenGLTexture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSOpenGLTexture2D.h; sourceTree = "<group>"; };
+		23B6608718D6A8540007125D /* JSOpenGLTexture2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSOpenGLTexture2D.cpp; sourceTree = "<group>"; };
 		23B9B27318C947FE0015DBC2 /* sprite_happy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprite_happy.png; sourceTree = "<group>"; };
 		23B9B27518C980790015DBC2 /* sprite_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprite_normal.png; sourceTree = "<group>"; };
 		23B9B27718C9807F0015DBC2 /* sprite_happy_very.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprite_happy_very.png; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				23D747D118D69A540073C471 /* JSError.h */,
 				23D747CD18D699780073C471 /* JSOpenGLShaderProgram.h */,
 				23D747CE18D699780073C471 /* JSOpenGLShaderProgram.cpp */,
+				23B6608618D6A8540007125D /* JSOpenGLTexture2D.h */,
+				23B6608718D6A8540007125D /* JSOpenGLTexture2D.cpp */,
 				23D747CF18D699780073C471 /* JSResource.h */,
 			);
 			name = OpenGL;
@@ -508,6 +513,7 @@
 				23D747D018D699780073C471 /* JSOpenGLShaderProgram.cpp in Sources */,
 				23D747CB18D68B0F0073C471 /* PTScrubViewController.mm in Sources */,
 				F1B1CA6818CCFAC20057ECC2 /* AudioInteraction.m in Sources */,
+				23B6608818D6A8540007125D /* JSOpenGLTexture2D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,6 +638,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -649,6 +656,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
