@@ -13,7 +13,7 @@ using namespace js;
 
 static const GLuint kInvalidHandle = 0;
 
-OpenGLShaderProgram::OpenGLShaderProgram() : shaderProgram(0) { }
+OpenGLShaderProgram::OpenGLShaderProgram() : shaderProgram(kInvalidHandle) { }
 
 void OpenGLShaderProgram::setVertexSource(const std::string theSource)
 {

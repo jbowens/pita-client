@@ -16,15 +16,6 @@
 
 #include <iostream>
 
-static const GLfloat kQuadVertexBufferData[] = {
-    -1.0f, -1.0f, 0.0f,
-    1.0f, -1.0f, 0.0f,
-    -1.0f,  1.0f, 0.0f,
-    -1.0f,  1.0f, 0.0f,
-    1.0f, -1.0f, 0.0f,
-    1.0f,  1.0f, 0.0f,
-};
-
 static const char kTextureQuadVertexSource[] =
     "precision mediump float;                                   "
     "                                                           "
@@ -56,13 +47,13 @@ static const char kTextureQuadFragmentSource[] =
     
     GLKTextureInfo *_texture;
     
-    GLuint _quadVertexBuffer;
-    
-    js::OpenGLShaderProgram _shaderProgram;
+    js::OpenGLShaderProgram _textureQuadProgram;
 }
 
 - (void)setupGL;
 - (void)teardownGL;
+
+- (void)drawTextureQuad;
 
 @end
 
@@ -110,82 +101,75 @@ static const char kTextureQuadFragmentSource[] =
         
         _texture = textureInfo;
     }];
-    
-    glEnableClientState(GL_VERTEX_ARRAY);
 
-    glGenBuffers(1, &_quadVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, _quadVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(kQuadVertexBufferData), &kQuadVertexBufferData, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    _textureQuadProgram.setVertexSource(kTextureQuadVertexSource);
+    _textureQuadProgram.setFragmentSource(kTextureQuadFragmentSource);
     
-    glDisableClientState(GL_VERTEX_ARRAY);
-
-    _shaderProgram.setVertexSource(kTextureQuadVertexSource);
-    _shaderProgram.setFragmentSource(kTextureQuadFragmentSource);
-    
-    if (_shaderProgram.initialize()) {
-        std::string reason = _shaderProgram.getErrorLog();
+    if (_textureQuadProgram.initialize()) {
+        std::string reason = _textureQuadProgram.getErrorLog();
         DDLogError(@"Error creating scrub shader program: %s", reason.c_str());
         
         return;
     }
  
-    glUniform1i(_shaderProgram.getUniformLocation("texture"), 0);
+    glUniform1i(_textureQuadProgram.getUniformLocation("texture"), 0);
 }
 
 - (void)teardownGL {
-    if (_quadVertexBuffer) {
-        glDeleteBuffers(1, &_quadVertexBuffer);
-    }
+}
+
+- (void)drawTextureQuad {
+    JS_USING(&_textureQuadProgram) {
+        
+        // From http://stackoverflow.com/questions/13455590/opengl-es-2-0-textured-quad
+        
+        glEnableClientState(GL_VERTEX_ARRAY);
+        
+        const float quadPositions[] = {  1.0,  1.0, 0.0,
+            -1.0,  1.0, 0.0,
+            -1.0, -1.0, 0.0,
+            -1.0, -1.0, 0.0,
+            1.0, -1.0, 0.0,
+            1.0,  1.0, 0.0 };
+        const float quadTexcoords[] = { 1.0, 0.0,
+            0.0, 0.0,
+            0.0, 1.0,
+            0.0, 1.0,
+            1.0, 1.0,
+            1.0, 0.0 };
+        
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        
+        GLuint position = _textureQuadProgram.getAttributeLocation("position");
+        GLuint texcoord = _textureQuadProgram.getAttributeLocation("texcoord");
+        
+        // Setup buffer offsets
+        glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), quadPositions);
+        glVertexAttribPointer(texcoord, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), quadTexcoords);
+        
+        // Ensure the proper arrays are enabled
+        glEnableVertexAttribArray(position);
+        glEnableVertexAttribArray(texcoord);
+        
+        // Draw
+        glDrawArrays(GL_TRIANGLES, 0, 2 * 3);
+        
+        glDisableClientState(GL_VERTEX_ARRAY);
+        
+    } JS_END_USING
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    glClearColor(0, 0, 0, 1);
+    glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // glViewport(0, 0, _screenWidth, _screenHeight);
     
     if (_texture) {
         glActiveTexture(GL_TEXTURE0 + 0);
         glBindTexture(GL_TEXTURE_2D, _texture.name);
         
-        JS_USING(&_shaderProgram) {
-
-            // From http://stackoverflow.com/questions/13455590/opengl-es-2-0-textured-quad
+        [self drawTextureQuad];
         
-            glEnableClientState(GL_VERTEX_ARRAY);
-        
-            const float quadPositions[] = {  1.0,  1.0, 0.0,
-                -1.0,  1.0, 0.0,
-                -1.0, -1.0, 0.0,
-                -1.0, -1.0, 0.0,
-                1.0, -1.0, 0.0,
-                1.0,  1.0, 0.0 };
-            const float quadTexcoords[] = { 1.0, 0.0,
-                0.0, 0.0,
-                0.0, 1.0,
-                0.0, 1.0,
-                1.0, 1.0,
-                1.0, 0.0 };
-
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-        
-            GLuint position = _shaderProgram.getAttributeLocation("position");
-            GLuint texcoord = _shaderProgram.getAttributeLocation("texcoord");
-            
-            // setup buffer offsets
-            glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), quadPositions);
-            glVertexAttribPointer(texcoord, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), quadTexcoords);
-            
-            // ensure the proper arrays are enabled
-            glEnableVertexAttribArray(position);
-            glEnableVertexAttribArray(texcoord);
-            
-            // draw
-            glDrawArrays(GL_TRIANGLES, 0, 2 * 3);
-    
-            glDisableClientState(GL_VERTEX_ARRAY);
-
-        } JS_END_USING
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
     
 }
