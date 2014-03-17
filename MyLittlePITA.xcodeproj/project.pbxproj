@@ -24,6 +24,7 @@
 		23CA905C18CCF7190029F912 /* neutral_body.png in Resources */ = {isa = PBXBuildFile; fileRef = 23CA905B18CCF7190029F912 /* neutral_body.png */; };
 		23CA905E18CCF7240029F912 /* neutral_tail.png in Resources */ = {isa = PBXBuildFile; fileRef = 23CA905D18CCF7240029F912 /* neutral_tail.png */; };
 		23CA906218CD05260029F912 /* neutral_body_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 23CA906118CD05260029F912 /* neutral_body_test.png */; };
+		23D747CB18D68B0F0073C471 /* PTScrubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D747CA18D68B0F0073C471 /* PTScrubViewController.m */; };
 		23DE1F5018AA81650072B8EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F4F18AA81650072B8EB /* Foundation.framework */; };
 		23DE1F5218AA81650072B8EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5118AA81650072B8EB /* CoreGraphics.framework */; };
 		23DE1F5418AA81650072B8EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5318AA81650072B8EB /* UIKit.framework */; };
@@ -96,6 +97,8 @@
 		23CA905B18CCF7190029F912 /* neutral_body.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neutral_body.png; sourceTree = "<group>"; };
 		23CA905D18CCF7240029F912 /* neutral_tail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neutral_tail.png; sourceTree = "<group>"; };
 		23CA906118CD05260029F912 /* neutral_body_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neutral_body_test.png; sourceTree = "<group>"; };
+		23D747C918D68B0F0073C471 /* PTScrubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTScrubViewController.h; sourceTree = "<group>"; };
+		23D747CA18D68B0F0073C471 /* PTScrubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTScrubViewController.m; sourceTree = "<group>"; };
 		23DE1F4C18AA81650072B8EB /* MyLittlePITA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLittlePITA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DE1F4F18AA81650072B8EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		23DE1F5118AA81650072B8EB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -256,6 +259,9 @@
 				233715D618AE947B006E375F /* PTCritterNode.m */,
 				23DE1F6918AA81650072B8EB /* PTGameScene.h */,
 				23DE1F6A18AA81650072B8EB /* PTGameScene.m */,
+				232537F118D5ED2D00DCC092 /* PTLog.h */,
+				23D747C918D68B0F0073C471 /* PTScrubViewController.h */,
+				23D747CA18D68B0F0073C471 /* PTScrubViewController.m */,
 				23DE1F6618AA81650072B8EB /* PTViewController.h */,
 				23DE1F6718AA81650072B8EB /* PTViewController.m */,
 				23DE1F6C18AA81650072B8EB /* Spaceship.png */,
@@ -270,7 +276,6 @@
 				C4D38FB818BEA161009A1B3F /* PTErrorDomain.m */,
 				C4D38FBA18BEA24D009A1B3F /* PTError.h */,
 				C4D38FBB18BEA24D009A1B3F /* PTError.m */,
-				232537F118D5ED2D00DCC092 /* PTLog.h */,
 			);
 			path = MyLittlePITA;
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 				232537ED18D5EA9A00DCC092 /* DDASLLogger.m in Sources */,
 				F1B1CA7818CD0BE80057ECC2 /* PTSocialListViewController.m in Sources */,
 				F1B1CA5F18CCF83C0057ECC2 /* CameraInteraction.m in Sources */,
+				23D747CB18D68B0F0073C471 /* PTScrubViewController.m in Sources */,
 				F1B1CA6818CCFAC20057ECC2 /* AudioInteraction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
