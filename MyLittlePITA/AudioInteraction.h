@@ -12,6 +12,6 @@
 
 - (UIImageView*)putAudioButtonInView:(UIView*)theView;
 -(void)startRecording;
--(void)playRecording;
+-(void)stopRecording;
 
 @end

@@ -12,10 +12,11 @@
 
 @interface AudioInteraction() <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
-@property AVAudioRecorder* recorder;
-@property (strong, nonatomic) AVAudioPlayer *player;
-@property UIImageView* circleImage;
+@property (strong, nonatomic) AVAudioRecorder* recorder;
+@property (strong, nonatomic) UIImageView* circleImage;
 
+@property (strong, nonatomic) NSTimer* timerUpdate;
+@property (atomic) NSInteger counterForAngryScreaming;
 
 @end
 
@@ -27,6 +28,7 @@
     if (self) {
         self.circleImage = [[UIImageView alloc] initWithFrame:CGRectZero];
         self.circleImage.image = [UIImage imageNamed:@"microphone.png"];
+        self.counterForAngryScreaming = 0;
     }
     return self;
 }
@@ -107,8 +109,6 @@
                                                         multiplier:1.00
                                                           constant:-theView.frame.size.width/15]];
     
-    [self.recorder prepareToRecord];
-    
     return self.circleImage;
 }
 
@@ -117,22 +117,46 @@
     NSLog(@"Record1");
     self.recorder.meteringEnabled = YES;
     [self.recorder record];
+    
+    self.timerUpdate = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(trackAudio) userInfo:nil repeats:YES];
     NSLog(@"Record2");
     self.circleImage.image =[UIImage imageNamed:@"microphoneRecording.png"];
 }
 
--(void)playRecording
+- (void) trackAudio {
+    [self.recorder updateMeters];
+    float averageLevel = [self.recorder averagePowerForChannel:0];
+    float peakLevel = [self.recorder peakPowerForChannel:0];
+    
+    if(averageLevel > -15 && averageLevel < -8 && peakLevel > -1.0)
+    {
+        self.counterForAngryScreaming ++;
+    }
+    else
+    {
+        if(self.counterForAngryScreaming < 3 && self.counterForAngryScreaming > 1)
+        {
+            NSLog(@"Average: %f", averageLevel);
+            NSLog(@"Peak: %f", peakLevel);
+            NSLog(@"ANGRY!!");
+        }
+        self.counterForAngryScreaming = 0;
+    }
+}
+
+-(void)stopRecording
 {
     NSLog(@"Testing");
+    [self.timerUpdate invalidate];
     [self.recorder stop];
+    [self.recorder prepareToRecord];
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
     NSLog(@"Done Playing");
-    [self.recorder prepareToRecord];
-    
 }
+
 -(void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error
 {
     NSLog(@"Decode Error occurred");
@@ -147,11 +171,8 @@
     
     if (!self.recorder.recording){
         NSLog(@"Testing2");
-        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:nil];
-        [self.player setDelegate:self];
         
         self.circleImage.image =[UIImage imageNamed:@"microphone.png"];
-        [self.player play];
     }
     
 }
