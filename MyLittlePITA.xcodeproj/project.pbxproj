@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2321944918D6CAA90052A982 /* JSOpenGLRenderBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2321944718D6CAA90052A982 /* JSOpenGLRenderBuffer.cpp */; };
 		232537EC18D5EA9A00DCC092 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 232537E218D5EA9A00DCC092 /* CLIColor.m */; };
 		232537ED18D5EA9A00DCC092 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 232537E418D5EA9A00DCC092 /* DDASLLogger.m */; };
 		232537EE18D5EA9A00DCC092 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 232537E618D5EA9A00DCC092 /* DDFileLogger.m */; };
@@ -74,6 +75,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2321944718D6CAA90052A982 /* JSOpenGLRenderBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSOpenGLRenderBuffer.cpp; sourceTree = "<group>"; };
+		2321944818D6CAA90052A982 /* JSOpenGLRenderBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSOpenGLRenderBuffer.h; sourceTree = "<group>"; };
 		232537E118D5EA9A00DCC092 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
 		232537E218D5EA9A00DCC092 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
 		232537E318D5EA9A00DCC092 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 			isa = PBXGroup;
 			children = (
 				23D747D118D69A540073C471 /* JSError.h */,
+				2321944818D6CAA90052A982 /* JSOpenGLRenderBuffer.h */,
+				2321944718D6CAA90052A982 /* JSOpenGLRenderBuffer.cpp */,
 				23D747CD18D699780073C471 /* JSOpenGLShaderProgram.h */,
 				23D747CE18D699780073C471 /* JSOpenGLShaderProgram.cpp */,
 				23B6608618D6A8540007125D /* JSOpenGLTexture2D.h */,
@@ -497,6 +502,7 @@
 				C4D38FBF18BEAB0D009A1B3F /* Reachability.m in Sources */,
 				232537EE18D5EA9A00DCC092 /* DDFileLogger.m in Sources */,
 				23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */,
+				2321944918D6CAA90052A982 /* JSOpenGLRenderBuffer.cpp in Sources */,
 				C4D38FB918BEA161009A1B3F /* PTErrorDomain.m in Sources */,
 				233715E718B08143006E375F /* PTCritter.m in Sources */,
 				23DE1F6818AA81650072B8EB /* PTViewController.m in Sources */,
