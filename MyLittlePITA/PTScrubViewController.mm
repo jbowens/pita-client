@@ -167,7 +167,7 @@ static const char kTextureQuadFragmentSource[] =
         glActiveTexture(GL_TEXTURE0 + 0);
         glBindTexture(GL_TEXTURE_2D, _texture.name);
         
-        [self drawTextureQuad];
+        // [self drawTextureQuad];
         
         glBindTexture(GL_TEXTURE_2D, 0);
     }
