@@ -10,6 +10,8 @@
 
 @interface ProximitySensorInteraction ()
 
+@property (strong, nonatomic) NSTimer* timerForSleep;
+
 @end
 
 @implementation ProximitySensorInteraction
@@ -30,14 +32,36 @@
     // Set up an observer for proximity changes
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sensorStateChange:)
                                                  name:@"UIDeviceProximityStateDidChangeNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaWokenUp)
+                                                 name:@"PitaAwokenByMovement" object:nil];
+}
+
+- (void)pitaWokenUp
+{
+    [self.timerForSleep invalidate];
+    NSLog(@"Pita Woken up");
+}
+
+- (void)pitaFellAsleep
+{
+    NSLog(@"Pita Fell asleep");
 }
 
 - (void)sensorStateChange:(NSNotificationCenter *)notification
 {
     if ([[UIDevice currentDevice] proximityState] == YES)
+    {
+        [self.timerForSleep invalidate];
+        
+        self.timerForSleep = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(pitaFellAsleep) userInfo:nil repeats:NO];
         NSLog(@"Device is close to user.");
+    }
     else
+    {
+        [self.timerForSleep invalidate];
         NSLog(@"Device is ~not~ closer to user.");
+    }
 }
 
 @end

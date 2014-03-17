@@ -12,6 +12,7 @@
 
 @property UIImagePickerController* picker;
 @property UIImageView* circleImage;
+@property UILabel* cancelLabel;
 
 @end
 
@@ -27,10 +28,13 @@
         
         self.circleImage = [[UIImageView alloc] initWithFrame:CGRectZero];
         self.circleImage.image = [UIImage imageNamed:@"camera.png"];
+        
+        self.cancelLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        self.cancelLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        self.cancelLabel.userInteractionEnabled = YES;
     }
     return self;
 }
-
 
 - (UIImageView*)putCameraButtonInView:(UIView*)theView
 {
@@ -173,7 +177,42 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [self closeCameraPicker];
+}
+
+- (void)drawTheCancelLabelToView:(UIView*)addingView
+{
+    self.cancelLabel.text = @"Cancel";
+    self.cancelLabel.textColor = [UIColor whiteColor];
+    [self.cancelLabel setFont:[UIFont systemFontOfSize:26]];
+    
+    NSInteger marginsForSides = 30;
+    
+    [addingView addSubview:self.cancelLabel];
+    
+    [addingView addConstraint:[NSLayoutConstraint constraintWithItem:self.cancelLabel
+                                                        attribute:NSLayoutAttributeLeft
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:addingView
+                                                        attribute:NSLayoutAttributeLeft
+                                                       multiplier:1.00
+                                                         constant:marginsForSides]];
+    
+    [addingView addConstraint: [NSLayoutConstraint constraintWithItem:self.cancelLabel
+                                                         attribute:NSLayoutAttributeBottom
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:addingView
+                                                         attribute:NSLayoutAttributeBottom
+                                                        multiplier:1.00
+                                                          constant:-marginsForSides]];
+    
+    UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeCameraPicker)];
+    [self.cancelLabel addGestureRecognizer:tapGesture];
+}
+
+- (void)closeCameraPicker
+{
+    [self.picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)transitionToCameraView:(UIViewController*)theViewController
@@ -184,6 +223,7 @@
     NSInteger lCurrentWidth = theViewController.view.frame.size.width;
     NSInteger lCurrentHeight = theViewController.view.frame.size.height;
     [self drawCaptureCircle:lCurrentWidth/2 - radius/2 :lCurrentHeight -  radius - 20 :radius :[self.picker view]];
+    [self drawTheCancelLabelToView:[self.picker view]];
     [theViewController presentViewController:self.picker animated:YES completion:NULL];
 }
 

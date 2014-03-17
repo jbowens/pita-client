@@ -15,12 +15,14 @@
 #import "AudioInteraction.h"
 #import "SocialInteractionButton.h"
 #import "SpongeInteraction.h"
+#import "AccelerometerInteraction.h"
 
 @interface PTViewController()
 
 @property (nonatomic) PTGameScene *critterScene;
 @property (strong, nonatomic) CameraInteraction* cameraInteraction;
 @property (strong, nonatomic) ProximitySensorInteraction* proximityInteraction;
+@property (strong, nonatomic) AccelerometerInteraction* accelerometerInteraction;
 @property (strong, nonatomic) AudioInteraction* audioInteraction;
 @property (strong, nonatomic) SocialInteractionButton* socialInteractionButton;
 @property (strong, nonatomic) SpongeInteraction* spongeInteractionSponge;
@@ -90,12 +92,19 @@ PTServer *server;
     [self presentTheSocialButton];
     [self presentCleaningSponge];
     [self prepareTheProximityChange];
+    [self prepareTheAccelerometer];
 }
 
 - (void)prepareTheProximityChange
 {
     self.proximityInteraction = [[ProximitySensorInteraction alloc] init];
     [self.proximityInteraction handleProximitySensor];
+}
+
+- (void)prepareTheAccelerometer
+{
+    self.accelerometerInteraction = [[AccelerometerInteraction alloc] init];
+    [self.accelerometerInteraction startCheckingAccelerometer];
 }
 
 - (void)presentTheCameraButton
@@ -136,7 +145,7 @@ PTServer *server;
     }
     else if([theGesture state] == UIGestureRecognizerStateEnded)
     {
-        [self.audioInteraction playRecording];
+        [self.audioInteraction stopRecording];
     }
 }
 

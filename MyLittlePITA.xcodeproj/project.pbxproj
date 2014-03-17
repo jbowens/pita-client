@@ -44,6 +44,9 @@
 		F186FEC418CD7C22000C1B2B /* SpongeInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F186FEC318CD7C22000C1B2B /* SpongeInteraction.m */; };
 		F186FEC718CD829D000C1B2B /* social.png in Resources */ = {isa = PBXBuildFile; fileRef = F186FEC518CD829D000C1B2B /* social.png */; };
 		F186FEC818CD829D000C1B2B /* sponge.png in Resources */ = {isa = PBXBuildFile; fileRef = F186FEC618CD829D000C1B2B /* sponge.png */; };
+		F19DD04F18D6D57B00991CE4 /* AccelerometerInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F19DD04E18D6D57B00991CE4 /* AccelerometerInteraction.m */; };
+		F19DD05218D6E25B00991CE4 /* PTSocialListPitaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F19DD05118D6E25B00991CE4 /* PTSocialListPitaObject.m */; };
+		F19DD05818D6E33E00991CE4 /* PTSocialListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F19DD05718D6E33E00991CE4 /* PTSocialListTableViewCell.m */; };
 		F1B1CA5F18CCF83C0057ECC2 /* CameraInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B1CA5E18CCF83C0057ECC2 /* CameraInteraction.m */; };
 		F1B1CA6218CCF8FD0057ECC2 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = F1B1CA6118CCF8FD0057ECC2 /* camera.png */; };
 		F1B1CA6518CCF9690057ECC2 /* ProximitySensorInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B1CA6418CCF9690057ECC2 /* ProximitySensorInteraction.m */; };
@@ -115,6 +118,12 @@
 		F186FEC318CD7C22000C1B2B /* SpongeInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpongeInteraction.m; sourceTree = "<group>"; };
 		F186FEC518CD829D000C1B2B /* social.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = social.png; sourceTree = "<group>"; };
 		F186FEC618CD829D000C1B2B /* sponge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponge.png; sourceTree = "<group>"; };
+		F19DD04D18D6D57B00991CE4 /* AccelerometerInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerInteraction.h; sourceTree = "<group>"; };
+		F19DD04E18D6D57B00991CE4 /* AccelerometerInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerInteraction.m; sourceTree = "<group>"; };
+		F19DD05018D6E25B00991CE4 /* PTSocialListPitaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTSocialListPitaObject.h; sourceTree = "<group>"; };
+		F19DD05118D6E25B00991CE4 /* PTSocialListPitaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTSocialListPitaObject.m; sourceTree = "<group>"; };
+		F19DD05618D6E33E00991CE4 /* PTSocialListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PTSocialListTableViewCell.h; path = ../PTSocialListTableViewCell.h; sourceTree = "<group>"; };
+		F19DD05718D6E33E00991CE4 /* PTSocialListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PTSocialListTableViewCell.m; path = ../PTSocialListTableViewCell.m; sourceTree = "<group>"; };
 		F1B1CA5D18CCF83C0057ECC2 /* CameraInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraInteraction.h; sourceTree = "<group>"; };
 		F1B1CA5E18CCF83C0057ECC2 /* CameraInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraInteraction.m; sourceTree = "<group>"; };
 		F1B1CA6118CCF8FD0057ECC2 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
@@ -266,6 +275,8 @@
 				F1B1CA5E18CCF83C0057ECC2 /* CameraInteraction.m */,
 				F1B1CA6318CCF9690057ECC2 /* ProximitySensorInteraction.h */,
 				F1B1CA6418CCF9690057ECC2 /* ProximitySensorInteraction.m */,
+				F19DD04D18D6D57B00991CE4 /* AccelerometerInteraction.h */,
+				F19DD04E18D6D57B00991CE4 /* AccelerometerInteraction.m */,
 				F1B1CA6618CCFAC20057ECC2 /* AudioInteraction.h */,
 				F1B1CA6718CCFAC20057ECC2 /* AudioInteraction.m */,
 				F186FEC218CD7C22000C1B2B /* SpongeInteraction.h */,
@@ -291,8 +302,12 @@
 			children = (
 				F1B1CA7318CD0A790057ECC2 /* SocialInteractionButton.h */,
 				F1B1CA7418CD0A790057ECC2 /* SocialInteractionButton.m */,
+				F19DD05618D6E33E00991CE4 /* PTSocialListTableViewCell.h */,
+				F19DD05718D6E33E00991CE4 /* PTSocialListTableViewCell.m */,
 				F1B1CA7618CD0BE80057ECC2 /* PTSocialListViewController.h */,
 				F1B1CA7718CD0BE80057ECC2 /* PTSocialListViewController.m */,
+				F19DD05018D6E25B00991CE4 /* PTSocialListPitaObject.h */,
+				F19DD05118D6E25B00991CE4 /* PTSocialListPitaObject.m */,
 			);
 			name = SocialInteraction;
 			sourceTree = "<group>";
@@ -346,7 +361,7 @@
 				ORGANIZATIONNAME = "My Little PITA Group";
 				TargetAttributes = {
 					23DE1F4B18AA81650072B8EB = {
-						DevelopmentTeam = 4FKGCP89QR;
+						DevelopmentTeam = 58M2Y4N75J;
 					};
 					23DE1F7318AA81660072B8EB = {
 						TestTargetID = 23DE1F4B18AA81650072B8EB;
@@ -418,6 +433,7 @@
 				F1B1CA7518CD0A790057ECC2 /* SocialInteractionButton.m in Sources */,
 				C4D38FBC18BEA24D009A1B3F /* PTError.m in Sources */,
 				C4D38FBF18BEAB0D009A1B3F /* Reachability.m in Sources */,
+				F19DD05818D6E33E00991CE4 /* PTSocialListTableViewCell.m in Sources */,
 				23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */,
 				C4D38FB918BEA161009A1B3F /* PTErrorDomain.m in Sources */,
 				233715E718B08143006E375F /* PTCritter.m in Sources */,
@@ -425,6 +441,8 @@
 				23DE1F6B18AA81650072B8EB /* PTGameScene.m in Sources */,
 				23DE1F5E18AA81650072B8EB /* main.m in Sources */,
 				F186FEC418CD7C22000C1B2B /* SpongeInteraction.m in Sources */,
+				F19DD05218D6E25B00991CE4 /* PTSocialListPitaObject.m in Sources */,
+				F19DD04F18D6D57B00991CE4 /* AccelerometerInteraction.m in Sources */,
 				233715D718AE947B006E375F /* PTCritterNode.m in Sources */,
 				F1B1CA6518CCF9690057ECC2 /* ProximitySensorInteraction.m in Sources */,
 				F1B1CA7818CD0BE80057ECC2 /* PTSocialListViewController.m in Sources */,

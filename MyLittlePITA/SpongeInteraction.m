@@ -31,6 +31,10 @@
         self.animationDurationMovingBack = 0.2;
         self.spongeImage = [[UIImageView alloc] initWithFrame:CGRectZero];
         self.spongeImage.image = [UIImage imageNamed:@"sponge.png"];
+        
+        //The code to make sure if proximity is changed the sponge is returned to original spot
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(putSpongeBack)
+                                                     name:@"UIDeviceProximityStateDidChangeNotification" object:nil];
     }
     return self;
 }
@@ -86,13 +90,18 @@
     self.toBottomConstraint.constant = self.fromBottomSideOfView + y;
 }
 
+- (void)putSpongeBack
+{
+    self.toRightSideConstraint.constant = self.fromRightSideOfView;
+    self.toBottomConstraint.constant = self.fromBottomSideOfView;
+}
+
 - (void)returnToOriginalLocationInView:(UIView*)theView
 {
     [theView layoutIfNeeded]; // Called on parent view
     [UIView animateWithDuration:self.animationDurationMovingBack
                      animations:^{
-                         self.toRightSideConstraint.constant = self.fromRightSideOfView;
-                         self.toBottomConstraint.constant = self.fromBottomSideOfView;
+                         [self putSpongeBack];
                          [theView layoutIfNeeded]; // Called on parent view
                      } completion:^(BOOL finished){
                      }];
