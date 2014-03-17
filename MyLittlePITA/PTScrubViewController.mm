@@ -9,6 +9,13 @@
 #import "PTScrubViewController.h"
 #import "PTLog.h"
 
+#import <Foundation/Foundation.h>
+#import <GLKit/GLKit.h>
+
+#include "JSOpenGLShaderProgram.h"
+
+#include <iostream>
+
 static const GLfloat kQuadVertexBufferData[] = {
     -1.0f, -1.0f, 0.0f,
     1.0f, -1.0f, 0.0f,
@@ -19,13 +26,23 @@ static const GLfloat kQuadVertexBufferData[] = {
 };
 
 static const char kTextureQuadVertexSource[] =
+    "precision mediump float;                                   "
+    "                                                           "
     "varying vec2 uv;                                           "
     "                                                           "
     "void main() {                                              "
     "    uv = gl_Position.xy;                                   "
-    "}                                                          "
+    "}                                                          ";
+
+static const char kTextureQuadFragmentSource[] =
+    "precision mediump float;                                   "
     "                                                           "
-    ")                                                          ";
+    "varying vec2 uv;                                           "
+    "uniform sampler2D texture;                                 "
+    "                                                           "
+    "void main() {                                              "
+    "   gl_FragColor = texture2D(texture, uv);                  "
+    "}                                                          ";
 
 
 @interface PTScrubViewController () {
@@ -37,7 +54,8 @@ static const char kTextureQuadVertexSource[] =
     GLKTextureInfo *_texture;
     
     GLuint _quadVertexBuffer;
-    GLuint _quadShaderProgram;
+    
+    js::OpenGLShaderProgram _shaderProgram;
 }
 
 - (void)setupGL;
@@ -78,6 +96,8 @@ static const char kTextureQuadVertexSource[] =
 }
 
 - (void)setupGL {
+    [EAGLContext setCurrentContext:_context];
+    
     NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"sprite_happy.png"];
     GLKTextureLoader *textureLoader = [[GLKTextureLoader alloc] initWithSharegroup:_context.sharegroup];
     [textureLoader textureWithContentsOfFile:imagePath options:NULL queue:NULL completionHandler:^(GLKTextureInfo *textureInfo, NSError *outError) {
@@ -91,6 +111,14 @@ static const char kTextureQuadVertexSource[] =
     glGenBuffers(1, &_quadVertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _quadVertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(kQuadVertexBufferData), &kQuadVertexBufferData, GL_STATIC_DRAW);
+    
+    _shaderProgram.setVertexSource(kTextureQuadVertexSource);
+    _shaderProgram.setFragmentSource(kTextureQuadFragmentSource);
+    
+    if (_shaderProgram.initialize()) {
+        std::string reason = _shaderProgram.getErrorLog();
+        DDLogError(@"Error creating scrub shader program: %s", reason.c_str());
+    }
 }
 
 - (void)teardownGL {

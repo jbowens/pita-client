@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
 
 @interface PTScrubViewController : GLKViewController

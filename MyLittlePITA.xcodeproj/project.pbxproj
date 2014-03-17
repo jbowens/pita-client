@@ -24,7 +24,9 @@
 		23CA905C18CCF7190029F912 /* neutral_body.png in Resources */ = {isa = PBXBuildFile; fileRef = 23CA905B18CCF7190029F912 /* neutral_body.png */; };
 		23CA905E18CCF7240029F912 /* neutral_tail.png in Resources */ = {isa = PBXBuildFile; fileRef = 23CA905D18CCF7240029F912 /* neutral_tail.png */; };
 		23CA906218CD05260029F912 /* neutral_body_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 23CA906118CD05260029F912 /* neutral_body_test.png */; };
-		23D747CB18D68B0F0073C471 /* PTScrubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D747CA18D68B0F0073C471 /* PTScrubViewController.m */; };
+		23D747CB18D68B0F0073C471 /* PTScrubViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23D747CA18D68B0F0073C471 /* PTScrubViewController.mm */; };
+		23D747D018D699780073C471 /* JSOpenGLShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D747CE18D699780073C471 /* JSOpenGLShaderProgram.cpp */; };
+		23D747D318D69FDC0073C471 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D747D218D69FDC0073C471 /* GLKit.framework */; };
 		23DE1F5018AA81650072B8EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F4F18AA81650072B8EB /* Foundation.framework */; };
 		23DE1F5218AA81650072B8EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5118AA81650072B8EB /* CoreGraphics.framework */; };
 		23DE1F5418AA81650072B8EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5318AA81650072B8EB /* UIKit.framework */; };
@@ -98,7 +100,12 @@
 		23CA905D18CCF7240029F912 /* neutral_tail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neutral_tail.png; sourceTree = "<group>"; };
 		23CA906118CD05260029F912 /* neutral_body_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neutral_body_test.png; sourceTree = "<group>"; };
 		23D747C918D68B0F0073C471 /* PTScrubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTScrubViewController.h; sourceTree = "<group>"; };
-		23D747CA18D68B0F0073C471 /* PTScrubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTScrubViewController.m; sourceTree = "<group>"; };
+		23D747CA18D68B0F0073C471 /* PTScrubViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PTScrubViewController.mm; sourceTree = "<group>"; };
+		23D747CD18D699780073C471 /* JSOpenGLShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSOpenGLShaderProgram.h; sourceTree = "<group>"; };
+		23D747CE18D699780073C471 /* JSOpenGLShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSOpenGLShaderProgram.cpp; sourceTree = "<group>"; };
+		23D747CF18D699780073C471 /* JSResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSResource.h; sourceTree = "<group>"; };
+		23D747D118D69A540073C471 /* JSError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSError.h; sourceTree = "<group>"; };
+		23D747D218D69FDC0073C471 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		23DE1F4C18AA81650072B8EB /* MyLittlePITA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLittlePITA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DE1F4F18AA81650072B8EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		23DE1F5118AA81650072B8EB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -155,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23D747D318D69FDC0073C471 /* GLKit.framework in Frameworks */,
 				C4D38FC118BEAE5F009A1B3F /* SystemConfiguration.framework in Frameworks */,
 				23DE1F5218AA81650072B8EB /* CoreGraphics.framework in Frameworks */,
 				23DE1F5418AA81650072B8EB /* UIKit.framework in Frameworks */,
@@ -202,6 +210,17 @@
 			path = CLI;
 			sourceTree = "<group>";
 		};
+		23D747CC18D699270073C471 /* OpenGL */ = {
+			isa = PBXGroup;
+			children = (
+				23D747D118D69A540073C471 /* JSError.h */,
+				23D747CD18D699780073C471 /* JSOpenGLShaderProgram.h */,
+				23D747CE18D699780073C471 /* JSOpenGLShaderProgram.cpp */,
+				23D747CF18D699780073C471 /* JSResource.h */,
+			);
+			name = OpenGL;
+			sourceTree = "<group>";
+		};
 		23DE1F4318AA81650072B8EB = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +243,7 @@
 		23DE1F4E18AA81650072B8EB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23D747D218D69FDC0073C471 /* GLKit.framework */,
 				C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */,
 				23DE1F4F18AA81650072B8EB /* Foundation.framework */,
 				23DE1F5118AA81650072B8EB /* CoreGraphics.framework */,
@@ -261,13 +281,14 @@
 				23DE1F6A18AA81650072B8EB /* PTGameScene.m */,
 				232537F118D5ED2D00DCC092 /* PTLog.h */,
 				23D747C918D68B0F0073C471 /* PTScrubViewController.h */,
-				23D747CA18D68B0F0073C471 /* PTScrubViewController.m */,
+				23D747CA18D68B0F0073C471 /* PTScrubViewController.mm */,
 				23DE1F6618AA81650072B8EB /* PTViewController.h */,
 				23DE1F6718AA81650072B8EB /* PTViewController.m */,
 				23DE1F6C18AA81650072B8EB /* Spaceship.png */,
 				F1B1CA6018CCF8FD0057ECC2 /* images */,
 				F1B1CA6F18CD0A570057ECC2 /* SocialInteraction */,
 				F1B1CA5C18CCF8110057ECC2 /* UserInteractions */,
+				23D747CC18D699270073C471 /* OpenGL */,
 				23DE1F6E18AA81650072B8EB /* Images.xcassets */,
 				23DE1F5818AA81650072B8EB /* Supporting Files */,
 				C4D38FB418BE8330009A1B3F /* PTServer.h */,
@@ -484,7 +505,8 @@
 				232537ED18D5EA9A00DCC092 /* DDASLLogger.m in Sources */,
 				F1B1CA7818CD0BE80057ECC2 /* PTSocialListViewController.m in Sources */,
 				F1B1CA5F18CCF83C0057ECC2 /* CameraInteraction.m in Sources */,
-				23D747CB18D68B0F0073C471 /* PTScrubViewController.m in Sources */,
+				23D747D018D699780073C471 /* JSOpenGLShaderProgram.cpp in Sources */,
+				23D747CB18D68B0F0073C471 /* PTScrubViewController.mm in Sources */,
 				F1B1CA6818CCFAC20057ECC2 /* AudioInteraction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
