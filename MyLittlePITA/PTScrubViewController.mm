@@ -205,10 +205,13 @@ static const char kTextureQuadFragmentSource[] =
 
             glBindTexture(GL_TEXTURE_2D, _texture.name);
             glBindFramebuffer(GL_FRAMEBUFFER, _framebuffer);
+            
+            [self drawTextureQuad];
         }
-        else {
-            glBindTexture(GL_TEXTURE_2D, _framebufferTexture);
-        }
+        
+        [view bindDrawable];
+            
+        glBindTexture(GL_TEXTURE_2D, _framebufferTexture);
         
         [self drawTextureQuad];
         
