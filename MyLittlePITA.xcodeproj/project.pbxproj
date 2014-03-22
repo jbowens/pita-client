@@ -276,6 +276,7 @@
 		23DE1F5718AA81650072B8EB /* MyLittlePITA */ = {
 			isa = PBXGroup;
 			children = (
+				C408706C18DE4D7D006C6918 /* Detections */,
 				232537DF18D5EA9A00DCC092 /* Lumberjack */,
 				23CA905B18CCF7190029F912 /* neutral_body.png */,
 				23CA906118CD05260029F912 /* neutral_body_test.png */,
@@ -286,8 +287,6 @@
 				23B9B27318C947FE0015DBC2 /* sprite_happy.png */,
 				238B907218CA560600A6A7BD /* sprite_mad.png */,
 				238B907018CA422900A6A7BD /* sprite_sad.png */,
-				C4D38FBD18BEAB0D009A1B3F /* Reachability.h */,
-				C4D38FBE18BEAB0D009A1B3F /* Reachability.m */,
 				233715E318B068BD006E375F /* logo_cropped.png */,
 				23DE1F6018AA81650072B8EB /* PTAppDelegate.h */,
 				23DE1F6118AA81650072B8EB /* PTAppDelegate.m */,
@@ -347,6 +346,15 @@
 				23DE1F7E18AA81660072B8EB /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C408706C18DE4D7D006C6918 /* Detections */ = {
+			isa = PBXGroup;
+			children = (
+				C4D38FBD18BEAB0D009A1B3F /* Reachability.h */,
+				C4D38FBE18BEAB0D009A1B3F /* Reachability.m */,
+			);
+			name = Detections;
 			sourceTree = "<group>";
 		};
 		F1B1CA5C18CCF8110057ECC2 /* UserInteractions */ = {
