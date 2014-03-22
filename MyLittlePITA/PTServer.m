@@ -170,6 +170,17 @@ BOOL networkAvailable;
     }];
 }
 
+- (void)recordLocation:(NSNumber *)latitude longitude:(NSNumber *)longitude
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:latitude forKey:@"latitude"];
+    [params setObject:longitude forKey:@"longitude"];
+
+    // We don't care about completion handlers.
+    [self sendRequest:@"/accounts/location" withParams:params responseHandler:nil];
+
+}
+
 - (void)recordError:(NSString *)message
 {
     if (message == nil) {

@@ -36,6 +36,11 @@ typedef void (^ServerCompletionHandler)(NSDictionary *, NSError *);
 - (void)newAccount:(NSString *)name phone:(NSString *)phone email:(NSString *)email completionHandler:(ServerCompletionHandler)completionHandler;
 
 /*
+ * Records the current account location.
+ */
+- (void)recordLocation:(NSNumber *)latitude longitude:(NSNumber *)longitude;
+
+/*
  * Records an error by POSTing the error info to the server.
  */
 - (void)recordError:(NSString *)message;
