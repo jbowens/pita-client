@@ -51,4 +51,11 @@ typedef void (^ServerCompletionHandler)(NSDictionary *, NSError *);
  */
 - (void)createRandomPita:(ServerCompletionHandler)completionHandler;
 
+/*
+ * Finds nearby accounts/pitas. The latitude and longitude are optional
+ * but recommended. If not provided, the account must have recorded a
+ * location recently (5 minutes).
+ */
+- (void)findNearbyAccounts:(NSNumber *)latitude longitude:(NSNumber *)longitude completionHandler:(ServerCompletionHandler)completionHandler;
+
 @end

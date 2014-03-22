@@ -202,4 +202,19 @@ BOOL networkAvailable;
     }];
 }
 
+- (void)findNearbyAccounts:(NSNumber *)latitude longitude:(NSNumber *)longitude completionHandler:(ServerCompletionHandler)completionHandler
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:latitude forKey:@"latitude"];
+    [params setObject:longitude forKey:@"longitude"];
+
+    [self sendRequest:@"/accounts/nearby"
+           withParams:params
+      responseHandler:^(NSDictionary *resp, NSError *err) {
+          // TODO: Implement
+          completionHandler(@{}, err);
+      }];
+}
+
+
 @end
