@@ -11,10 +11,12 @@
 
 #import "PTCritter.h"
 #import "PTGameScene.h"
+#import "PTLocationDetector.h"
 
 @interface PTViewController : UIViewController
     <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
+@property PTLocationDetector *locationDetector;
 @property PTCritter *userCritter;
 
 @end

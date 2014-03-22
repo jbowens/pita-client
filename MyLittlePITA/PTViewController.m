@@ -49,20 +49,39 @@ PTServer *server;
     
     server = [[PTServer alloc] init];
     [server newAccount:nil  phone:nil email:nil completionHandler:^(NSDictionary *results, NSError *err) {
-        [server createRandomPita:^(NSDictionary *results, NSError *err) {
-            if ([results objectForKey:@"pita"]) {
-                // We successfully made a new pita.
-                PTCritter *pita = [results objectForKey:@"pita"];
-
-                self.userCritter = pita;
-
-                critterScene.critter = self.userCritter;
-                [critterScene runEntranceSequence];
-            }
-        }];
+        if (err) {
+            // TODO: Handle more gracefully.
+            NSLog(@"Account creation resulted in error: %@", err);
+        } else {
+            // We now have a valid account to send authorized requests to the server.
+            // It's now safe to start updating locations, retrieving Pitas, etc.
+            [self serverAuthenticated];
+        }
     }];
 
     [self prepareAllInteractionButtons];
+}
+
+// Called as soon as we have valid account data through which we
+// can make authorized server requests. This does a lot of setup
+// that should wait until we have authorized access to the server.
+- (void)serverAuthenticated
+{
+    // For the beta, create a random pita.
+    [server createRandomPita:^(NSDictionary *results, NSError *err) {
+        if ([results objectForKey:@"pita"]) {
+            // We successfully made a new pita.
+            PTCritter *pita = [results objectForKey:@"pita"];
+
+            self.userCritter = pita;
+
+            self.critterScene.critter = self.userCritter;
+            [self.critterScene runEntranceSequence];
+        }
+    }];
+
+    // Begin monitoring the user location.
+    self.locationDetector = [[PTLocationDetector alloc] initWithServer:server];
 }
 
 - (BOOL)shouldAutorotate
