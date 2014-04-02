@@ -60,7 +60,7 @@ static const char kScrubbingFragmentSource[] =
     float _screenWidth;
     float _screenHeight;
     
-    GLKTextureInfo *_texture;
+    GLKTextureInfo *_dirtTexture;
     
     js::OpenGLShaderProgram _textureQuadProgram, _scrubbingProgram;
     
@@ -116,14 +116,14 @@ static const char kScrubbingFragmentSource[] =
 - (void)setupGL {
     [EAGLContext setCurrentContext:_context];
     
-    NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"sprite_happy.png"];
+    NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dirt.png"];
     GLKTextureLoader *textureLoader = [[GLKTextureLoader alloc] initWithSharegroup:_context.sharegroup];
     [textureLoader textureWithContentsOfFile:imagePath options:@{GLKTextureLoaderOriginBottomLeft: @YES} queue:NULL completionHandler:^(GLKTextureInfo *textureInfo, NSError *outError) {
         if (outError) {
             DDLogError(@"Error loading scrubbing texture: %@", outError);
         }
         
-        _texture = textureInfo;
+        _dirtTexture = textureInfo;
     }];
 
     _textureQuadProgram.setVertexSource(kTextureQuadVertexSource);
@@ -206,7 +206,7 @@ static const char kScrubbingFragmentSource[] =
 
 - (void)teardownGL {
     glDeleteFramebuffers(1, &_framebuffer);
-    GLuint textures[2] = {_framebufferTexture, _texture.name};
+    GLuint textures[2] = {_framebufferTexture, _dirtTexture.name};
     glDeleteTextures(2, textures);
     
     CHECK_GL_ERROR();
@@ -253,13 +253,14 @@ static const char kScrubbingFragmentSource[] =
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    if (_texture) {
+    if (_dirtTexture) {
         glActiveTexture(GL_TEXTURE0 + 0);
+        glDisable(GL_DEPTH_TEST);
         
         if (_shouldRedrawFramebuffer) {
             glViewport(0, 0, _screenWidth, _screenHeight);
 
-            glBindTexture(GL_TEXTURE_2D, _texture.name);
+            glBindTexture(GL_TEXTURE_2D, _dirtTexture.name);
             glBindFramebuffer(GL_FRAMEBUFFER, _framebuffer);
             
             [self drawTextureQuadUsingProgram:&_textureQuadProgram];
