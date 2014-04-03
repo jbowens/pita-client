@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PTServer.h"
 
 @interface SocialInteractionButton : NSObject
 
+- (id)initWithServer:(PTServer *)server;
 - (UIImageView*)putSocialButtonInView:(UIView*)theView;
 - (void)openupSocialPage:(UIViewController*)viewController;
 

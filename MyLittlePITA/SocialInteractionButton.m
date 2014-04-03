@@ -18,12 +18,13 @@
 
 @implementation SocialInteractionButton
 
-- (id)init
+- (id)initWithServer:(PTServer *)server
 {
     self = [super init];
     if (self) {
         // Custom initialization
         self.socialListViewController = [[PTSocialListViewController alloc] init];
+        self.socialListViewController.server = server;
         self.circleImage = [[UIImageView alloc] initWithFrame:CGRectZero];
         self.circleImage.image = [UIImage imageNamed:@"social.png"];
     }

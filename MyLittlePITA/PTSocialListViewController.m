@@ -63,11 +63,28 @@
     [self drawLabels];
     [self drawTable];
 	// Do any additional setup after loading the view.
+    
+    // Request the nearby accounts from the server.
+    [self reloadNearbyPitas];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [[self listOfPitasAround] reloadData];
+}
+
+- (void)reloadNearbyPitas
+{
+    [self.server findNearbyAccounts:nil longitude:nil completionHandler:^(NSDictionary *results, NSError *err) {
+        [self.arrayOfPitasAround removeAllObjects];
+        NSArray *nearbyAccounts = [results objectForKey:@"nearby_accounts"];
+        NSLog(@"Nearby accounts: %@", nearbyAccounts);
+        for (NSDictionary *nearbyAccount in nearbyAccounts)
+        {
+            NSString *accountName = [NSString stringWithFormat:@"Account #%@", [nearbyAccount objectForKey:@"aid"]];
+            [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:accountName theImage:[UIImage imageNamed:@"sponge.png"] theMood:0]];
+        }
+    }];
 }
 
 - (void)drawLabels

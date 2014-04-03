@@ -217,9 +217,9 @@ BOOL networkAvailable;
     [self sendRequest:@"/accounts/nearby"
            withParams:params
       responseHandler:^(NSDictionary *resp, NSError *err) {
-          // TODO: Implement
-          NSLog(@"Got a response from the server: %@", resp);
-          completionHandler(@{}, err);
+          // TODO: Maybe massage the server response into a more consumable
+          // format.
+          completionHandler(resp, err);
       }];
 }
 

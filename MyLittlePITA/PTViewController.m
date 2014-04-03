@@ -173,7 +173,7 @@ PTServer *server;
 
 - (void)presentTheSocialButton
 {
-    self.socialInteractionButton = [[SocialInteractionButton alloc] init];
+    self.socialInteractionButton = [[SocialInteractionButton alloc] initWithServer:server];
     
     UIImageView* socialButton = [self.socialInteractionButton putSocialButtonInView:self.view];
     
