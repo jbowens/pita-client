@@ -11,16 +11,15 @@
 #import "PTServer.h"
 
 @interface PTLocationDetector : NSObject<CLLocationManagerDelegate>
-{
-    // The location manager that we will receive location updates from
-    CLLocationManager *locationManager;
 
-    // The last known current location.
-    CLLocation *currentLocation;
+// The location manager that we will receive location updates from
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
-    // The server object to use when broadcasting the user location
-    PTServer *server;
-}
+// The last known current location.
+@property CLLocation *currentLocation;
+
+// The server object to use when broadcasting the user location
+@property PTServer *server;
 
 - (id)initWithServer:(PTServer *)s;
 

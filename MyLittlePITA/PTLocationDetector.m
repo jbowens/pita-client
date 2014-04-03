@@ -16,18 +16,18 @@
     {
         return nil;
     }
-    server = s;
+    self.server = s;
 
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
 
-    currentLocation = nil;
+    self.currentLocation = nil;
 
     // Begin listening for location updates.
     NSLog(@"Starting to listen for CLLocationManager updates");
-    [locationManager startUpdatingLocation];
+    [self.locationManager startUpdatingLocation];
 
     return self;
 }
