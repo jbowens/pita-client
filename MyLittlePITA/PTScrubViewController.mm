@@ -137,6 +137,8 @@ static const char kTextureQuadFragmentSource[] =
         }
     }
     
+    CHECK_GL_ERROR();
+    
     _image = image;
 }
 
