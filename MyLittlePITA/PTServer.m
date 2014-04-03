@@ -207,13 +207,18 @@ BOOL networkAvailable;
 - (void)findNearbyAccounts:(NSNumber *)latitude longitude:(NSNumber *)longitude completionHandler:(ServerCompletionHandler)completionHandler
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:latitude forKey:@"latitude"];
-    [params setObject:longitude forKey:@"longitude"];
+    if (latitude && longitude) {
+        // Latitude and longitude parameters are optional. If not provided,
+        // the server uses the last posted account location.
+        [params setObject:latitude forKey:@"latitude"];
+        [params setObject:longitude forKey:@"longitude"];
+    }
 
     [self sendRequest:@"/accounts/nearby"
            withParams:params
       responseHandler:^(NSDictionary *resp, NSError *err) {
           // TODO: Implement
+          NSLog(@"Got a response from the server: %@", resp);
           completionHandler(@{}, err);
       }];
 }
