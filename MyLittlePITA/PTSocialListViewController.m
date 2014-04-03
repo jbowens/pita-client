@@ -82,9 +82,9 @@
             [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:accountName
                                                                                       theImage:[UIImage imageNamed:@"sponge.png"]
                                                                                        theMood:0]];
+            [[self listOfPitasAround] reloadData];
         }
     }];
-    [[self listOfPitasAround] reloadData];
 }
 
 - (void)drawLabels
