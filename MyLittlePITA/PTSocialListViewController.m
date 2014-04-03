@@ -82,7 +82,9 @@
         for (NSDictionary *nearbyAccount in nearbyAccounts)
         {
             NSString *accountName = [NSString stringWithFormat:@"Account #%@", [nearbyAccount objectForKey:@"aid"]];
-            [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:accountName theImage:[UIImage imageNamed:@"sponge.png"] theMood:0]];
+            [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:accountName
+                                                                                      theImage:[UIImage imageNamed:@"sponge.png"]
+                                                                                       theMood:0]];
         }
     }];
 }
