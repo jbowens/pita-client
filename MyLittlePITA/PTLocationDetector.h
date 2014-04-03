@@ -10,18 +10,28 @@
 #import <CoreLocation/CoreLocation.h>
 #import "PTServer.h"
 
+#define kLocationPostInterval 60.0
+
 @interface PTLocationDetector : NSObject<CLLocationManagerDelegate>
 
 // The location manager that we will receive location updates from
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
-// The last known current location.
+// The last known current location
 @property CLLocation *currentLocation;
 
 // The server object to use when broadcasting the user location
 @property PTServer *server;
 
+// The timer used for periodically posting location to the server
+@property (nonatomic, strong) NSTimer *postTimer;
+
+// Has the location been posted to the server yet at all?
+@property BOOL locationHasBeenPosted;
+
 - (id)initWithServer:(PTServer *)s;
+
+- (void)postLocationToServer;
 
 #pragma mark CLLocationManagerDelegate
 

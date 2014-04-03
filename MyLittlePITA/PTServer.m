@@ -121,12 +121,14 @@ BOOL networkAvailable;
                                NSLog(@"%@ => %d", endpoint, responseStatusCode);
                                NSError *e = nil;
                                NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error: &e];
-                               if (responseStatusCode == 200 && responseHandler) {
-                                   // Call the provided callback block.
-                                   responseHandler(res, nil);
-                               } else {
-                                   // There was some sort of error.
-                                   responseHandler(nil, [PTError badParameters:res]);
+                               if (responseHandler) {
+                                   if (responseStatusCode == 200) {
+                                       // Call the provided callback block.
+                                       responseHandler(res, nil);
+                                   } else {
+                                       // There was some sort of error.
+                                       responseHandler(nil, [PTError badParameters:res]);
+                                   }
                                }
                            }];
 }
