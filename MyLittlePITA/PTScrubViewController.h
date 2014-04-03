@@ -12,4 +12,6 @@
 
 @interface PTScrubViewController : GLKViewController
 
+@property (nonatomic) UIImage *image;
+
 @end

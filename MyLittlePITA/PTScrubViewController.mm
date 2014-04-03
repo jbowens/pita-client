@@ -40,19 +40,6 @@ static const char kTextureQuadFragmentSource[] =
     "   gl_FragColor =  texture2D(texture, uv);                 "
     "}                                                          ";
 
-static const char kScrubbingFragmentSource[] =
-    "precision mediump float;                                   "
-    "                                                           "
-    "varying vec2 uv;                                           "
-    "uniform sampler2D texture;                                 "
-    "uniform vec2 stroke;                                       "
-    "                                                           "
-    "void main() {                                              "
-    "   if (distance(stroke, uv) > .01) {                       "
-    "       gl_FragColor =  texture2D(texture, uv);             "
-    "   } else { gl_FragColor = vec4(0, 0, 0, 0); }             "
-    "}                                                          ";
-
 
 @interface PTScrubViewController () {
     EAGLContext *_context;
@@ -60,22 +47,17 @@ static const char kScrubbingFragmentSource[] =
     float _screenWidth;
     float _screenHeight;
     
-    GLKTextureInfo *_dirtTexture;
+    js::OpenGLShaderProgram _textureQuadProgram;
     
-    js::OpenGLShaderProgram _textureQuadProgram, _scrubbingProgram;
-    
-    GLuint _framebuffer, _framebufferTexture;
-    GLuint _backFramebuffer, _backFramebufferTexture;
-    
-    BOOL _shouldRedrawFramebuffer;
-    
-    NSArray *_pendingTouches;
+    BOOL _imageDirty;
 }
+
+@property (atomic) GLKTextureInfo *dirtTexture;
 
 - (void)setupGL;
 - (void)teardownGL;
 
-- (void)drawTextureQuadUsingProgram:(js::OpenGLShaderProgram *)program;
+- (void)drawTextureQuadUsingProgram:(js::OpenGLShaderProgram *)program inRect:(CGRect)rect;
 
 @end
 
@@ -92,17 +74,17 @@ static const char kScrubbingFragmentSource[] =
         NSLog(@"Failed to create ES context");
     }
     
+    if (_imageDirty) {
+        [self setImage:_image]; // TODO: this is hacky af
+    }
+    
     GLKView *view = (GLKView *)self.view;
     view.context = _context;
     self.preferredFramesPerSecond = 60;
     
-    _screenWidth = [UIScreen mainScreen].bounds.size.width;
-    _screenHeight = [UIScreen mainScreen].bounds.size.height;
     view.contentScaleFactor = [UIScreen mainScreen].scale;
     
     view.opaque = NO;
-    
-    _shouldRedrawFramebuffer = YES;
     
     [self setupGL];
 }
@@ -115,16 +97,6 @@ static const char kScrubbingFragmentSource[] =
 
 - (void)setupGL {
     [EAGLContext setCurrentContext:_context];
-    
-    NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dirt.png"];
-    GLKTextureLoader *textureLoader = [[GLKTextureLoader alloc] initWithSharegroup:_context.sharegroup];
-    [textureLoader textureWithContentsOfFile:imagePath options:@{GLKTextureLoaderOriginBottomLeft: @YES} queue:NULL completionHandler:^(GLKTextureInfo *textureInfo, NSError *outError) {
-        if (outError) {
-            DDLogError(@"Error loading scrubbing texture: %@", outError);
-        }
-        
-        _dirtTexture = textureInfo;
-    }];
 
     _textureQuadProgram.setVertexSource(kTextureQuadVertexSource);
     _textureQuadProgram.setFragmentSource(kTextureQuadFragmentSource);
@@ -136,83 +108,42 @@ static const char kScrubbingFragmentSource[] =
         return;
     }
     
-    _scrubbingProgram.setVertexSource(kTextureQuadVertexSource);
-    _scrubbingProgram.setFragmentSource(kScrubbingFragmentSource);
-    
-    if (_scrubbingProgram.initialize()) {
-        std::string reason = _scrubbingProgram.getErrorLog();
-        DDLogError(@"Error creating scrubbing shader program: %s", reason.c_str());
-        
-        return;
-    }
-    
-    GLuint framebuffers[2];
-    glGenFramebuffers(2, framebuffers);
-    _framebuffer = framebuffers[0];
-    _backFramebuffer = framebuffers[1];
-    
-    glActiveTexture(GL_TEXTURE0);
-    GLuint textures[2];
-    glGenTextures(2, textures);
-    _framebufferTexture = textures[0];
-    _backFramebufferTexture = textures[1];
-    
-    glBindFramebuffer(GL_FRAMEBUFFER, _framebuffer); {
-
-        glBindTexture(GL_TEXTURE_2D, _framebufferTexture); {
-
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _screenWidth, _screenHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-
-        } glBindTexture(GL_TEXTURE_2D, 0);
-
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _framebufferTexture, 0);
-         
-        GLenum framebufferStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-        if (framebufferStatus != GL_FRAMEBUFFER_COMPLETE) {
-            DDLogError(@"Error creating scrub framebuffer, failed with status 0x%04X", framebufferStatus);
-            
-            return;
-        }
-    }
-    
-    glBindFramebuffer(GL_FRAMEBUFFER, _backFramebuffer); {
-
-        glBindTexture(GL_TEXTURE_2D, _backFramebufferTexture); {
-            
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _screenWidth, _screenHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-            
-        } glBindTexture(GL_TEXTURE_2D, 0);
-        
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _backFramebufferTexture, 0);
-        
-        GLenum framebufferStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-        if (framebufferStatus != GL_FRAMEBUFFER_COMPLETE) {
-            DDLogError(@"Error creating back framebuffer, failed with status 0x%04X", framebufferStatus);
-            
-            return;
-        }
-    }
-    
     CHECK_GL_ERROR();
+}
+
+- (void)setImage:(UIImage *)image {
+    if (_context == nil) {
+        _imageDirty = YES;
+    }
+    else {
+        [EAGLContext setCurrentContext:_context];
+        
+        NSError *error;
+        CGImageRef cgImage = image.CGImage;
+        self.dirtTexture = [GLKTextureLoader textureWithCGImage:cgImage options:nil error:&error];
+        
+        if (error) {
+            DDLogError(@"Error extracting scrubbing texture from image: %@", error.localizedDescription);
+        }
+        else {
+            glActiveTexture(GL_TEXTURE0);
+            
+            glBindTexture(GL_TEXTURE_2D, _dirtTexture.name);
+            
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
+    }
+    
+    _image = image;
 }
 
 - (void)teardownGL {
-    glDeleteFramebuffers(1, &_framebuffer);
-    GLuint textures[2] = {_framebufferTexture, _dirtTexture.name};
-    glDeleteTextures(2, textures);
-    
-    CHECK_GL_ERROR();
 }
 
-- (void)drawTextureQuadUsingProgram:(js::OpenGLShaderProgram *)program {
+- (void)drawTextureQuadUsingProgram:(js::OpenGLShaderProgram *)program inRect:(CGRect)rect {
     JS_USING(program) {
         GLuint texture = program->getUniformLocation("texture");
         glUniform1i(texture, 0);
@@ -253,53 +184,15 @@ static const char kScrubbingFragmentSource[] =
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    if (_dirtTexture) {
+    if (self.dirtTexture) {
         glActiveTexture(GL_TEXTURE0 + 0);
         glDisable(GL_DEPTH_TEST);
+            
+        glBindTexture(GL_TEXTURE_2D, _dirtTexture.name);
         
-        if (_shouldRedrawFramebuffer) {
-            glViewport(0, 0, _screenWidth, _screenHeight);
-
-            glBindTexture(GL_TEXTURE_2D, _dirtTexture.name);
-            glBindFramebuffer(GL_FRAMEBUFFER, _framebuffer);
-            
-            [self drawTextureQuadUsingProgram:&_textureQuadProgram];
-        }
-        
-        for (NSValue *point in _pendingTouches) {
-            CGPoint cgPoint = point.CGPointValue;
-            
-            glViewport(0, 0, _screenWidth, _screenHeight);
-            
-            glBindTexture(GL_TEXTURE_2D, _framebufferTexture);
-            glBindFramebuffer(GL_FRAMEBUFFER, _backFramebuffer);
-            
-            JS_USING(&_scrubbingProgram) {
-                GLuint stroke = _scrubbingProgram.getUniformLocation("stroke");
-                glUniform2f(stroke, cgPoint.x / _screenWidth, 1.f - cgPoint.y / _screenHeight);
-            } JS_END_USING
-            
-            [self drawTextureQuadUsingProgram:&_scrubbingProgram];
-            
-            // Swap our framebuffers
-            GLuint backFramebuffer = _backFramebuffer;
-            _backFramebuffer = _framebuffer;
-            _framebuffer = backFramebuffer;
-            
-            GLuint backFramebufferTexture = _backFramebufferTexture;
-            _backFramebufferTexture = _framebufferTexture;
-            _framebufferTexture = backFramebufferTexture;
-        }
-        
-        [view bindDrawable];
-            
-        glBindTexture(GL_TEXTURE_2D, _framebufferTexture);
-        
-        [self drawTextureQuadUsingProgram:&_textureQuadProgram];
+        [self drawTextureQuadUsingProgram:&_textureQuadProgram inRect:CGRectZero];
 
         glBindTexture(GL_TEXTURE_2D, 0);
-        
-        _shouldRedrawFramebuffer = NO;
     }
 
     CHECK_GL_ERROR();
@@ -307,24 +200,14 @@ static const char kScrubbingFragmentSource[] =
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
+
     
-    NSMutableArray *pendingTouches = [NSMutableArray new];
-    for (UITouch *touch in touches) {
-        [pendingTouches addObject:[NSValue valueWithCGPoint:[touch locationInView:self.view]]];
-    }
-    
-    _pendingTouches = pendingTouches;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     
-    NSMutableArray *pendingTouches = [NSMutableArray new];
-    for (UITouch *touch in touches) {
-        [pendingTouches addObject:[NSValue valueWithCGPoint:[touch locationInView:self.view]]];
-    }
     
-    _pendingTouches = pendingTouches;
 }
 
 @end
