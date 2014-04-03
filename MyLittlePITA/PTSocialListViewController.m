@@ -39,9 +39,6 @@
         [self.labelForTitle setFont:[UIFont systemFontOfSize:26]];
         self.labelForTitle.translatesAutoresizingMaskIntoConstraints = NO;
         // Custom initialization
-        
-        // TODO: For Testing purposes
-        [self testingPitas];
     }
     return self;
 }
@@ -70,7 +67,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [[self listOfPitasAround] reloadData];
+    [self reloadNearbyPitas];
 }
 
 - (void)reloadNearbyPitas
@@ -87,6 +84,7 @@
                                                                                        theMood:0]];
         }
     }];
+    [[self listOfPitasAround] reloadData];
 }
 
 - (void)drawLabels
