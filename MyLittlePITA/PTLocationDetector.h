@@ -20,6 +20,9 @@
 // The last known current location
 @property CLLocation *currentLocation;
 
+// The last location to be posted to the server.
+@property CLLocation *lastPostedLocation;
+
 // The server object to use when broadcasting the user location
 @property PTServer *server;
 

@@ -39,10 +39,13 @@
 
 - (void)postLocationToServer
 {
-    if (self.currentLocation)
+    if (self.currentLocation && self.currentLocation != self.lastPostedLocation)
     {
         self.locationHasBeenPosted = YES;
-        NSLog(@"Going to post %@ to server.", self.currentLocation);
+        self.lastPostedLocation = self.currentLocation;
+        NSLog(@"Recording loc (%f, %f)",
+              self.currentLocation.coordinate.latitude,
+              self.currentLocation.coordinate.longitude);
         [self.server recordLocation:[NSNumber numberWithDouble:self.currentLocation.coordinate.latitude]
                           longitude:[NSNumber numberWithDouble:self.currentLocation.coordinate.longitude]];
     }
@@ -68,10 +71,8 @@
        didFailWithError:(NSError *)error
 {
     NSLog(@"Received CLLocationManager error %@", error);
-    // Restart the location manager if it fucked up. Not sure
-    // why this is necessary and this should be revisited bc it's
-    // jank as hell.
-    [self.locationManager startUpdatingLocation];
+    // TODO: Figure out why this sometimes is called on startup, fucking
+    // everything up.
 }
 
 @end
