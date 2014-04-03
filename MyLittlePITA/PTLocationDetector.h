@@ -31,8 +31,4 @@
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error;
 
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation;
-
 @end

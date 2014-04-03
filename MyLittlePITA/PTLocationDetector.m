@@ -36,16 +36,11 @@
 #pragma mark CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
-{
-    NSLog(@"Now at %@", newLocation);
-}
-
-- (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"Received locations: %@", locations);
+    CLLocation *loc = [locations lastObject];
+    self.currentLocation = loc;
+    NSLog(@"Now at %@", self.currentLocation);
 }
 
 - (void)locationManager:(CLLocationManager *)manager
