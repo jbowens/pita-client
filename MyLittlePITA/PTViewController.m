@@ -80,8 +80,11 @@ PTServer *server;
         }
     }];
 
-    // Begin monitoring the user location.
-    self.locationDetector = [[PTLocationDetector alloc] initWithServer:server];
+    // Begin monitoring the user location. The location detector must be initialized on
+    // the main thread.
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        self.locationDetector = [[PTLocationDetector alloc] initWithServer:server];
+    });
 }
 
 - (BOOL)shouldAutorotate
