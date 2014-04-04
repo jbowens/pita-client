@@ -58,7 +58,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:244.0/255 green:244.0/255 blue:244.0/255 alpha:1.0];
     
     [self drawLabels];
     [self drawTable];
@@ -72,8 +72,8 @@
 
 - (void)drawLabels
 {
-    NSInteger heightOfTitle = 44;
-    NSInteger marginsForClose = 11;
+    NSInteger heightOfTitle = 48;
+    NSInteger marginsForClose = 15;
     NSInteger marginsForStatusBar = 15;
     
     self.labelForTitle.text = @"Pitas Around";
