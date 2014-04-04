@@ -46,6 +46,7 @@
 		23DE1F7818AA81660072B8EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DE1F5318AA81650072B8EB /* UIKit.framework */; };
 		23DE1F8018AA81660072B8EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23DE1F7E18AA81660072B8EB /* InfoPlist.strings */; };
 		23DE1F8218AA81660072B8EB /* MyLittlePITATests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DE1F8118AA81660072B8EB /* MyLittlePITATests.m */; };
+		C408706F18DE4E40006C6918 /* PTLocationDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = C408706E18DE4E40006C6918 /* PTLocationDetector.m */; };
 		C4D38FB618BE8330009A1B3F /* PTServer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FB518BE8330009A1B3F /* PTServer.m */; };
 		C4D38FB918BEA161009A1B3F /* PTErrorDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FB818BEA161009A1B3F /* PTErrorDomain.m */; };
 		C4D38FBC18BEA24D009A1B3F /* PTError.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FBB18BEA24D009A1B3F /* PTError.m */; };
@@ -138,6 +139,8 @@
 		23DE1F7D18AA81660072B8EB /* MyLittlePITATests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyLittlePITATests-Info.plist"; sourceTree = "<group>"; };
 		23DE1F7F18AA81660072B8EB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23DE1F8118AA81660072B8EB /* MyLittlePITATests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLittlePITATests.m; sourceTree = "<group>"; };
+		C408706D18DE4E40006C6918 /* PTLocationDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTLocationDetector.h; sourceTree = "<group>"; };
+		C408706E18DE4E40006C6918 /* PTLocationDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTLocationDetector.m; sourceTree = "<group>"; };
 		C4D38FB418BE8330009A1B3F /* PTServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTServer.h; sourceTree = "<group>"; };
 		C4D38FB518BE8330009A1B3F /* PTServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTServer.m; sourceTree = "<group>"; };
 		C4D38FB718BEA161009A1B3F /* PTErrorDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTErrorDomain.h; sourceTree = "<group>"; };
@@ -276,6 +279,7 @@
 		23DE1F5718AA81650072B8EB /* MyLittlePITA */ = {
 			isa = PBXGroup;
 			children = (
+				C408706C18DE4D7D006C6918 /* Detections */,
 				232537DF18D5EA9A00DCC092 /* Lumberjack */,
 				23CA905B18CCF7190029F912 /* neutral_body.png */,
 				23CA906118CD05260029F912 /* neutral_body_test.png */,
@@ -286,8 +290,6 @@
 				23B9B27318C947FE0015DBC2 /* sprite_happy.png */,
 				238B907218CA560600A6A7BD /* sprite_mad.png */,
 				238B907018CA422900A6A7BD /* sprite_sad.png */,
-				C4D38FBD18BEAB0D009A1B3F /* Reachability.h */,
-				C4D38FBE18BEAB0D009A1B3F /* Reachability.m */,
 				233715E318B068BD006E375F /* logo_cropped.png */,
 				23DE1F6018AA81650072B8EB /* PTAppDelegate.h */,
 				23DE1F6118AA81650072B8EB /* PTAppDelegate.m */,
@@ -347,6 +349,17 @@
 				23DE1F7E18AA81660072B8EB /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C408706C18DE4D7D006C6918 /* Detections */ = {
+			isa = PBXGroup;
+			children = (
+				C4D38FBD18BEAB0D009A1B3F /* Reachability.h */,
+				C4D38FBE18BEAB0D009A1B3F /* Reachability.m */,
+				C408706D18DE4E40006C6918 /* PTLocationDetector.h */,
+				C408706E18DE4E40006C6918 /* PTLocationDetector.m */,
+			);
+			name = Detections;
 			sourceTree = "<group>";
 		};
 		F1B1CA5C18CCF8110057ECC2 /* UserInteractions */ = {
@@ -442,7 +455,7 @@
 				ORGANIZATIONNAME = "My Little PITA Group";
 				TargetAttributes = {
 					23DE1F4B18AA81650072B8EB = {
-						DevelopmentTeam = 58M2Y4N75J;
+						DevelopmentTeam = KDYRJBGPGV;
 					};
 					23DE1F7318AA81660072B8EB = {
 						TestTargetID = 23DE1F4B18AA81650072B8EB;
@@ -532,6 +545,7 @@
 				233715D718AE947B006E375F /* PTCritterNode.m in Sources */,
 				F1B1CA6518CCF9690057ECC2 /* ProximitySensorInteraction.m in Sources */,
 				232537ED18D5EA9A00DCC092 /* DDASLLogger.m in Sources */,
+				C408706F18DE4E40006C6918 /* PTLocationDetector.m in Sources */,
 				F1B1CA7818CD0BE80057ECC2 /* PTSocialListViewController.m in Sources */,
 				F1B1CA5F18CCF83C0057ECC2 /* CameraInteraction.m in Sources */,
 				23D747D018D699780073C471 /* JSOpenGLShaderProgram.cpp in Sources */,

@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PTServer.h"
 
 @interface PTSocialListViewController : UIViewController
+
+@property PTServer *server;
+
+- (void)reloadNearbyPitas;
 
 @end

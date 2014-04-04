@@ -121,12 +121,14 @@ BOOL networkAvailable;
                                NSLog(@"%@ => %d", endpoint, responseStatusCode);
                                NSError *e = nil;
                                NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error: &e];
-                               if (responseStatusCode == 200 && responseHandler) {
-                                   // Call the provided callback block.
-                                   responseHandler(res, nil);
-                               } else {
-                                   // There was some sort of error.
-                                   responseHandler(nil, [PTError badParameters:res]);
+                               if (responseHandler) {
+                                   if (responseStatusCode == 200) {
+                                       // Call the provided callback block.
+                                       responseHandler(res, nil);
+                                   } else {
+                                       // There was some sort of error.
+                                       responseHandler(nil, [PTError badParameters:res]);
+                                   }
                                }
                            }];
 }
@@ -170,6 +172,17 @@ BOOL networkAvailable;
     }];
 }
 
+- (void)recordLocation:(NSNumber *)latitude longitude:(NSNumber *)longitude
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:latitude forKey:@"latitude"];
+    [params setObject:longitude forKey:@"longitude"];
+
+    // We don't care about completion handlers.
+    [self sendRequest:@"/accounts/location" withParams:params responseHandler:nil];
+
+}
+
 - (void)recordError:(NSString *)message
 {
     if (message == nil) {
@@ -190,5 +203,25 @@ BOOL networkAvailable;
         }
     }];
 }
+
+- (void)findNearbyAccounts:(NSNumber *)latitude longitude:(NSNumber *)longitude completionHandler:(ServerCompletionHandler)completionHandler
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (latitude && longitude) {
+        // Latitude and longitude parameters are optional. If not provided,
+        // the server uses the last posted account location.
+        [params setObject:latitude forKey:@"latitude"];
+        [params setObject:longitude forKey:@"longitude"];
+    }
+
+    [self sendRequest:@"/accounts/nearby"
+           withParams:params
+      responseHandler:^(NSDictionary *resp, NSError *err) {
+          // TODO: Maybe massage the server response into a more consumable
+          // format.
+          completionHandler(resp, err);
+      }];
+}
+
 
 @end

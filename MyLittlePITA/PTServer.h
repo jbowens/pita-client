@@ -36,6 +36,11 @@ typedef void (^ServerCompletionHandler)(NSDictionary *, NSError *);
 - (void)newAccount:(NSString *)name phone:(NSString *)phone email:(NSString *)email completionHandler:(ServerCompletionHandler)completionHandler;
 
 /*
+ * Records the current account location.
+ */
+- (void)recordLocation:(NSNumber *)latitude longitude:(NSNumber *)longitude;
+
+/*
  * Records an error by POSTing the error info to the server.
  */
 - (void)recordError:(NSString *)message;
@@ -45,5 +50,12 @@ typedef void (^ServerCompletionHandler)(NSDictionary *, NSError *);
  * properties.
  */
 - (void)createRandomPita:(ServerCompletionHandler)completionHandler;
+
+/*
+ * Finds nearby accounts/pitas. The latitude and longitude are optional
+ * but recommended. If not provided, the account must have recorded a
+ * location recently (5 minutes).
+ */
+- (void)findNearbyAccounts:(NSNumber *)latitude longitude:(NSNumber *)longitude completionHandler:(ServerCompletionHandler)completionHandler;
 
 @end

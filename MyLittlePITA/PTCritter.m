@@ -22,9 +22,6 @@
             self.happiness = [happiness unsignedIntegerValue];
         }
     }
-    
-    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-    [f setNumberStyle:NSNumberFormatterDecimalStyle];
 
     NSMutableDictionary *visualProps = [[NSMutableDictionary alloc] init];
     [visualProps setObject:[properties objectForKey:kPTBodyHueKey] forKey:kPTBodyHueKey];
