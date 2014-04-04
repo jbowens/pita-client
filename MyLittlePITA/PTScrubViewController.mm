@@ -13,8 +13,7 @@
 #import <GLKit/GLKit.h>
 
 #include "JSOpenGLShaderProgram.h"
-
-#include <iostream>
+#include <vector>
 
 #define CHECK_GL_ERROR() ({ GLenum __error = glGetError(); if(__error) printf("OpenGL error 0x%04X in %s\n", __error, __FUNCTION__); (__error ? NO : YES); })
 
@@ -40,24 +39,44 @@ static const char kTextureQuadFragmentSource[] =
     "   gl_FragColor =  texture2D(texture, uv);                 "
     "}                                                          ";
 
+static const int kBrushWidthPixels = 50;
+static const int kBrushHeightPixels = 50;
+
+static const GLfloat kTextureQuadVertexPositions[] = {
+    1.0,  1.0,  0.0,
+    -1.0, 1.0,  0.0,
+    -1.0, -1.0, 0.0,
+    -1.0, -1.0, 0.0,
+    1.0,  -1.0, 0.0,
+    1.0,  1.0,  0.0
+};
+const GLfloat kTextureQuadTexcoords[] = {
+    1.0, 1.0,
+    0.0, 1.0,
+    0.0, 0.0,
+    0.0, 0.0,
+    1.0, 0.0,
+    1.0, 1.0
+};
 
 @interface PTScrubViewController () {
     EAGLContext *_context;
     
-    float _screenWidth;
-    float _screenHeight;
+    float _width, _height;
     
     js::OpenGLShaderProgram _textureQuadProgram;
+    std::vector<GLfloat> _brushCoords, _brushTexCoords;
     
     BOOL _imageDirty;
 }
 
-@property (atomic) GLKTextureInfo *dirtTexture;
+@property GLKTextureInfo *dirtTexture, *brushMaskTexture;
 
 - (void)setupGL;
 - (void)teardownGL;
 
-- (void)drawTextureQuadUsingProgram:(js::OpenGLShaderProgram *)program inRect:(CGRect)rect;
+- (void)drawDirtTexture;
+- (void)drawBrushes;
 
 @end
 
@@ -81,9 +100,7 @@ static const char kTextureQuadFragmentSource[] =
     GLKView *view = (GLKView *)self.view;
     view.context = _context;
     self.preferredFramesPerSecond = 60;
-    
     view.contentScaleFactor = [UIScreen mainScreen].scale;
-    
     view.opaque = NO;
     
     [self setupGL];
@@ -107,6 +124,15 @@ static const char kTextureQuadFragmentSource[] =
         
         return;
     }
+    
+    GLKTextureLoader *textureLoader = [[GLKTextureLoader alloc] initWithSharegroup:_context.sharegroup];
+    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"mask_round" ofType:@"png"];
+    [textureLoader textureWithContentsOfFile:filePath options:@{GLKTextureLoaderOriginBottomLeft: @YES} queue:nil completionHandler:^(GLKTextureInfo *textureInfo, NSError *outError) {
+        if (outError) {
+            DDLogError(@"Error loading brush mask texture: %@", outError);
+        }
+        self.brushMaskTexture = textureInfo;
+    }];
     
     CHECK_GL_ERROR();
 }
@@ -145,31 +171,23 @@ static const char kTextureQuadFragmentSource[] =
 - (void)teardownGL {
 }
 
-- (void)drawTextureQuadUsingProgram:(js::OpenGLShaderProgram *)program inRect:(CGRect)rect {
-    JS_USING(program) {
-        GLuint texture = program->getUniformLocation("texture");
+- (void)drawDirtTexture {
+    glActiveTexture(GL_TEXTURE0 + 0);
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
+    
+    glBindTexture(GL_TEXTURE_2D, _dirtTexture.name);
+    
+    JS_USING(&_textureQuadProgram) {
+        GLuint texture = _textureQuadProgram.getUniformLocation("texture");
         glUniform1i(texture, 0);
         
-        // From http://stackoverflow.com/questions/13455590/opengl-es-2-0-textured-quad
-        const float quadPositions[] = {  1.0,  1.0, 0.0,
-            -1.0,  1.0, 0.0,
-            -1.0, -1.0, 0.0,
-            -1.0, -1.0, 0.0,
-            1.0, -1.0, 0.0,
-            1.0,  1.0, 0.0 };
-        const float quadTexcoords[] = { 1.0, 1.0,
-            0.0, 1.0,
-            0.0, 0.0,
-            0.0, 0.0,
-            1.0, 0.0,
-            1.0, 1.0 };
-        
-        GLuint position = program->getAttributeLocation("position");
-        GLuint texcoord = program->getAttributeLocation("texcoord");
+        GLuint position = _textureQuadProgram.getAttributeLocation("position");
+        GLuint texcoord = _textureQuadProgram.getAttributeLocation("texcoord");
         
         // Setup buffer offsets
-        glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), quadPositions);
-        glVertexAttribPointer(texcoord, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), quadTexcoords);
+        glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), kTextureQuadVertexPositions);
+        glVertexAttribPointer(texcoord, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), kTextureQuadTexcoords);
         
         // Ensure the proper arrays are enabled
         glEnableVertexAttribArray(position);
@@ -179,6 +197,50 @@ static const char kTextureQuadFragmentSource[] =
         glDrawArrays(GL_TRIANGLES, 0, 2 * 3);
     } JS_END_USING
     
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    glEnable(GL_DEPTH_TEST);
+    
+    CHECK_GL_ERROR();
+}
+
+- (void)drawBrushes {
+    glActiveTexture(GL_TEXTURE0 + 0);
+    glDisable(GL_DEPTH_TEST);
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ZERO, GL_ONE_MINUS_SRC_ALPHA);
+    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_TRUE);
+    glBlendEquation(GL_FUNC_ADD);
+    
+    glBindTexture(GL_TEXTURE_2D, _brushMaskTexture.name);
+    
+    JS_USING(&_textureQuadProgram) {
+        GLuint texture = _textureQuadProgram.getUniformLocation("texture");
+        glUniform1i(texture, 0);
+        
+        GLuint position = _textureQuadProgram.getAttributeLocation("position");
+        GLuint texcoord = _textureQuadProgram.getAttributeLocation("texcoord");
+
+        // Setup buffer offsets
+        glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), &_brushCoords[0]);
+        glVertexAttribPointer(texcoord, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), &_brushTexCoords[0]);
+
+        // Ensure the proper arrays are enabled
+        glEnableVertexAttribArray(position);
+        glEnableVertexAttribArray(texcoord);
+
+        // Draw
+        GLsizei n = (GLsizei) _brushCoords.size() / 3;
+        glDrawArrays(GL_TRIANGLES, 0, n);
+    } JS_END_USING
+    
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
+    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+    
     CHECK_GL_ERROR();
 }
 
@@ -186,15 +248,11 @@ static const char kTextureQuadFragmentSource[] =
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    if (self.dirtTexture) {
-        glActiveTexture(GL_TEXTURE0 + 0);
-        glDisable(GL_DEPTH_TEST);
-            
-        glBindTexture(GL_TEXTURE_2D, _dirtTexture.name);
-        
-        [self drawTextureQuadUsingProgram:&_textureQuadProgram inRect:CGRectZero];
+    if (self.dirtTexture && self.brushMaskTexture) {
 
-        glBindTexture(GL_TEXTURE_2D, 0);
+        [self drawDirtTexture];
+        [self drawBrushes];
+
     }
 
     CHECK_GL_ERROR();
@@ -203,13 +261,44 @@ static const char kTextureQuadFragmentSource[] =
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
 
-    
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     
+    GLKView *view = (GLKView *)self.view;
     
+    for (UITouch *touch in touches) {
+        
+        CGPoint location = [touch locationInView:view];
+        
+        float widthf = (float) view.drawableWidth;
+        float heightf = (float) view.drawableHeight;
+        float scaleFactor = view.contentScaleFactor;
+        float scaleX = (float)kBrushWidthPixels * scaleFactor / widthf,
+        scaleY = (float)kBrushHeightPixels * scaleFactor / widthf,
+        translateX = location.x * scaleFactor * 2.f / widthf - 1.f,
+        translateY = -location.y * scaleFactor * 2.f / heightf + 1.f;
+        
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 3; j++) {
+                GLfloat f = kTextureQuadVertexPositions[i * 3 + j];
+                
+                if (j == 0) { f *= scaleX; f += translateX; }
+                if (j == 1) { f *= scaleY; f += translateY; }
+                
+                _brushCoords.push_back(f);
+            }
+        }
+        
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 2; j++) {
+                GLfloat f = kTextureQuadTexcoords[i * 2 + j];
+                
+                _brushTexCoords.push_back(f);
+            }
+        }
+    }
 }
 
 @end

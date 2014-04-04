@@ -207,7 +207,7 @@ PTServer *server;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"embed_scrub_view"]) {
         self.scrubViewController = segue.destinationViewController;
-        [self.scrubViewController setImage:[UIImage imageNamed:@"dirt.png"]];
+        self.scrubViewController.image = [UIImage imageNamed:@"dirt.png"];
     }
 }
 
