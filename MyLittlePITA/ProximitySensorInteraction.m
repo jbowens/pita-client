@@ -46,6 +46,7 @@
 
 - (void)pitaFellAsleep
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaFellAsleep" object:self];
     NSLog(@"Pita Fell asleep");
 }
 

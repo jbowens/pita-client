@@ -13,6 +13,8 @@ static const NSString *kSpriteTailComponentKey = @"tail";
 static const NSString *kSpriteBodyComponentKey = @"body";
 
 static const NSString *kSpriteIdleAnimationKey = @"neutral";
+static const NSString *kSpriteHappyAnimationKey = @"happy";
+static const NSString *kSpriteMadAnimationKey = @"mad";
 
 @interface PTCritterNode() {
     NSArray *componentKeys;
@@ -33,7 +35,7 @@ static const NSString *kSpriteIdleAnimationKey = @"neutral";
     self = [super init];
     
     componentKeys = @[kSpriteTailComponentKey, kSpriteBodyComponentKey];
-    animationKeys = @[kSpriteIdleAnimationKey];
+    animationKeys = @[kSpriteIdleAnimationKey, kSpriteHappyAnimationKey, kSpriteMadAnimationKey];
 
     if (self) {
         [self generateTexturesFromVisualProperties:properties];
@@ -110,14 +112,14 @@ static const NSString *kSpriteIdleAnimationKey = @"neutral";
             case PTCritterStatusSad:
                 atlasTexture = [componentTextures objectForKey:kSpriteIdleAnimationKey];
                 break;
-            case PTCritterStatusVeryHappy:
-                atlasTexture = [componentTextures objectForKey:kSpriteIdleAnimationKey];
+            case PTCritterStatusHappy:
+                atlasTexture = [componentTextures objectForKey:kSpriteHappyAnimationKey];
                 break;
             case PTCritterStatusNormal:
                 atlasTexture = [componentTextures objectForKey:kSpriteIdleAnimationKey];
                 break;
             case PTCritterStatusMad:
-                atlasTexture = [componentTextures objectForKey:kSpriteIdleAnimationKey];
+                atlasTexture = [componentTextures objectForKey:kSpriteMadAnimationKey];
                 break;
             default:
                 atlasTexture = [componentTextures objectForKey:kSpriteIdleAnimationKey];

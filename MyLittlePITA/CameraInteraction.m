@@ -7,6 +7,7 @@
 //
 
 #import "CameraInteraction.h"
+#import "PTHotPocketDetector.h"
 
 @interface CameraInteraction ()<UIImagePickerControllerDelegate>
 
@@ -72,6 +73,15 @@
                                                               attribute:NSLayoutAttributeBottom
                                                              multiplier:1.00
                                                                constant:-theView.frame.size.width/15]];
+    
+    [self prepareThePicker];
+    
+    NSInteger radius = 60;
+    NSInteger lCurrentWidth = theView.frame.size.width;
+    NSInteger lCurrentHeight = theView.frame.size.height;
+    [self drawCaptureCircle:lCurrentWidth/2 - radius/2 :lCurrentHeight -  radius - 20 :radius :[self.picker view]];
+    [self drawTheCancelLabelToView:[self.picker view]];
+    
     return self.circleImage;
 }
 
@@ -81,6 +91,7 @@
     self.picker.allowsEditing = NO;
     self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     self.picker.showsCameraControls = NO;
+    self.picker.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
     
     if (self.picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
         //Create camera overlay
@@ -164,10 +175,19 @@
             UIGraphicsEndImageContext();
         }
         
-        NSData *imageData = UIImageJPEGRepresentation(anImage, 1.0);
+        PTHotPocketDetector* hotpocketDetector = [[PTHotPocketDetector alloc] init];
         
-        //TODO: Need to send the image to check if picture is a hot pocket or not
-        //need to integrate with the vision
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaEating" object:self];
+        
+        if( [hotpocketDetector isHotPocket:anImage] )
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaAteFood" object:self];
+        }
+        else
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaAteNonFood" object:self];
+        }
+        
         [self.picker removeFromParentViewController];
     });
     
@@ -191,12 +211,12 @@
     [addingView addSubview:self.cancelLabel];
     
     [addingView addConstraint:[NSLayoutConstraint constraintWithItem:self.cancelLabel
-                                                        attribute:NSLayoutAttributeLeft
+                                                        attribute:NSLayoutAttributeRight
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:addingView
-                                                        attribute:NSLayoutAttributeLeft
+                                                        attribute:NSLayoutAttributeRight
                                                        multiplier:1.00
-                                                         constant:marginsForSides]];
+                                                         constant:-marginsForSides]];
     
     [addingView addConstraint: [NSLayoutConstraint constraintWithItem:self.cancelLabel
                                                          attribute:NSLayoutAttributeBottom
@@ -217,13 +237,6 @@
 
 - (void)transitionToCameraView:(UIViewController*)theViewController
 {
-    [self prepareThePicker];
-    
-    NSInteger radius = 60;
-    NSInteger lCurrentWidth = theViewController.view.frame.size.width;
-    NSInteger lCurrentHeight = theViewController.view.frame.size.height;
-    [self drawCaptureCircle:lCurrentWidth/2 - radius/2 :lCurrentHeight -  radius - 20 :radius :[self.picker view]];
-    [self drawTheCancelLabelToView:[self.picker view]];
     [theViewController presentViewController:self.picker animated:YES completion:NULL];
 }
 
