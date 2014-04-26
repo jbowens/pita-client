@@ -9,10 +9,11 @@
 #import "PTCritterNode.h"
 #import "PTGameScene.h"
 
-static const float kDefaultVerticalPosition = .6;
+static const float kDefaultVerticalPosition = .4;
 
 @interface PTGameScene ()
 
+@property (nonatomic) SKSpriteNode *backgroundSprite;
 @property (nonatomic) PTCritterNode *critterNode;
 
 @end
@@ -23,9 +24,19 @@ static const float kDefaultVerticalPosition = .6;
     if (self = [super initWithSize:size]) {
         
         /* Setup your scene here */
-        
         self.backgroundColor = [SKColor colorWithWhite:0.95 alpha:1];
+        self.backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"opening.png"];
+        self.backgroundSprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        [self addChild:self.backgroundSprite];
+        
         _critter = nil;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaHappy)
+                                                     name:@"PitaHappy" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaMad)
+                                                     name:@"PitaMad" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaNeutral)
+                                                     name:@"PitaNeutral" object:nil];
     }
     return self;
 }
@@ -35,6 +46,7 @@ static const float kDefaultVerticalPosition = .6;
 }
 
 -(void)update:(CFTimeInterval)currentTime {
+    [self.critter updatePitasStatistics];
     /* Called before each frame is rendered */
 }
 
@@ -42,7 +54,7 @@ static const float kDefaultVerticalPosition = .6;
     [self.critterNode removeAllActions];
     
     CGPoint dest = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * kDefaultVerticalPosition);
-    CGPoint src = CGPointMake(dest.x, dest.y * .9);
+    CGPoint src = CGPointMake(dest.x, dest.y * 0.1);
     
     self.critterNode.position = src;
     SKAction *moveToCenter = [SKAction moveTo:dest duration:.6];
@@ -52,36 +64,34 @@ static const float kDefaultVerticalPosition = .6;
     [self.critterNode runAction:critterEntrance];
 }
 
-- (void)setCritter:(PTCritter *)critter {
-    [_critter removeObserver:self forKeyPath:@"happiness"];
-
-    PTCritterNode *critterNode = [PTCritterNode critterNodeWithVisualProperties:critter.visualProperties];
-    critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * kDefaultVerticalPosition);
-    critterNode.status = PTCritterStatusVeryHappy;
-
-    
-    [self addChild:critterNode];
-    self.critterNode = critterNode;
-    
-    [critter addObserver:self forKeyPath:@"happiness" options:NSKeyValueObservingOptionNew context:nil];
-    
-    _critter = critter;
+- (void)pitaNeutral{
+    self.critterNode.status = PTCritterStatusNormal;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (object == self.critter) {
-        if ([keyPath isEqualToString:@"happiness"]) {
-            NSNumber *happiness = [change objectForKey:NSKeyValueChangeNewKey];
-            if (happiness && [happiness respondsToSelector:@selector(unsignedIntegerValue)]) {
-                NSUInteger happinessValue = [happiness unsignedIntegerValue];
-                if (150 < happinessValue && happinessValue <= 200) {
-                    self.critterNode.status = PTCritterStatusNormal;
-                } else if (happinessValue <= 150) {
-                    self.critterNode.status = PTCritterStatusMad;
-                }
-            }
-        }
-    }
+- (void)pitaHappy{
+    self.critterNode.status = PTCritterStatusHappy;
+}
+
+- (void)pitaMad{
+    self.critterNode.status = PTCritterStatusMad;
+}
+
+- (void)setCritter:(PTCritter *)critter {
+    PTCritterNode *critterNode = [PTCritterNode critterNodeWithVisualProperties:critter.visualProperties];
+    critterNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) * kDefaultVerticalPosition);
+    critterNode.status = PTCritterStatusNormal;
+    
+    self.critterNode = critterNode;
+    _critter = critter;
+    
+    [self.backgroundSprite runAction:[SKAction fadeAlphaTo:0.0 duration:1.0] completion:^{
+        
+        self.backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"background.png"];
+        self.backgroundSprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        [self addChild:self.backgroundSprite];
+        
+        [self addChild:critterNode];
+    }];
 }
 
 @end

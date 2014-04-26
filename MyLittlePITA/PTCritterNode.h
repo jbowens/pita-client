@@ -10,14 +10,16 @@
 
 typedef enum {
     PTCritterStatusSad,
-    PTCritterStatusVeryHappy,
+    PTCritterStatusHappy,
     PTCritterStatusNormal,
+    PTCritterStatusEating,
+    PTCritterStatusHungry,
+    PTCritterStatusSleeping,
+    PTCritterStatusListening,
     PTCritterStatusMad
 } PTCritterStatus;
 
 const static NSString *kPTBodyHueKey        = @"body_hue";
-const static NSString *kPTSpotsHueKey       = @"spots_hue";
-const static NSString *kPTSpotsPresentKey   = @"has_spots";
 
 @interface PTCritterNode : SKNode
 

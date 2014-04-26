@@ -46,6 +46,7 @@ PTServer *server;
 
     // Present the scene.
     [skView presentScene:self.critterScene];
+    [self prepareAllInteractionButtons];
     
     server = [[PTServer alloc] init];
     [server newAccount:nil  phone:nil email:nil completionHandler:^(NSDictionary *results, NSError *err) {
@@ -58,8 +59,6 @@ PTServer *server;
             [self serverAuthenticated];
         }
     }];
-
-    [self prepareAllInteractionButtons];
 }
 
 // Called as soon as we have valid account data through which we
@@ -112,7 +111,6 @@ PTServer *server;
     [self presentTheCameraButton];
     [self presentTheAudioButton];
     [self presentTheSocialButton];
-    [self presentCleaningSponge];
     [self prepareTheProximityChange];
     [self prepareTheAccelerometer];
 }
@@ -187,34 +185,6 @@ PTServer *server;
 - (void)requestSocialPage
 {
     [self.socialInteractionButton openupSocialPage:self];
-}
-
-- (void)presentCleaningSponge
-{
-    self.spongeInteractionSponge = [[SpongeInteraction alloc] init];
-    
-    UIImageView* spongeDrawing = [self.spongeInteractionSponge putSpongeInView:self.view];
-    
-    UIPanGestureRecognizer *movingSpongeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(spongeMoved:)];
-    spongeDrawing.userInteractionEnabled = YES;
-    
-    [spongeDrawing addGestureRecognizer:movingSpongeGesture];
-}
-
-- (void)spongeMoved:(UIPanGestureRecognizer*)panGesture
-{
-    CGPoint translation = [panGesture translationInView:self.view];
-    if([panGesture state] == UIGestureRecognizerStateBegan)
-    {
-    }
-    else if([panGesture state] == UIGestureRecognizerStateChanged)
-    {
-        [self.spongeInteractionSponge changeInSpongeLocationInX:translation.x inY:translation.y inView:self.view];
-    }
-    else if([panGesture state] == UIGestureRecognizerStateEnded)
-    {
-        [self.spongeInteractionSponge returnToOriginalLocationInView:self.view];
-    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event

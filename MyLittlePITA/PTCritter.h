@@ -11,9 +11,14 @@
 @interface PTCritter : NSObject
 
 @property (nonatomic) NSUInteger happiness;
+@property (nonatomic) NSUInteger hunger;
+@property (nonatomic) NSUInteger sleepiness;
+@property (nonatomic) NSUInteger discipline;
+
 @property (nonatomic, readonly) NSDictionary *visualProperties;
 
 + (instancetype)critterWithProperties:(NSDictionary *)properties;
 - (instancetype)initWithProperties:(NSDictionary *)properties;
+- (void)updatePitasStatistics;
 
 @end

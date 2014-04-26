@@ -43,15 +43,6 @@
     return self;
 }
 
-- (void)testingPitas
-{
-    [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:@"Testing1" theImage:[UIImage imageNamed:@"sponge.png"] theMood:0]];
-    [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:@"Testing2" theImage:[UIImage imageNamed:@"sponge.png"] theMood:0]];
-    [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:@"Testing3" theImage:[UIImage imageNamed:@"sponge.png"] theMood:0]];
-    [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:@"Testing4" theImage:[UIImage imageNamed:@"sponge.png"] theMood:0]];
-    [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:@"Testing5" theImage:[UIImage imageNamed:@"sponge.png"] theMood:0]];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
