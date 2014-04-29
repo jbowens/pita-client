@@ -77,8 +77,10 @@
             [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:pitaName
                                                                                       theImage:[UIImage imageNamed:@"sponge.png"]
                                                                                        theMood:0]];
-            [[self listOfPitasAround] reloadData];
         }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [[self listOfPitasAround] reloadData];
+        });
     }];
 }
 
