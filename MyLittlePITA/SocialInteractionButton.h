@@ -11,6 +11,8 @@
 
 @interface SocialInteractionButton : NSObject
 
+@property PTServer *server;
+
 - (id)initWithServer:(PTServer *)server;
 - (UIImageView*)putSocialButtonInView:(UIView*)theView;
 - (void)openupSocialPage:(UIViewController*)viewController;

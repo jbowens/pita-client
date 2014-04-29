@@ -23,6 +23,7 @@
     self = [super init];
     if (self) {
         // Custom initialization
+        self.server = server;
         self.socialListViewController = [[PTSocialListViewController alloc] init];
         self.socialListViewController.server = server;
         self.circleImage = [[UIImageView alloc] initWithFrame:CGRectZero];

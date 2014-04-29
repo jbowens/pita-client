@@ -37,6 +37,8 @@ PTServer *server;
 {
     [super viewDidLoad];
     
+    server = [[PTServer alloc] init];
+    
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     PTGameScene *critterScene = [PTGameScene sceneWithSize:skView.bounds.size];
@@ -45,10 +47,9 @@ PTServer *server;
     self.critterScene = critterScene;
 
     // Present the scene.
-    [skView presentScene:self.critterScene];
+    [skView presentScene:self.critterScene];    
     [self prepareAllInteractionButtons];
-    
-    server = [[PTServer alloc] init];
+
     [server newAccount:nil  phone:nil email:nil completionHandler:^(NSDictionary *results, NSError *err) {
         if (err) {
             // TODO: Handle more gracefully.
@@ -84,6 +85,7 @@ PTServer *server;
     dispatch_sync(dispatch_get_main_queue(), ^{
         self.locationDetector = [[PTLocationDetector alloc] initWithServer:server];
     });
+    
 }
 
 - (BOOL)shouldAutorotate

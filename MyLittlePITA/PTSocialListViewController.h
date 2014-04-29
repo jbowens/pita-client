@@ -11,7 +11,7 @@
 
 @interface PTSocialListViewController : UIViewController
 
-@property PTServer *server;
+@property (retain) PTServer *server;
 
 - (void)reloadNearbyPitas;
 
