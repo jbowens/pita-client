@@ -43,6 +43,8 @@ static const float kDefaultVerticalPosition = .4;
                                                      name:@"PitaSad" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaSleepy)
                                                      name:@"PitaSleepy" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaAsleep)
+                                                     name:@"PitaAsleep" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaNeutral)
                                                      name:@"PitaNeutral" object:nil];
     }
@@ -97,6 +99,10 @@ static const float kDefaultVerticalPosition = .4;
 
 - (void)pitaSleepy{
     self.critterNode.status = PTCritterStatusSleepy;
+}
+
+- (void)pitaAsleep{
+    self.critterNode.status = PTCritterStatusSleeping;
 }
 
 - (void)setCritter:(PTCritter *)critter {

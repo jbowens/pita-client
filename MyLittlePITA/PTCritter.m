@@ -24,8 +24,7 @@
  */
 @property (atomic) PTCritterStatus currentStatus;
 
-@property (atomic) BOOL isSleeping;
-
+@property (atomic) NSTimer *sleepTimer;
 
 @end
 
@@ -49,6 +48,8 @@
     [visualProps setObject:[properties objectForKey:kPTBodyHueKey] forKey:kPTBodyHueKey];
     _visualProperties = visualProps;
     
+    self.sleepTimer = nil;
+    
     // Begin the game tick timer for recording gradual changes in mode over time.
     NSTimer *gameTickTimer = [NSTimer timerWithTimeInterval:0.25
                                                  target:self
@@ -65,6 +66,8 @@
                                                  name:@"PitaScolded" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaTexturesReady)
                                                  name:@"PitaTexturesLoaded" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaWoken)
+                                                 name:@"PitaAwokenByMovement" object:nil];
     
     return self;
 }
@@ -84,6 +87,9 @@
         switch (self.specialStatus) {
             case PTCritterStatusTemporarilyHappy:
                 notifName = @"PitaVeryHappy";
+                break;
+            case PTCritterStatusSleeping:
+                notifName = @"PitaAsleep";
                 break;
             default:
                 break;
@@ -139,6 +145,7 @@
 {    
     if (self.sleepiness > 200 && self.sleepiness >= self.hunger) {
         [self setStatus:PTCritterStatusSleepy];
+        [self runSleepTimer];
         return;
     } else if (self.hunger > 200) {
         [self setStatus:PTCritterStatusMad];
@@ -178,6 +185,13 @@
 - (void)modifySleepiness:(float)delta
 {
     self.sleepiness = MIN(MAX(self.sleepiness + delta, 0), 255.0);
+    if (self.specialStatus == PTCritterStatusSleeping) {
+        // The pita is currently asleep. If they're rested, we should
+        // awake them.
+        if (self.sleepiness <= 20) {
+            [self pitaWoken];
+        }
+    }
     [self reevaluteStatus];
 }
 
@@ -200,17 +214,48 @@
 {
     NSLog(@":) %f, :D: %f, Zzz: %f", self.happiness, self.hunger, self.sleepiness);
 
-    if(self.isSleeping) {
-        [self modifySleepiness:-10];
+    if(self.specialStatus == PTCritterStatusSleeping) {
+        [self modifySleepiness:-3];
     }
     else {
-        [self modifySleepiness:0.5];
+        [self modifySleepiness:2.0];
     }
     
     [self modifyHappiness:-0.25];
     [self modifyHunger:1.0];
 }
 
+- (void)runSleepTimer
+{
+    if (!self.sleepTimer) {
+        // There's no current sleep timer, so we should start one.
+        self.sleepTimer = [NSTimer timerWithTimeInterval:20
+                                                  target:self
+                                                selector:@selector(goToSleep)
+                                                userInfo:nil
+                                                 repeats:NO];
+        [[NSRunLoop mainRunLoop] addTimer:self.sleepTimer forMode:NSDefaultRunLoopMode];
+    }
+}
+
+- (void)goToSleep
+{
+    NSLog(@"Going to sleep");
+    [self startSpecialStatus:PTCritterStatusSleeping];
+    self.sleepTimer = nil;
+}
+
+- (void)pitaWoken
+{
+    if (self.specialStatus == PTCritterStatusSleeping) {
+        NSLog(@"Ending sleep.");
+        self.specialStatus = PTCritterStatusNormal;
+        [self emitCurrentStatusNotif];
+    } else if (self.sleepTimer) {
+        NSLog(@"Delaying sleep timer because of movement.");
+        [self.sleepTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:20]];
+    }
+}
 
 + (instancetype)critterWithProperties:(NSDictionary *)properties
 {
