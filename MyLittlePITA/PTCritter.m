@@ -240,9 +240,11 @@
 
 - (void)goToSleep
 {
-    NSLog(@"Going to sleep");
-    [self startSpecialStatus:PTCritterStatusSleeping];
-    self.sleepTimer = nil;
+    if (self.sleepiness < 50) {
+        NSLog(@"Going to sleep");
+        [self startSpecialStatus:PTCritterStatusSleeping];
+        self.sleepTimer = nil;
+    }
 }
 
 - (void)pitaWoken
