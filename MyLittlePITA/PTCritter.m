@@ -237,7 +237,7 @@
     //NSLog(@":) %f, :D: %f, Zzz: %f", self.happiness, self.hunger, self.sleepiness);
 
     if(self.specialStatus == PTCritterStatusSleeping) {
-        [self modifySleepiness:-3];
+        [self modifySleepiness:-0.75];
     }
     else {
         [self modifySleepiness:0.75];
