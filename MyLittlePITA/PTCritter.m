@@ -212,7 +212,7 @@
 
 - (void)updatePitasStatistics
 {
-    NSLog(@":) %f, :D: %f, Zzz: %f", self.happiness, self.hunger, self.sleepiness);
+    //NSLog(@":) %f, :D: %f, Zzz: %f", self.happiness, self.hunger, self.sleepiness);
 
     if(self.specialStatus == PTCritterStatusSleeping) {
         [self modifySleepiness:-3];
