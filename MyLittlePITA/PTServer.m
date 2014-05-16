@@ -109,6 +109,10 @@ BOOL networkAvailable;
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *resp, NSData *data, NSError *error)
                            {
+                               NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*) resp;
+                               int responseStatusCode = [httpResponse statusCode];
+                               NSLog(@"%@ => %d", endpoint, responseStatusCode);
+                               
                                if (![[resp MIMEType] isEqualToString:@"application/json"]) {
                                    // Disastrous case! No graceful error case should ever
                                    // return a nonJSON payload.
@@ -116,9 +120,7 @@ BOOL networkAvailable;
                                        responseHandler(nil, [PTError serverError]);
                                    return;
                                }
-                               NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*) resp;
-                               int responseStatusCode = [httpResponse statusCode];
-                               NSLog(@"%@ => %d", endpoint, responseStatusCode);
+                               
                                NSError *e = nil;
                                NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error: &e];
                                if (responseHandler) {
@@ -200,6 +202,22 @@ BOOL networkAvailable;
             completionHandler(results, nil);
         } else {
             completionHandler(resp, err);
+        }
+    }];
+}
+
+/*
+ * Records the hatching of a pita.
+ */
+- (void)recordHatch:(ServerCompletionHandler)completionHandler
+{
+    [self sendRequest:@"/pitas/hatch" withParams:@{} responseHandler:^(NSDictionary *resp, NSError *err) {
+        if (completionHandler) {
+            if (resp) {
+                completionHandler(resp, nil);
+            } else {
+                completionHandler(resp, err);
+            }
         }
     }];
 }

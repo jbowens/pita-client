@@ -74,6 +74,10 @@ PTServer *server;
             PTCritter *pita = [results objectForKey:@"pita"];
 
             self.userCritter = pita;
+            
+            // For now, we're always going to skip the egg stage and
+            // go straight to being alive.
+            [server recordHatch:nil];
 
             self.critterScene.critter = self.userCritter;
             [self.critterScene runEntranceSequence];

@@ -52,6 +52,11 @@ typedef void (^ServerCompletionHandler)(NSDictionary *, NSError *);
 - (void)createRandomPita:(ServerCompletionHandler)completionHandler;
 
 /*
+ * Records the hatching of a pita.
+ */
+- (void)recordHatch:(ServerCompletionHandler)completionHandler;
+
+/*
  * Finds nearby accounts/pitas. The latitude and longitude are optional
  * but recommended. If not provided, the account must have recorded a
  * location recently (5 minutes).

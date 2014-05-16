@@ -63,11 +63,9 @@
 
 - (void)reloadNearbyPitas
 {
-    NSLog(@"Attempting to reload nearby pitas. server = %@", self.server);
     [self.server findNearbyAccounts:nil longitude:nil completionHandler:^(NSDictionary *results, NSError *err) {
         [self.arrayOfPitasAround removeAllObjects];
         NSArray *nearbyAccounts = [results objectForKey:@"nearby_accounts"];
-        NSLog(@"Nearby accounts: %@", nearbyAccounts);
         for (NSDictionary *nearbyAccount in nearbyAccounts)
         {
             NSString *pitaName = @"Anonymous Pita";
