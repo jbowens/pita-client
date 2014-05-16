@@ -24,7 +24,6 @@
     
     if (self) {
         self.name = [properties objectForKey:@"name"];
-        NSLog(@"Pita with name %@", self.name);
         self.happiness = 255;
         self.hunger = 255;
         self.discipline = 255;

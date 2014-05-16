@@ -15,6 +15,13 @@ static const NSString *kSpriteBodyComponentKey = @"body";
 static const NSString *kSpriteIdleAnimationKey = @"neutral";
 static const NSString *kSpriteHappyAnimationKey = @"happy";
 static const NSString *kSpriteMadAnimationKey = @"mad";
+static const NSString *kSpriteSadAnimationKey = @"sad";
+static const NSString *kSpriteSleepyAnimationKey = @"sleepy";
+static const NSString *kSpriteSleepingAnimationKey = @"sleeping";
+static const NSString *kSpriteVeryMadAnimationKey = @"mad_very";
+static const NSString *kSpriteVeryHappyAnimationKey = @"happy_very";
+static const NSString *kSpriteListeningAnimationKey = @"listening";
+
 
 @interface PTCritterNode() {
     NSArray *componentKeys;
@@ -35,7 +42,7 @@ static const NSString *kSpriteMadAnimationKey = @"mad";
     self = [super init];
     
     componentKeys = @[kSpriteTailComponentKey, kSpriteBodyComponentKey];
-    animationKeys = @[kSpriteIdleAnimationKey, kSpriteHappyAnimationKey, kSpriteMadAnimationKey];
+    animationKeys = @[kSpriteIdleAnimationKey, kSpriteHappyAnimationKey, kSpriteMadAnimationKey, kSpriteSadAnimationKey, kSpriteSleepyAnimationKey, kSpriteSleepingAnimationKey, kSpriteMadAnimationKey, kSpriteVeryMadAnimationKey, kSpriteVeryHappyAnimationKey, kSpriteListeningAnimationKey];
 
     if (self) {
         [self generateTexturesFromVisualProperties:properties];
@@ -99,7 +106,7 @@ static const NSString *kSpriteMadAnimationKey = @"mad";
     
     self.textures = textures;
     
-    DDLogInfo(@"Done.");
+    DDLogInfo(@"Textures loaded.");
 }
 
 - (void)setStatus:(PTCritterStatus)status
@@ -110,7 +117,7 @@ static const NSString *kSpriteMadAnimationKey = @"mad";
     
         switch (status) {
             case PTCritterStatusSad:
-                atlasTexture = [componentTextures objectForKey:kSpriteIdleAnimationKey];
+                atlasTexture = [componentTextures objectForKey:kSpriteSadAnimationKey];
                 break;
             case PTCritterStatusHappy:
                 atlasTexture = [componentTextures objectForKey:kSpriteHappyAnimationKey];
