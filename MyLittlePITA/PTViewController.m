@@ -67,6 +67,9 @@ PTServer *server;
 // that should wait until we have authorized access to the server.
 - (void)serverAuthenticated
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaDeath)
+                                                 name:@"pitadeath" object:nil];
+    
     // For the beta, create a random pita.
     [server createRandomPita:^(NSDictionary *results, NSError *err) {
         if ([results objectForKey:@"pita"]) {
@@ -168,10 +171,12 @@ PTServer *server;
     if([theGesture state] == UIGestureRecognizerStateBegan)
     {
         [self.audioInteraction startRecording];
+        [self.userCritter startSpecialStatus:PTCritterStatusListening];
     }
     else if([theGesture state] == UIGestureRecognizerStateEnded)
     {
         [self.audioInteraction stopRecording];
+        [self.userCritter startSpecialStatus:PTCritterStatusNormal];
     }
 }
 
@@ -202,6 +207,11 @@ PTServer *server;
 {
     [self.userCritter modifyHappiness:3.0];
     [self.userCritter startSpecialStatus:PTCritterStatusNormal];
+}
+
+- (void)pitaDeath
+{
+    [server recordDeath:nil];
 }
 
 @end

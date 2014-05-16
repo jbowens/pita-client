@@ -57,6 +57,11 @@ typedef void (^ServerCompletionHandler)(NSDictionary *, NSError *);
 - (void)recordHatch:(ServerCompletionHandler)completionHandler;
 
 /*
+ * Records the death of a pita.
+ */
+- (void)recordDeath:(ServerCompletionHandler)completionHandler;
+
+/*
  * Finds nearby accounts/pitas. The latitude and longitude are optional
  * but recommended. If not provided, the account must have recorded a
  * location recently (5 minutes).

@@ -72,13 +72,13 @@
 		C45228BF1925E9F4008BF223 /* sleeping_tail.png in Resources */ = {isa = PBXBuildFile; fileRef = C45228AD1925E9F4008BF223 /* sleeping_tail.png */; };
 		C45228C01925E9F4008BF223 /* sleepy_body.png in Resources */ = {isa = PBXBuildFile; fileRef = C45228AE1925E9F4008BF223 /* sleepy_body.png */; };
 		C45228C11925E9F4008BF223 /* sleepy_tail.png in Resources */ = {isa = PBXBuildFile; fileRef = C45228AF1925E9F4008BF223 /* sleepy_tail.png */; };
+		C45228C7192615AA008BF223 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45228C6192615AA008BF223 /* opencv2.framework */; };
 		C4D38FB618BE8330009A1B3F /* PTServer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FB518BE8330009A1B3F /* PTServer.m */; };
 		C4D38FB918BEA161009A1B3F /* PTErrorDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FB818BEA161009A1B3F /* PTErrorDomain.m */; };
 		C4D38FBC18BEA24D009A1B3F /* PTError.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FBB18BEA24D009A1B3F /* PTError.m */; };
 		C4D38FBF18BEAB0D009A1B3F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FBE18BEAB0D009A1B3F /* Reachability.m */; };
 		C4D38FC118BEAE5F009A1B3F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */; };
 		D40377B31926077A0036A2C5 /* PTHotPocketDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = D40377B21926077A0036A2C5 /* PTHotPocketDetector.mm */; };
-		D40377CD192613490036A2C5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D40377CC192613490036A2C5 /* opencv2.framework */; };
 		F186FEC718CD829D000C1B2B /* social.png in Resources */ = {isa = PBXBuildFile; fileRef = F186FEC518CD829D000C1B2B /* social.png */; };
 		F186FEC818CD829D000C1B2B /* sponge.png in Resources */ = {isa = PBXBuildFile; fileRef = F186FEC618CD829D000C1B2B /* sponge.png */; };
 		F19DD04F18D6D57B00991CE4 /* AccelerometerInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F19DD04E18D6D57B00991CE4 /* AccelerometerInteraction.m */; };
@@ -233,6 +233,7 @@
 		C45228AD1925E9F4008BF223 /* sleeping_tail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sleeping_tail.png; sourceTree = "<group>"; };
 		C45228AE1925E9F4008BF223 /* sleepy_body.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sleepy_body.png; sourceTree = "<group>"; };
 		C45228AF1925E9F4008BF223 /* sleepy_tail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sleepy_tail.png; sourceTree = "<group>"; };
+		C45228C6192615AA008BF223 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = MyLittlePITA/opencv2.framework; sourceTree = "<group>"; };
 		C4D38FB418BE8330009A1B3F /* PTServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTServer.h; sourceTree = "<group>"; };
 		C4D38FB518BE8330009A1B3F /* PTServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTServer.m; sourceTree = "<group>"; };
 		C4D38FB718BEA161009A1B3F /* PTErrorDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTErrorDomain.h; sourceTree = "<group>"; };
@@ -243,7 +244,6 @@
 		C4D38FBE18BEAB0D009A1B3F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D40377B21926077A0036A2C5 /* PTHotPocketDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PTHotPocketDetector.mm; path = HotPocketDetector/PTHotPocketDetector.mm; sourceTree = "<group>"; };
-		D40377CC192613490036A2C5 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = MyLittlePITA/opencv2.framework; sourceTree = "<group>"; };
 		F186FEC518CD829D000C1B2B /* social.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = social.png; sourceTree = "<group>"; };
 		F186FEC618CD829D000C1B2B /* sponge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponge.png; sourceTree = "<group>"; };
 		F19DD04D18D6D57B00991CE4 /* AccelerometerInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerInteraction.h; sourceTree = "<group>"; };
@@ -322,7 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23D747D318D69FDC0073C471 /* GLKit.framework in Frameworks */,
-				D40377CD192613490036A2C5 /* opencv2.framework in Frameworks */,
+				C45228C7192615AA008BF223 /* opencv2.framework in Frameworks */,
 				C4D38FC118BEAE5F009A1B3F /* SystemConfiguration.framework in Frameworks */,
 				23DE1F5218AA81650072B8EB /* CoreGraphics.framework in Frameworks */,
 				23DE1F5418AA81650072B8EB /* UIKit.framework in Frameworks */,
@@ -392,7 +392,7 @@
 		23DE1F4E18AA81650072B8EB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D40377CC192613490036A2C5 /* opencv2.framework */,
+				C45228C6192615AA008BF223 /* opencv2.framework */,
 				23D747D218D69FDC0073C471 /* GLKit.framework */,
 				C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */,
 				23DE1F4F18AA81650072B8EB /* Foundation.framework */,
@@ -1029,6 +1029,7 @@
 					"$(inherited)",
 					"/Users/flora/CodingProjects/pita-vision/MLPVision",
 					"/Users/flora/CodingProjects/pita-client/MyLittlePITA",
+					"$(PROJECT_DIR)/MyLittlePITA",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyLittlePITA/MyLittlePITA-Prefix.pch";
@@ -1052,6 +1053,7 @@
 					"$(inherited)",
 					"/Users/flora/CodingProjects/pita-vision/MLPVision",
 					"/Users/flora/CodingProjects/pita-client/MyLittlePITA",
+					"$(PROJECT_DIR)/MyLittlePITA",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyLittlePITA/MyLittlePITA-Prefix.pch";

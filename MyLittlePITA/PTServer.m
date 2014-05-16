@@ -222,6 +222,24 @@ BOOL networkAvailable;
     }];
 }
 
+/*
+ * Records the death of a pita.
+ */
+- (void)recordDeath:(ServerCompletionHandler)completionHandler
+{
+    [self sendRequest:@"/pitas/death"
+           withParams:@{}
+      responseHandler:^(NSDictionary *resp, NSError *err) {
+          if (completionHandler) {
+              if (resp) {
+                  completionHandler(resp, nil);
+              } else {
+                  completionHandler(resp, err);
+              }
+          }
+      }];
+}
+
 - (void)findNearbyAccounts:(NSNumber *)latitude longitude:(NSNumber *)longitude completionHandler:(ServerCompletionHandler)completionHandler
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
