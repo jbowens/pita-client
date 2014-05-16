@@ -75,7 +75,7 @@
                 pitaName = [nearbyAccount objectForKey:@"pita_name"];
             }
             [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:pitaName
-                                                                                      theImage:[UIImage imageNamed:@"sponge.png"]
+                                                                                      theImage:[UIImage imageNamed:@"generic_pita.png"]
                                                                                        theMood:0]];
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
