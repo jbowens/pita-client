@@ -132,9 +132,12 @@ HOGDescriptor hogR;
     
     cv::Mat imData = [self cvMatFromUIImage:im];
     
-    bool foundB = [self findHotPocketInstances:hogB imData:imData];
-    bool foundG = [self findHotPocketInstances:hogG imData:imData];
-    bool foundR = [self findHotPocketInstances:hogR imData:imData];
+    Mat imDataResized;
+    resize(imData, imDataResized, cv::Size(600,600), 0, 0, INTER_CUBIC);
+    
+    bool foundB = [self findHotPocketInstances:hogB imData:imDataResized];
+    bool foundG = [self findHotPocketInstances:hogG imData:imDataResized];
+    bool foundR = [self findHotPocketInstances:hogR imData:imDataResized];
     
     imData.release();
     
