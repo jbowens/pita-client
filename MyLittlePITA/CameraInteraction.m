@@ -14,6 +14,7 @@
 @property UIImagePickerController* picker;
 @property UIImageView* circleImage;
 @property UILabel* cancelLabel;
+@property PTHotPocketDetector* hotpocketDetector;
 
 @end
 
@@ -33,6 +34,8 @@
         self.cancelLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.cancelLabel.translatesAutoresizingMaskIntoConstraints = NO;
         self.cancelLabel.userInteractionEnabled = YES;
+        
+        self.hotpocketDetector = [[PTHotPocketDetector alloc] init];
     }
     return self;
 }
@@ -175,11 +178,9 @@
             UIGraphicsEndImageContext();
         }
         
-        PTHotPocketDetector* hotpocketDetector = [[PTHotPocketDetector alloc] init];
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaEating" object:self];
         
-        if( [hotpocketDetector isHotPocket:anImage] )
+        if( [self.hotpocketDetector isHotPocket:anImage] )
         {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaAteFood" object:self];
         }

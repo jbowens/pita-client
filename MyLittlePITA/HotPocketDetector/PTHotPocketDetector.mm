@@ -54,6 +54,16 @@ HOGDescriptor hogR;
         std::string *str = new std::string([Path UTF8String]);
         [self readSVMData: *str];
         [self setupHOG];
+        
+//        NSString    * testImPath =    [AppBundle pathForResource: @ "test" ofType: @ "jpg"];
+//        UIImage    * testIm =    [[UIImage alloc] initWithContentsOfFile: testImPath];
+//        bool isHotPocket = [self isHotPocket:testIm];
+//        NSLog(@"is hot pocket?: %d\n", isHotPocket);
+//        
+//        testImPath =    [AppBundle pathForResource: @ "test_false" ofType: @ "jpg"];
+//        testIm =    [[UIImage alloc] initWithContentsOfFile: testImPath];
+//        isHotPocket = [self isHotPocket:testIm];
+//        NSLog(@"is hot pocket?: %d\n", isHotPocket);
     }
     return self;
 }
