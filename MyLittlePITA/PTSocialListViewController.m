@@ -72,6 +72,8 @@
             if ([nearbyAccount objectForKey:@"pita_name"]) {
                 pitaName = [nearbyAccount objectForKey:@"pita_name"];
             }
+            NSString *proximity = [nearbyAccount objectForKey:@"proximity"];
+            NSLog(@"%@ is %@", pitaName, proximity);
             [self.arrayOfPitasAround addObject:[[PTSocialListPitaObject alloc] initWithTheName:pitaName
                                                                                       theImage:[UIImage imageNamed:@"generic_pita.png"]
                                                                                        theMood:0]];
