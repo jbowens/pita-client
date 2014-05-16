@@ -240,7 +240,7 @@
 
 - (void)goToSleep
 {
-    if (self.sleepiness < 50) {
+    if (self.sleepiness > 200) {
         NSLog(@"Going to sleep");
         [self startSpecialStatus:PTCritterStatusSleeping];
         self.sleepTimer = nil;
