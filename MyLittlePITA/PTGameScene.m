@@ -33,8 +33,16 @@ static const float kDefaultVerticalPosition = .4;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaHappy)
                                                      name:@"PitaHappy" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaVeryHappy)
+                                                     name:@"PitaVeryHappy" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaMad)
                                                      name:@"PitaMad" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaVeryMad)
+                                                     name:@"PitaVeryMad" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaSad)
+                                                     name:@"PitaSad" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaSleepy)
+                                                     name:@"PitaSleepy" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaNeutral)
                                                      name:@"PitaNeutral" object:nil];
     }
@@ -72,8 +80,24 @@ static const float kDefaultVerticalPosition = .4;
     self.critterNode.status = PTCritterStatusHappy;
 }
 
+- (void)pitaVeryHappy{
+    self.critterNode.status = PTCritterStatusVeryHappy;
+}
+
 - (void)pitaMad{
     self.critterNode.status = PTCritterStatusMad;
+}
+
+- (void)pitaVeryMad{
+    self.critterNode.status = PTCritterStatusVeryMad;
+}
+
+- (void)pitaSad{
+    self.critterNode.status = PTCritterStatusSad;
+}
+
+- (void)pitaSleepy{
+    self.critterNode.status = PTCritterStatusSleepy;
 }
 
 - (void)setCritter:(PTCritter *)critter {

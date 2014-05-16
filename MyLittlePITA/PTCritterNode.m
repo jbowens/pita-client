@@ -115,6 +115,7 @@ static const NSString *kSpriteListeningAnimationKey = @"listening";
         SKTexture *atlasTexture;
         NSDictionary *componentTextures = [self.textures objectForKey:componentKey];
     
+        int atlasWidth = 5, atlasHeight = 4;
         switch (status) {
             case PTCritterStatusSad:
                 atlasTexture = [componentTextures objectForKey:kSpriteSadAnimationKey];
@@ -130,12 +131,14 @@ static const NSString *kSpriteListeningAnimationKey = @"listening";
                 break;
             case PTCritterStatusSleeping:
                 atlasTexture = [componentTextures objectForKey:kSpriteSleepingAnimationKey];
+                atlasWidth = 15;
                 break;
             case PTCritterStatusListening:
                 atlasTexture = [componentTextures objectForKey:kSpriteListeningAnimationKey];
                 break;
             case PTCritterStatusSleepy:
                 atlasTexture = [componentTextures objectForKey:kSpriteSleepyAnimationKey];
+                atlasWidth = 10;
                 break;
             case PTCritterStatusVeryMad:
                 atlasTexture = [componentTextures objectForKey:kSpriteVeryMadAnimationKey];
@@ -152,7 +155,6 @@ static const NSString *kSpriteListeningAnimationKey = @"listening";
         
         NSMutableArray *animationTextures = [NSMutableArray array];
         
-        int atlasWidth = 5, atlasHeight = 4;
         float frameWidth = 1.f / atlasWidth, frameHeight = 1.f / atlasHeight;
         for (int j = atlasHeight - 1; j >= 0; j--) {
             for (int i = 0; i < atlasWidth; i++) {
