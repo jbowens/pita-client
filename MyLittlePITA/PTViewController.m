@@ -67,6 +67,9 @@ PTServer *server;
 // that should wait until we have authorized access to the server.
 - (void)serverAuthenticated
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaDeath)
+                                                 name:@"pitadeath" object:nil];
+    
     // For the beta, create a random pita.
     [server createRandomPita:^(NSDictionary *results, NSError *err) {
         if ([results objectForKey:@"pita"]) {
@@ -202,6 +205,11 @@ PTServer *server;
 {
     [self.userCritter modifyHappiness:3.0];
     [self.userCritter startSpecialStatus:PTCritterStatusNormal];
+}
+
+- (void)pitaDeath
+{
+    [server recordDeath:nil];
 }
 
 @end

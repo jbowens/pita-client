@@ -289,6 +289,7 @@
 - (void)pitaDead
 {
     [self startSpecialStatus:PTCritterStatusDying];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pitadeath" object:nil];
 }
 
 + (instancetype)critterWithProperties:(NSDictionary *)properties
