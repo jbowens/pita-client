@@ -139,6 +139,7 @@
             NSLog(@"Average: %f", averageLevel);
             NSLog(@"Peak: %f", peakLevel);
             NSLog(@"ANGRY!!");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaScolded" object:self];
         }
         self.counterForAngryScreaming = 0;
     }
