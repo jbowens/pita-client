@@ -51,6 +51,8 @@ static const float kDefaultVerticalPosition = .4;
                                                      name:@"PitaDead" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaListening)
                                                      name:@"PitaListening" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaEating)
+                                                     name:@"PitaEating" object:nil];
     }
     return self;
 }
@@ -115,6 +117,10 @@ static const float kDefaultVerticalPosition = .4;
 
 - (void)pitaListening{
     self.critterNode.status = PTCritterStatusListening;
+}
+
+- (void)pitaEating{
+    self.critterNode.status = PTCritterStatusEating;
 }
 
 - (void)setCritter:(PTCritter *)critter {

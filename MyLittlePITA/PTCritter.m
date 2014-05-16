@@ -102,6 +102,9 @@
             case PTCritterStatusListening:
                 notifName = @"PitaListening";
                 break;
+            case PTCritterStatusEating:
+                notifName = @"PitaEating";
+                break;
             default:
                 break;
         }
@@ -219,16 +222,23 @@
 
 - (void)pitaAteNonFood
 {
+    if (self.specialStatus == PTCritterStatusEating) {
+        [self startSpecialStatus:PTCritterStatusNormal];
+    }
     [self modifyHappiness:-200];
 }
 
 - (void)pitaAteFood
 {
+    if (self.specialStatus == PTCritterStatusEating) {
+        [self startSpecialStatus:PTCritterStatusNormal];
+    }
     [self modifyHunger:-200];
 }
 
 - (void)pitaScolded
 {
+    // TODO: Become sad or angry or something
     [self modifyHappiness:-50];
 }
 

@@ -22,6 +22,7 @@ static const NSString *kSpriteVeryMadAnimationKey = @"mad_very";
 static const NSString *kSpriteVeryHappyAnimationKey = @"happy_very";
 static const NSString *kSpriteListeningAnimationKey = @"listening";
 static const NSString *kSpriteDyingAnimationKey = @"dying";
+static const NSString *kSpriteEatingAnimationKey = @"eating";
 
 @interface PTCritterNode() {
     NSArray *componentKeys;
@@ -42,7 +43,7 @@ static const NSString *kSpriteDyingAnimationKey = @"dying";
     self = [super init];
     
     componentKeys = @[kSpriteTailComponentKey, kSpriteBodyComponentKey];
-    animationKeys = @[kSpriteIdleAnimationKey, kSpriteHappyAnimationKey, kSpriteMadAnimationKey, kSpriteSadAnimationKey, kSpriteSleepyAnimationKey, kSpriteSleepingAnimationKey, kSpriteMadAnimationKey, kSpriteVeryMadAnimationKey, kSpriteVeryHappyAnimationKey, kSpriteListeningAnimationKey, kSpriteDyingAnimationKey];
+    animationKeys = @[kSpriteIdleAnimationKey, kSpriteHappyAnimationKey, kSpriteMadAnimationKey, kSpriteSadAnimationKey, kSpriteSleepyAnimationKey, kSpriteSleepingAnimationKey, kSpriteMadAnimationKey, kSpriteVeryMadAnimationKey, kSpriteVeryHappyAnimationKey, kSpriteListeningAnimationKey, kSpriteDyingAnimationKey, kSpriteEatingAnimationKey];
 
     if (self) {
         [self generateTexturesFromVisualProperties:properties];
@@ -150,6 +151,9 @@ static const NSString *kSpriteDyingAnimationKey = @"dying";
                 break;
             case PTCritterStatusVeryHappy:
                 atlasTexture = [componentTextures objectForKey:kSpriteVeryHappyAnimationKey];
+                break;
+            case PTCritterStatusEating:
+                atlasTexture = [componentTextures objectForKey:kSpriteEatingAnimationKey];
                 break;
             default:
                 atlasTexture = [componentTextures objectForKey:kSpriteIdleAnimationKey];
