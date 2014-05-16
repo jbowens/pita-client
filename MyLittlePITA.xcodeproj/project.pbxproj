@@ -77,6 +77,7 @@
 		C4D38FBC18BEA24D009A1B3F /* PTError.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FBB18BEA24D009A1B3F /* PTError.m */; };
 		C4D38FBF18BEAB0D009A1B3F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D38FBE18BEAB0D009A1B3F /* Reachability.m */; };
 		C4D38FC118BEAE5F009A1B3F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */; };
+		D40377B31926077A0036A2C5 /* PTHotPocketDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = D40377B21926077A0036A2C5 /* PTHotPocketDetector.mm */; };
 		F186FEC718CD829D000C1B2B /* social.png in Resources */ = {isa = PBXBuildFile; fileRef = F186FEC518CD829D000C1B2B /* social.png */; };
 		F186FEC818CD829D000C1B2B /* sponge.png in Resources */ = {isa = PBXBuildFile; fileRef = F186FEC618CD829D000C1B2B /* sponge.png */; };
 		F19DD04F18D6D57B00991CE4 /* AccelerometerInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F19DD04E18D6D57B00991CE4 /* AccelerometerInteraction.m */; };
@@ -130,8 +131,6 @@
 		F1AA1A4518F2864000184751 /* neutral_tail.png in Resources */ = {isa = PBXBuildFile; fileRef = F1AA19EF18F2864000184751 /* neutral_tail.png */; };
 		F1AA1A4C18F34CD300184751 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = F1AA1A4A18F34CD300184751 /* background.png */; };
 		F1AA1A4D18F34CD300184751 /* opening.png in Resources */ = {isa = PBXBuildFile; fileRef = F1AA1A4B18F34CD300184751 /* opening.png */; };
-		F1AA1A5118F3546800184751 /* PTHotPocketDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = F1AA1A5018F3546800184751 /* PTHotPocketDetector.m */; };
-		F1AA1A5418F3554A00184751 /* PTColorHistogram.m in Sources */ = {isa = PBXBuildFile; fileRef = F1AA1A5318F3554A00184751 /* PTColorHistogram.m */; };
 		F1B1CA5F18CCF83C0057ECC2 /* CameraInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B1CA5E18CCF83C0057ECC2 /* CameraInteraction.m */; };
 		F1B1CA6218CCF8FD0057ECC2 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = F1B1CA6118CCF8FD0057ECC2 /* camera.png */; };
 		F1B1CA6518CCF9690057ECC2 /* ProximitySensorInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B1CA6418CCF9690057ECC2 /* ProximitySensorInteraction.m */; };
@@ -242,6 +241,7 @@
 		C4D38FBD18BEAB0D009A1B3F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C4D38FBE18BEAB0D009A1B3F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C4D38FC018BEAE5F009A1B3F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D40377B21926077A0036A2C5 /* PTHotPocketDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PTHotPocketDetector.mm; path = HotPocketDetector/PTHotPocketDetector.mm; sourceTree = "<group>"; };
 		F186FEC518CD829D000C1B2B /* social.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = social.png; sourceTree = "<group>"; };
 		F186FEC618CD829D000C1B2B /* sponge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponge.png; sourceTree = "<group>"; };
 		F19DD04D18D6D57B00991CE4 /* AccelerometerInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerInteraction.h; sourceTree = "<group>"; };
@@ -299,9 +299,6 @@
 		F1AA1A4A18F34CD300184751 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		F1AA1A4B18F34CD300184751 /* opening.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opening.png; sourceTree = "<group>"; };
 		F1AA1A4F18F3546800184751 /* PTHotPocketDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PTHotPocketDetector.h; path = HotPocketDetector/PTHotPocketDetector.h; sourceTree = "<group>"; };
-		F1AA1A5018F3546800184751 /* PTHotPocketDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PTHotPocketDetector.m; path = HotPocketDetector/PTHotPocketDetector.m; sourceTree = "<group>"; };
-		F1AA1A5218F3554A00184751 /* PTColorHistogram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PTColorHistogram.h; path = HotPocketDetector/PTColorHistogram.h; sourceTree = "<group>"; };
-		F1AA1A5318F3554A00184751 /* PTColorHistogram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PTColorHistogram.m; path = HotPocketDetector/PTColorHistogram.m; sourceTree = "<group>"; };
 		F1B1CA5D18CCF83C0057ECC2 /* CameraInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraInteraction.h; sourceTree = "<group>"; };
 		F1B1CA5E18CCF83C0057ECC2 /* CameraInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraInteraction.m; sourceTree = "<group>"; };
 		F1B1CA6118CCF8FD0057ECC2 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
@@ -626,10 +623,8 @@
 		F1AA1A4E18F352ED00184751 /* HotPocketDetector */ = {
 			isa = PBXGroup;
 			children = (
-				F1AA1A5218F3554A00184751 /* PTColorHistogram.h */,
-				F1AA1A5318F3554A00184751 /* PTColorHistogram.m */,
+				D40377B21926077A0036A2C5 /* PTHotPocketDetector.mm */,
 				F1AA1A4F18F3546800184751 /* PTHotPocketDetector.h */,
-				F1AA1A5018F3546800184751 /* PTHotPocketDetector.m */,
 			);
 			name = HotPocketDetector;
 			sourceTree = "<group>";
@@ -878,9 +873,8 @@
 				C4D38FB618BE8330009A1B3F /* PTServer.m in Sources */,
 				F1B1CA7518CD0A790057ECC2 /* SocialInteractionButton.m in Sources */,
 				C4D38FBC18BEA24D009A1B3F /* PTError.m in Sources */,
-				F1AA1A5418F3554A00184751 /* PTColorHistogram.m in Sources */,
+				D40377B31926077A0036A2C5 /* PTHotPocketDetector.mm in Sources */,
 				C4D38FBF18BEAB0D009A1B3F /* Reachability.m in Sources */,
-				F1AA1A5118F3546800184751 /* PTHotPocketDetector.m in Sources */,
 				232537EE18D5EA9A00DCC092 /* DDFileLogger.m in Sources */,
 				F19DD05818D6E33E00991CE4 /* PTSocialListTableViewCell.m in Sources */,
 				23DE1F6218AA81650072B8EB /* PTAppDelegate.m in Sources */,
