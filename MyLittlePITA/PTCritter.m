@@ -25,6 +25,7 @@
 @property (atomic) PTCritterStatus currentStatus;
 
 @property (atomic) NSTimer *sleepTimer;
+@property (atomic) NSTimer *deathTimer;
 
 @end
 
@@ -58,6 +59,10 @@
                                                 repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:gameTickTimer forMode:NSDefaultRunLoopMode];
     
+    self.deathTimer = [NSTimer timerWithTimeInterval:20 target:self selector:@selector(pitaDead) userInfo:nil repeats:NO];
+    [self.deathTimer setFireDate:[NSDate distantFuture]];
+    [[NSRunLoop mainRunLoop] addTimer:self.deathTimer forMode:NSDefaultRunLoopMode];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaAteFood)
                                                  name:@"PitaAteFood" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaAteNonFood)
@@ -90,6 +95,9 @@
                 break;
             case PTCritterStatusSleeping:
                 notifName = @"PitaAsleep";
+                break;
+            case PTCritterStatusDying:
+                notifName = @"PitaDead";
                 break;
             default:
                 break;
@@ -129,8 +137,10 @@
 
 - (void)startSpecialStatus:(PTCritterStatus)specialStatus
 {
-    self.specialStatus = specialStatus;
-    [self emitCurrentStatusNotif];
+    if (self.specialStatus != PTCritterStatusDying) {
+        self.specialStatus = specialStatus;
+        [self emitCurrentStatusNotif];
+    }
 }
 
 - (void)setStatus:(PTCritterStatus)status
@@ -146,9 +156,11 @@
     if (self.sleepiness > 200 && self.sleepiness >= self.hunger) {
         [self setStatus:PTCritterStatusSleepy];
         [self runSleepTimer];
+        [self beginDeathCountdown];
         return;
     } else if (self.hunger > 200) {
         [self setStatus:PTCritterStatusMad];
+        [self beginDeathCountdown];
         return;
     }
     
@@ -179,6 +191,9 @@
 - (void)modifyHunger:(float)delta
 {
     self.hunger = MIN(MAX(self.hunger + delta, 0), 255.0);
+    if (self.hunger < 230) {
+        [self.deathTimer setFireDate:[NSDate distantFuture]];
+    }
     [self reevaluteStatus];
 }
 
@@ -190,6 +205,10 @@
         // awake them.
         if (self.sleepiness <= 20) {
             [self pitaWoken];
+        }
+        if (self.sleepiness < 240) {
+            // They're rested enough to not die.
+            [self.deathTimer setFireDate:[NSDate distantFuture]];
         }
     }
     [self reevaluteStatus];
@@ -257,6 +276,19 @@
         NSLog(@"Delaying sleep timer because of movement.");
         [self.sleepTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:20]];
     }
+}
+
+- (void)beginDeathCountdown
+{
+    NSDate *doomsday = [NSDate dateWithTimeIntervalSinceNow:40];
+    if ([doomsday earlierDate:self.deathTimer.fireDate] == doomsday) {
+        [self.deathTimer setFireDate:doomsday];
+    }
+}
+
+- (void)pitaDead
+{
+    [self startSpecialStatus:PTCritterStatusDying];
 }
 
 + (instancetype)critterWithProperties:(NSDictionary *)properties
