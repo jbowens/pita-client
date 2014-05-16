@@ -171,10 +171,12 @@ PTServer *server;
     if([theGesture state] == UIGestureRecognizerStateBegan)
     {
         [self.audioInteraction startRecording];
+        [self.userCritter startSpecialStatus:PTCritterStatusListening];
     }
     else if([theGesture state] == UIGestureRecognizerStateEnded)
     {
         [self.audioInteraction stopRecording];
+        [self.userCritter startSpecialStatus:PTCritterStatusNormal];
     }
 }
 

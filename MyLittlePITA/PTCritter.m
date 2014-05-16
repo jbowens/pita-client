@@ -99,6 +99,9 @@
             case PTCritterStatusDying:
                 notifName = @"PitaDead";
                 break;
+            case PTCritterStatusListening:
+                notifName = @"PitaListening";
+                break;
             default:
                 break;
         }
@@ -237,11 +240,11 @@
         [self modifySleepiness:-3];
     }
     else {
-        [self modifySleepiness:2.0];
+        [self modifySleepiness:0.75];
     }
     
     [self modifyHappiness:-0.25];
-    [self modifyHunger:1.0];
+    [self modifyHunger:0.5];
 }
 
 - (void)runSleepTimer
