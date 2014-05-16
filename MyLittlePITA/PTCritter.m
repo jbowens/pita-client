@@ -230,9 +230,20 @@
 - (void)pitaAteFood
 {
     NSLog(@"Pita ate a hot pocket!!!! ~*~*~");
-    [self startSpecialStatus:PTCritterStatusNormal];
     [self modifyHunger:-200];
     [self modifyHappiness:200];
+    [self startSpecialStatus:PTCritterStatusTemporarilyHappy];
+    NSTimer *foodComaTimer = [NSTimer timerWithTimeInterval:4
+                                                     target:self
+                                                   selector:@selector(pitaFoodComa)
+                                                   userInfo:nil
+                                                    repeats:NO];
+    [[NSRunLoop mainRunLoop] addTimer:foodComaTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)pitaFoodComa
+{
+    [self startSpecialStatus:PTCritterStatusNormal];
 }
 
 - (void)pitaScolded

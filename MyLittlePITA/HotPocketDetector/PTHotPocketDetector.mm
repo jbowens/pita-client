@@ -138,6 +138,8 @@ HOGDescriptor hogR;
     bool foundG = [self findHotPocketInstances:hogG imData:imDataResized];
     bool foundR = [self findHotPocketInstances:hogR imData:imDataResized];
     
+    NSLog(@"%@, %@, %@", foundB ? @"YES" : @"NO", foundG ? @"YES" : @"NO", foundR ? @"YES" : @"NO");
+    
     imData.release();
     
     return (foundB && foundG && foundR);
