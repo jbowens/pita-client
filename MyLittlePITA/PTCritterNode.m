@@ -128,6 +128,21 @@ static const NSString *kSpriteListeningAnimationKey = @"listening";
             case PTCritterStatusMad:
                 atlasTexture = [componentTextures objectForKey:kSpriteMadAnimationKey];
                 break;
+            case PTCritterStatusSleeping:
+                atlasTexture = [componentTextures objectForKey:kSpriteSleepingAnimationKey];
+                break;
+            case PTCritterStatusListening:
+                atlasTexture = [componentTextures objectForKey:kSpriteListeningAnimationKey];
+                break;
+            case PTCritterStatusSleepy:
+                atlasTexture = [componentTextures objectForKey:kSpriteSleepyAnimationKey];
+                break;
+            case PTCritterStatusVeryMad:
+                atlasTexture = [componentTextures objectForKey:kSpriteVeryMadAnimationKey];
+                break;
+            case PTCritterStatusVeryHappy:
+                atlasTexture = [componentTextures objectForKey:kSpriteVeryHappyAnimationKey];
+                break;
             default:
                 atlasTexture = [componentTextures objectForKey:kSpriteIdleAnimationKey];
                 break;

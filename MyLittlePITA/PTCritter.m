@@ -43,6 +43,16 @@
     return self;
 }
 
+- (void)modifyHappiness:(int)delta
+{
+    self.happiness = MIN(MAX(self.happiness + delta, 0), 255);
+}
+
+- (void)modifyHunger:(int)delta
+{
+    self.hunger = MIN(MAX(self.hunger + delta, 0), 255);
+}
+
 - (void)pitaAteNonFood
 {
     self.happiness -= 200;
