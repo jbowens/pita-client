@@ -208,13 +208,13 @@ PTServer *server;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.userCritter startSpecialStatus:PTCritterStatusTemporarilyHappy];
+    //[self.userCritter startSpecialStatus:PTCritterStatusTemporarilyHappy];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.userCritter modifyHappiness:3.0];
-    [self.userCritter startSpecialStatus:PTCritterStatusNormal];
+    //[self.userCritter modifyHappiness:3.0];
+    //[self.userCritter startSpecialStatus:PTCritterStatusNormal];
 }
 
 - (void)pitaDeath
