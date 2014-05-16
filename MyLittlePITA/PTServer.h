@@ -52,6 +52,11 @@ typedef void (^ServerCompletionHandler)(NSDictionary *, NSError *);
 - (void)createRandomPita:(ServerCompletionHandler)completionHandler;
 
 /*
+ * Saves the current status of the pita to the server.
+ */
+- (void)savePitaStatus:(float)happiness hunger:(float)hunger sleepiness:(float)sleepiness;
+
+/*
  * Records the hatching of a pita.
  */
 - (void)recordHatch:(ServerCompletionHandler)completionHandler;

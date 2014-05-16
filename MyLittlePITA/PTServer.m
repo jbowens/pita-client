@@ -206,6 +206,16 @@ BOOL networkAvailable;
     }];
 }
 
+- (void)savePitaStatus:(float)happiness hunger:(float)hunger sleepiness:(float)sleepiness
+{
+    NSDictionary *params = @{
+        @"happiness": [NSNumber numberWithFloat:happiness],
+        @"hunger": [NSNumber numberWithFloat:hunger],
+        @"sleepiness": [NSNumber numberWithFloat:sleepiness]
+    };
+    [self sendRequest:@"/pitas/save" withParams:params responseHandler:nil];
+}
+
 /*
  * Records the hatching of a pita.
  */
