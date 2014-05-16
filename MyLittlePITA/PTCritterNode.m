@@ -60,6 +60,7 @@ static const NSString *kSpriteListeningAnimationKey = @"listening";
             [self.components setValue:componentSprite forKey:key];
             [self addChild:componentSprite];
         }
+        self.texturesLoaded = YES;
     }
     
     return self;
