@@ -195,11 +195,13 @@ PTServer *server;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    /*
+     TODO: Update!
     if (self.userCritter.happiness < 100) {
         self.userCritter.happiness = 0;
     } else {
         self.userCritter.happiness -= 100;
-    }
+    }*/
 }
 
 @end

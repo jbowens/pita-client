@@ -11,8 +11,20 @@
 
 @interface PTCritter()
 
+/*
+ * A special status is a status that has to be manually
+ * removed. For ex. sleeping, eating
+ */
+@property (atomic) PTCritterStatus specialStatus;
+
+/*
+ * The current status is the natural status that the pita is
+ * in barring any present special statuses. Once the special
+ * status is removed, this is the status it will return to.
+ */
+@property (atomic) PTCritterStatus currentStatus;
+
 @property (atomic) BOOL isSleeping;
-@property (atomic) NSInteger currentMoodState;
 
 @end
 
@@ -25,9 +37,10 @@
     if (self) {
         self.name = [properties objectForKey:@"name"];
         self.happiness = 255;
-        self.hunger = 255;
+        self.hunger = 0;
         self.discipline = 255;
-        self.sleepiness = 255;
+        self.sleepiness = 0;
+        self.currentStatus = PTCritterStatusNormal;
     }
 
     NSMutableDictionary *visualProps = [[NSMutableDictionary alloc] init];
@@ -45,61 +58,115 @@
     return self;
 }
 
+- (void)setStatus:(PTCritterStatus)status
+{
+    if (self.currentStatus != status) {
+        self.currentStatus = status;
+        NSString *notifName = @"PitaNeutral";
+        switch (self.currentStatus) {
+            case PTCritterStatusSleepy:
+                notifName = @"PitaSleepy";
+                break;
+            case PTCritterStatusSad:
+            case PTCritterStatusHungry:
+                notifName = @"PitaSad";
+                break;
+            case PTCritterStatusMad:
+                notifName = @"PitaMad";
+                break;
+            case PTCritterStatusVeryMad:
+                notifName = @"PitaVeryMad";
+                break;
+            case PTCritterStatusHappy:
+                notifName = @"PitaHappy";
+                break;
+            case PTCritterStatusVeryHappy:
+                notifName = @"PitaVeryHappy";
+                break;
+            case PTCritterStatusNormal:
+            case PTCritterStatusListening:
+            case PTCritterStatusEating:
+                notifName = @"PitaNeutral";
+        }
+        NSLog(@"Posting pita status notification: %@", notifName);
+        [[NSNotificationCenter defaultCenter] postNotificationName:notifName object:nil];
+    }
+}
+
+- (void)reevaluteStatus
+{
+    //NSLog(@"sleepiness: %ld, hunger: %ld, happiness: %ld", (long) self.sleepiness, (long) self.hunger, (long) self.happiness);
+    
+    if (self.sleepiness > 200 && self.sleepiness >= self.hunger) {
+        [self setStatus:PTCritterStatusSleepy];
+        return;
+    } else if (self.hunger > 200) {
+        [self setStatus:PTCritterStatusMad];
+        return;
+    }
+    
+    if (self.happiness < 65) {
+        [self setStatus:PTCritterStatusSad];
+        return;
+    }
+    
+    if (self.happiness > 220) {
+        [self setStatus:PTCritterStatusVeryHappy];
+        return;
+    }
+    
+    if (self.happiness > 180) {
+        [self setStatus:PTCritterStatusHappy];
+        return;
+    }
+
+    [self setStatus:PTCritterStatusNormal];
+}
+
 - (void)modifyHappiness:(int)delta
 {
     self.happiness = MIN(MAX(self.happiness + delta, 0), 255);
+    [self reevaluteStatus];
 }
 
 - (void)modifyHunger:(int)delta
 {
     self.hunger = MIN(MAX(self.hunger + delta, 0), 255);
+    [self reevaluteStatus];
+}
+
+- (void)modifySleepiness:(int)delta
+{
+    self.sleepiness = MIN(MAX(self.sleepiness + delta, 0), 255);
+    [self reevaluteStatus];
 }
 
 - (void)pitaAteNonFood
 {
-    self.happiness -= 200;
-    self.currentMoodState = 0;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaMad" object:nil];
+    [self modifyHappiness:-200];
 }
 
 - (void)pitaAteFood
 {
-    self.hunger += 200;
-    self.currentMoodState = 0;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaHappy" object:nil];
+    [self modifyHunger:-200];
 }
 
 - (void)pitaScolded
 {
-    self.happiness -= 50;
-    self.currentMoodState = 0;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaMad" object:nil];
-}
-
-- (void)pitaNeutral
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaNeutral" object:nil];
+    [self modifyHappiness:-50];
 }
 
 - (void)updatePitasStatistics
 {
-    if(self.isSleeping)
-    {
-        self.sleepiness += 10;
+    if(self.isSleeping) {
+        [self modifySleepiness:-10];
     }
-    else
-    {
-        self.sleepiness -= 1;
+    else {
+        [self modifySleepiness:1];
     }
-    self.happiness -= 1;
-    self.hunger -= 1;
-    self.discipline -= 1;
     
-    if(self.currentMoodState == 500)
-    {
-        [self pitaNeutral];
-    }
-    self.currentMoodState ++;
+    [self modifyHappiness:-1];
+    [self modifyHunger:1];
 }
 
 
