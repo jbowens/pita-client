@@ -10,9 +10,13 @@
 #import "PTColorHistogram.h"
 #import <Foundation/Foundation.h>
 
+using namespace std;
+
 @implementation PTHotPocketDetector
 
-- (id)init
+string dataFile;
+
+- (id)init:(string) dataFile
 {
     self = [super init];
     if (self) {
