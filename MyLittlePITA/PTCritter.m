@@ -249,7 +249,7 @@
 - (void)pitaScolded
 {
     // TODO: Become sad or angry or something
-    [self modifyHappiness:-50];
+    [self modifyHappiness:-200];
 }
 
 - (void)updatePitasStatistics
