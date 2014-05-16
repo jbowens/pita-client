@@ -39,6 +39,8 @@
                                                  name:@"PitaAteFood" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaAteNonFood)
                                                  name:@"PitaAteNonFood" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaScolded)
+                                                 name:@"PitaScolded" object:nil];
     
     return self;
 }
@@ -65,6 +67,13 @@
     self.hunger += 200;
     self.currentMoodState = 0;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaHappy" object:nil];
+}
+
+- (void)pitaScolded
+{
+    self.happiness -= 50;
+    self.currentMoodState = 0;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaMad" object:nil];
 }
 
 - (void)pitaNeutral
