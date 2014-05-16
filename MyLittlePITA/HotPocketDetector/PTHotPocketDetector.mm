@@ -13,31 +13,81 @@
 // #include <ios>
 // #include <stdexcept>
 #include <opencv2/opencv.hpp>
-// #include <opencv2/highgui/highgui.hpp>
-// #include <opencv2/ml/ml.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/ml/ml.hpp>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <ios>
+#include <stdexcept>
+
 
 using namespace std;
-// using namespace cv;
+using namespace cv;
+
+static string dataFile = "hotpocket_svm.csv";
+
+static const cv::Size trainImgSize = cv::Size(200, 56);
+static const cv::Size blockSize = cv::Size(16, 16);
+static const cv::Size blockStride = cv::Size(8, 8);
+static const cv::Size cellSize = cv::Size(8, 8);
+static const cv::Size winStride = cv::Size(16,16);
+static const int nbins = 9;
+
+vector<float> svmB;
+vector<float> svmG;
+vector<float> svmR;
+
+HOGDescriptor hogB;
+HOGDescriptor hogG;
+HOGDescriptor hogR;
 
 @implementation PTHotPocketDetector
 
-- (id)init:(std::string) dataFile
+- (id)init
 {
     self = [super init];
     if (self) {
-        [self readSVMData:dataFile];
+        NSBundle    * AppBundle =    [NSBundle mainBundle];
+        NSString    * Path =    [AppBundle pathForResource: @ "hotpocket_svm" ofType: @ "csv"];
+        std::string *str = new std::string([Path UTF8String]);
+        [self readSVMData: *str];
+        [self setupHOG];
     }
     return self;
 }
 
+- (void) setupHOG {
+    hogB.winSize = trainImgSize;
+    hogB.blockSize = blockSize; //TODO : CHANGE THESE VALUES TO THOSE DESCRIBED BELOW
+    hogB.blockStride = blockStride;
+    hogB.cellSize = cellSize;
+    hogB.nbins = nbins;
+    
+    hogG.winSize = trainImgSize;
+    hogG.blockSize = blockSize; //TODO : CHANGE THESE VALUES TO THOSE DESCRIBED BELOW
+    hogG.blockStride = blockStride;
+    hogG.cellSize = cellSize;
+    hogG.nbins = nbins;
+    
+    hogR.winSize = trainImgSize;
+    hogR.blockSize = blockSize; //TODO : CHANGE THESE VALUES TO THOSE DESCRIBED BELOW
+    hogR.blockStride = blockStride;
+    hogR.cellSize = cellSize;
+    hogR.nbins = nbins;
+    
+    NSLog(@"setting up hog svm detector");
+    hogB.setSVMDetector(svmB);
+    hogG.setSVMDetector(svmG);
+    hogR.setSVMDetector(svmR);
+    
+    NSLog(@"setup done");
+    
+}
+
 - (void) readSVMData:(std::string) fileName {
-    vector<float> svmB;
-    vector<float> svmG;
-    vector<float> svmR;
+
     ifstream infile( fileName );
     
     while (infile)
@@ -62,23 +112,58 @@ using namespace std;
         } else {
             svmR = record;
         }
-        
-        NSLog(@"svmB size: %lu\n", svmB.size());
-        NSLog(@"svmG size: %lu\n", svmG.size());
-        NSLog(@"svmR size: %lu\n", svmR.size());
-        
-//        data.push_back( record );
     }
+    
 }
 
 - (bool)isHotPocket:(UIImage*)im {
-    float total_red = 0;
+    
+    cv::Mat imData = [self cvMatFromUIImage:im];
+    
+    bool foundB = [self findHotPocketInstances:hogB imData:imData];
+    bool foundG = [self findHotPocketInstances:hogG imData:imData];
+    bool foundR = [self findHotPocketInstances:hogR imData:imData];
+    
+    return (foundB && foundG && foundR);
+}
 
-    NSLog(@"red percent: %f\n", total_red);
-    if (total_red > .25) {
+- (bool)findHotPocketInstances:(const HOGDescriptor&) hog imData:(Mat&) imageData {
+    vector<cv::Rect> found;
+    int groupThreshold = 5;
+    cv::Size padding(cv::Size(0, 0));
+    double hitThreshold = 1; // tolerance
+    hog.detectMultiScale(imageData, found, hitThreshold, winStride, padding, 1.05, groupThreshold);
+    if (found.size() > 0) {
         return true;
+    } else {
+        return false;
     }
-    return false;
+}
+
+- (cv::Mat)cvMatFromUIImage:(UIImage *)image {
+    
+    CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
+    CGFloat cols = image.size.width;
+    CGFloat rows = image.size.height;
+    
+    cv::Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels (color channels + alpha)
+    CGContextRef contextRef = CGBitmapContextCreate(cvMat.data,                 // Pointer to  data
+                                                    cols,                       // Width of bitmap
+                                                    rows,                       // Height of bitmap
+                                                    8,                          // Bits per component
+                                                    cvMat.step[0],              // Bytes per row
+                                                    colorSpace,                 // Colorspace
+                                                    kCGImageAlphaNoneSkipLast |
+                                                    kCGBitmapByteOrderDefault); // Bitmap info flags
+        
+    CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
+    CGContextRelease(contextRef);
+    
+    cv::Mat bgrMat(rows, cols, CV_8UC3);
+    
+    cv::cvtColor(cvMat , bgrMat , CV_RGBA2RGB);
+    
+    return bgrMat;
 }
 
 @end
