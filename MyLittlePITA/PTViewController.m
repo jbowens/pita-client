@@ -208,7 +208,15 @@ PTServer *server;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    //[self.userCritter startSpecialStatus:PTCritterStatusTemporarilyHappy];
+    NSArray *touchesArray = [touches allObjects];
+    for(int i=0; i<[touchesArray count]; i++)
+    {
+        UITouch *touch = (UITouch *)[touchesArray objectAtIndex:i];
+        CGPoint point = [touch locationInView:nil];
+        if (point.x > 100 && point.x < 240 && point.y > 215 && point.y < 400) {
+            [self.userCritter startSpecialStatus:PTCritterStatusTemporarilyHappy];
+        }
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
