@@ -19,7 +19,8 @@ typedef enum {
     PTCritterStatusMad,
     PTCritterStatusSleepy,
     PTCritterStatusVeryMad,
-    PTCritterStatusVeryHappy
+    PTCritterStatusVeryHappy,
+    PTCritterStatusTemporarilyHappy
 } PTCritterStatus;
 
 const static NSString *kPTBodyHueKey        = @"body_hue";

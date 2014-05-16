@@ -42,6 +42,7 @@
         self.discipline = 255;
         self.sleepiness = 0;
         self.currentStatus = PTCritterStatusNormal;
+        self.specialStatus = PTCritterStatusNormal;
     }
 
     NSMutableDictionary *visualProps = [[NSMutableDictionary alloc] init];
@@ -70,41 +71,60 @@
 
 - (void)pitaTexturesReady
 {
-    NSLog(@"Re-emiting current status b/c textures loaded");
     [self emitCurrentStatusNotif];
 }
 
 - (void)emitCurrentStatusNotif
 {
     NSString *notifName = @"PitaNeutral";
-    switch (self.currentStatus) {
-        case PTCritterStatusSleepy:
-            notifName = @"PitaSleepy";
-            break;
-        case PTCritterStatusSad:
-        case PTCritterStatusHungry:
-            notifName = @"PitaSad";
-            break;
-        case PTCritterStatusMad:
-            notifName = @"PitaMad";
-            break;
-        case PTCritterStatusVeryMad:
-            notifName = @"PitaVeryMad";
-            break;
-        case PTCritterStatusHappy:
-            notifName = @"PitaHappy";
-            break;
-        case PTCritterStatusVeryHappy:
-            notifName = @"PitaVeryHappy";
-            break;
-        case PTCritterStatusNormal:
-        case PTCritterStatusListening:
-        case PTCritterStatusEating:
-        case PTCritterStatusSleeping:
-            notifName = @"PitaNeutral";
+
+    if (self.specialStatus != PTCritterStatusNormal) {
+        // There's currently a special status in effect, so we should
+        // use that.
+        switch (self.specialStatus) {
+            case PTCritterStatusTemporarilyHappy:
+                notifName = @"PitaVeryHappy";
+                break;
+            default:
+                break;
+        }
+    } else {
+        switch (self.currentStatus) {
+            case PTCritterStatusSleepy:
+                notifName = @"PitaSleepy";
+                break;
+            case PTCritterStatusSad:
+            case PTCritterStatusHungry:
+                notifName = @"PitaSad";
+                break;
+            case PTCritterStatusMad:
+                notifName = @"PitaMad";
+                break;
+            case PTCritterStatusVeryMad:
+                notifName = @"PitaVeryMad";
+                break;
+            case PTCritterStatusHappy:
+                notifName = @"PitaHappy";
+                break;
+            case PTCritterStatusVeryHappy:
+            case PTCritterStatusTemporarilyHappy:
+                notifName = @"PitaVeryHappy";
+                break;
+            case PTCritterStatusNormal:
+            case PTCritterStatusListening:
+            case PTCritterStatusEating:
+            case PTCritterStatusSleeping:
+                notifName = @"PitaNeutral";
+        }
     }
-    NSLog(@"Posting pita status notification: %@", notifName);
+    NSLog(@"Notification: %@", notifName);
     [[NSNotificationCenter defaultCenter] postNotificationName:notifName object:nil];
+}
+
+- (void)startSpecialStatus:(PTCritterStatus)specialStatus
+{
+    self.specialStatus = specialStatus;
+    [self emitCurrentStatusNotif];
 }
 
 - (void)setStatus:(PTCritterStatus)status
@@ -116,9 +136,7 @@
 }
 
 - (void)reevaluteStatus
-{
-    //NSLog(@"sleepiness: %ld, hunger: %ld, happiness: %ld", (long) self.sleepiness, (long) self.hunger, (long) self.happiness);
-    
+{    
     if (self.sleepiness > 200 && self.sleepiness >= self.hunger) {
         [self setStatus:PTCritterStatusSleepy];
         return;
@@ -180,17 +198,17 @@
 
 - (void)updatePitasStatistics
 {
-    NSLog(@"happiness: %f, hunger: %f, sleepiness: %f", self.happiness, self.hunger, self.sleepiness);
+    NSLog(@":) %f, :D: %f, Zzz: %f", self.happiness, self.hunger, self.sleepiness);
 
     if(self.isSleeping) {
         [self modifySleepiness:-10];
     }
     else {
-        [self modifySleepiness:1];
+        [self modifySleepiness:0.5];
     }
     
-    [self modifyHappiness:-0.5];
-    [self modifyHunger:1];
+    [self modifyHappiness:-0.25];
+    [self modifyHunger:1.0];
 }
 
 

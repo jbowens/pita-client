@@ -193,15 +193,15 @@ PTServer *server;
     [self.socialInteractionButton openupSocialPage:self];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.userCritter startSpecialStatus:PTCritterStatusTemporarilyHappy];
+}
+
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    /*
-     TODO: Update!
-    if (self.userCritter.happiness < 100) {
-        self.userCritter.happiness = 0;
-    } else {
-        self.userCritter.happiness -= 100;
-    }*/
+    [self.userCritter modifyHappiness:3.0];
+    [self.userCritter startSpecialStatus:PTCritterStatusNormal];
 }
 
 @end

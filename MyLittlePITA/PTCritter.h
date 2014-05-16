@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PTCritterNode.h"
 
 @interface PTCritter : NSObject
 
@@ -20,5 +21,9 @@
 
 + (instancetype)critterWithProperties:(NSDictionary *)properties;
 - (instancetype)initWithProperties:(NSDictionary *)properties;
+- (void)modifyHappiness:(float)delta;
+- (void)modifyHunger:(float)delta;
+- (void)modifySleepiness:(float)delta;
+- (void)startSpecialStatus:(PTCritterStatus)specialStatus;
 
 @end
