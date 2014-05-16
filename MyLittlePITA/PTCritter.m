@@ -131,10 +131,10 @@
                 notifName = @"PitaVeryHappy";
                 break;
             case PTCritterStatusNormal:
-            case PTCritterStatusListening:
-            case PTCritterStatusEating:
-            case PTCritterStatusSleeping:
                 notifName = @"PitaNeutral";
+                break;
+            default:
+                break;
         }
     }
     NSLog(@"Notification: %@", notifName);
@@ -158,7 +158,7 @@
 }
 
 - (void)reevaluteStatus
-{    
+{
     if (self.sleepiness > 200 && self.sleepiness >= self.hunger) {
         [self setStatus:PTCritterStatusSleepy];
         [self runSleepTimer];
@@ -222,18 +222,17 @@
 
 - (void)pitaAteNonFood
 {
-    if (self.specialStatus == PTCritterStatusEating) {
-        [self startSpecialStatus:PTCritterStatusNormal];
-    }
+    NSLog(@"Pita didn't eat a hot pocket T_T");
+    [self startSpecialStatus:PTCritterStatusNormal];
     [self modifyHappiness:-200];
 }
 
 - (void)pitaAteFood
 {
-    if (self.specialStatus == PTCritterStatusEating) {
-        [self startSpecialStatus:PTCritterStatusNormal];
-    }
+    NSLog(@"Pita ate a hot pocket!!!! ~*~*~");
+    [self startSpecialStatus:PTCritterStatusNormal];
     [self modifyHunger:-200];
+    [self modifyHappiness:200];
 }
 
 - (void)pitaScolded
@@ -244,8 +243,6 @@
 
 - (void)updatePitasStatistics
 {
-    //NSLog(@":) %f, :D: %f, Zzz: %f", self.happiness, self.hunger, self.sleepiness);
-
     if(self.specialStatus == PTCritterStatusSleeping) {
         [self modifySleepiness:-0.75];
     }
