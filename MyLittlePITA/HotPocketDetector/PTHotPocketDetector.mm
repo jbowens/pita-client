@@ -129,7 +129,6 @@ HOGDescriptor hogR;
 }
 
 - (bool)isHotPocket:(UIImage*)im {
-    
     cv::Mat imData = [self cvMatFromUIImage:im];
     
     bool foundB = [self findHotPocketInstances:hogB imData:imData];
@@ -150,10 +149,12 @@ HOGDescriptor hogR;
     if (found.size() > 0) {
         found.clear();
         vector<cv::Rect>().swap(found);
+        NSLog(@"hot pockets!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return true;
     } else {
         found.clear();
         vector<cv::Rect>().swap(found);
+        NSLog(@"no pockets :(");
         return false;
     }
 }
