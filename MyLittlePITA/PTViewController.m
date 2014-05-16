@@ -20,6 +20,7 @@
 @interface PTViewController()
 
 @property (nonatomic) PTGameScene *critterScene;
+@property (nonatomic) NSTimer *saveTimer;
 @property (strong, nonatomic) CameraInteraction* cameraInteraction;
 @property (strong, nonatomic) ProximitySensorInteraction* proximityInteraction;
 @property (strong, nonatomic) AccelerometerInteraction* accelerometerInteraction;
@@ -36,6 +37,13 @@ PTServer *server;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.saveTimer = [NSTimer timerWithTimeInterval:30
+                                             target:self
+                                           selector:@selector(savePitaToServer)
+                                           userInfo:nil
+                                            repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:self.saveTimer forMode:NSDefaultRunLoopMode];
     
     server = [[PTServer alloc] init];
     
@@ -212,6 +220,15 @@ PTServer *server;
 - (void)pitaDeath
 {
     [server recordDeath:nil];
+}
+
+- (void)savePitaToServer
+{
+    if (self.userCritter) {
+        [server savePitaStatus:self.userCritter.happiness
+                        hunger:self.userCritter.hunger
+                    sleepiness:self.userCritter.sleepiness];
+    }
 }
 
 @end
