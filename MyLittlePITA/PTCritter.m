@@ -37,7 +37,7 @@
     
     if (self) {
         self.name = [properties objectForKey:@"name"];
-        self.happiness = 255;
+        self.happiness = 200.0;
         self.hunger = 0;
         self.discipline = 255;
         self.sleepiness = 0;
@@ -145,21 +145,21 @@
     [self setStatus:PTCritterStatusNormal];
 }
 
-- (void)modifyHappiness:(int)delta
+- (void)modifyHappiness:(float)delta
 {
-    self.happiness = MIN(MAX(self.happiness + delta, 0), 255);
+    self.happiness = MIN(MAX(self.happiness + delta, 0), 255.0);
     [self reevaluteStatus];
 }
 
-- (void)modifyHunger:(int)delta
+- (void)modifyHunger:(float)delta
 {
-    self.hunger = MIN(MAX(self.hunger + delta, 0), 255);
+    self.hunger = MIN(MAX(self.hunger + delta, 0), 255.0);
     [self reevaluteStatus];
 }
 
-- (void)modifySleepiness:(int)delta
+- (void)modifySleepiness:(float)delta
 {
-    self.sleepiness = MIN(MAX(self.sleepiness + delta, 0), 255);
+    self.sleepiness = MIN(MAX(self.sleepiness + delta, 0), 255.0);
     [self reevaluteStatus];
 }
 
@@ -180,6 +180,8 @@
 
 - (void)updatePitasStatistics
 {
+    NSLog(@"happiness: %f, hunger: %f, sleepiness: %f", self.happiness, self.hunger, self.sleepiness);
+
     if(self.isSleeping) {
         [self modifySleepiness:-10];
     }
@@ -187,7 +189,7 @@
         [self modifySleepiness:1];
     }
     
-    [self modifyHappiness:-0.25];
+    [self modifyHappiness:-0.5];
     [self modifyHunger:1];
 }
 

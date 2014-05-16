@@ -11,10 +11,10 @@
 @interface PTCritter : NSObject
 
 @property (nonatomic) NSString  *name;
-@property (nonatomic) NSInteger happiness;
-@property (nonatomic) NSInteger hunger;
-@property (nonatomic) NSInteger sleepiness;
-@property (nonatomic) NSInteger discipline;
+@property (nonatomic) float happiness;
+@property (nonatomic) float hunger;
+@property (nonatomic) float sleepiness;
+@property (nonatomic) float discipline;
 
 @property (nonatomic, readonly) NSDictionary *visualProperties;
 
