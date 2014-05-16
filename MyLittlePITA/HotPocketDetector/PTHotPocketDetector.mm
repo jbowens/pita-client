@@ -112,6 +112,8 @@ HOGDescriptor hogR;
         } else {
             svmR = record;
         }
+        record.clear();
+        vector<float>().swap(record);
     }
     
 }
@@ -124,6 +126,8 @@ HOGDescriptor hogR;
     bool foundG = [self findHotPocketInstances:hogG imData:imData];
     bool foundR = [self findHotPocketInstances:hogR imData:imData];
     
+    imData.release();
+    
     return (foundB && foundG && foundR);
 }
 
@@ -134,8 +138,12 @@ HOGDescriptor hogR;
     double hitThreshold = 1; // tolerance
     hog.detectMultiScale(imageData, found, hitThreshold, winStride, padding, 1.05, groupThreshold);
     if (found.size() > 0) {
+        found.clear();
+        vector<cv::Rect>().swap(found);
         return true;
     } else {
+        found.clear();
+        vector<cv::Rect>().swap(found);
         return false;
     }
 }
@@ -162,6 +170,8 @@ HOGDescriptor hogR;
     cv::Mat bgrMat(rows, cols, CV_8UC3);
     
     cv::cvtColor(cvMat , bgrMat , CV_RGBA2RGB);
+    
+    cvMat.release();
     
     return bgrMat;
 }
