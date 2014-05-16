@@ -27,6 +27,7 @@ const static NSString *kPTBodyHueKey        = @"body_hue";
 @interface PTCritterNode : SKNode
 
 @property (nonatomic) PTCritterStatus status;
+@property (atomic) BOOL texturesLoaded;
 
 - (instancetype)initWithVisualProperties:(NSDictionary *)properties;
 + (instancetype)critterNodeWithVisualProperties:(NSDictionary *)properties;

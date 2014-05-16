@@ -54,7 +54,6 @@ static const float kDefaultVerticalPosition = .4;
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    [self.critter updatePitasStatistics];
     /* Called before each frame is rendered */
 }
 
@@ -116,6 +115,7 @@ static const float kDefaultVerticalPosition = .4;
         
         [self addChild:critterNode];
     }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PitaTexturesLoaded" object:nil];
 }
 
 @end

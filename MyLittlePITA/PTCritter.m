@@ -26,6 +26,7 @@
 
 @property (atomic) BOOL isSleeping;
 
+
 @end
 
 @implementation PTCritter
@@ -47,6 +48,13 @@
     [visualProps setObject:[properties objectForKey:kPTBodyHueKey] forKey:kPTBodyHueKey];
     _visualProperties = visualProps;
     
+    // Begin the game tick timer for recording gradual changes in mode over time.
+    NSTimer *gameTickTimer = [NSTimer timerWithTimeInterval:0.25
+                                                 target:self
+                                               selector:@selector(updatePitasStatistics)
+                                               userInfo:nil
+                                                repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:gameTickTimer forMode:NSDefaultRunLoopMode];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaAteFood)
                                                  name:@"PitaAteFood" object:nil];
@@ -54,42 +62,56 @@
                                                  name:@"PitaAteNonFood" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaScolded)
                                                  name:@"PitaScolded" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitaTexturesReady)
+                                                 name:@"PitaTexturesLoaded" object:nil];
     
     return self;
+}
+
+- (void)pitaTexturesReady
+{
+    NSLog(@"Re-emiting current status b/c textures loaded");
+    [self emitCurrentStatusNotif];
+}
+
+- (void)emitCurrentStatusNotif
+{
+    NSString *notifName = @"PitaNeutral";
+    switch (self.currentStatus) {
+        case PTCritterStatusSleepy:
+            notifName = @"PitaSleepy";
+            break;
+        case PTCritterStatusSad:
+        case PTCritterStatusHungry:
+            notifName = @"PitaSad";
+            break;
+        case PTCritterStatusMad:
+            notifName = @"PitaMad";
+            break;
+        case PTCritterStatusVeryMad:
+            notifName = @"PitaVeryMad";
+            break;
+        case PTCritterStatusHappy:
+            notifName = @"PitaHappy";
+            break;
+        case PTCritterStatusVeryHappy:
+            notifName = @"PitaVeryHappy";
+            break;
+        case PTCritterStatusNormal:
+        case PTCritterStatusListening:
+        case PTCritterStatusEating:
+        case PTCritterStatusSleeping:
+            notifName = @"PitaNeutral";
+    }
+    NSLog(@"Posting pita status notification: %@", notifName);
+    [[NSNotificationCenter defaultCenter] postNotificationName:notifName object:nil];
 }
 
 - (void)setStatus:(PTCritterStatus)status
 {
     if (self.currentStatus != status) {
         self.currentStatus = status;
-        NSString *notifName = @"PitaNeutral";
-        switch (self.currentStatus) {
-            case PTCritterStatusSleepy:
-                notifName = @"PitaSleepy";
-                break;
-            case PTCritterStatusSad:
-            case PTCritterStatusHungry:
-                notifName = @"PitaSad";
-                break;
-            case PTCritterStatusMad:
-                notifName = @"PitaMad";
-                break;
-            case PTCritterStatusVeryMad:
-                notifName = @"PitaVeryMad";
-                break;
-            case PTCritterStatusHappy:
-                notifName = @"PitaHappy";
-                break;
-            case PTCritterStatusVeryHappy:
-                notifName = @"PitaVeryHappy";
-                break;
-            case PTCritterStatusNormal:
-            case PTCritterStatusListening:
-            case PTCritterStatusEating:
-                notifName = @"PitaNeutral";
-        }
-        NSLog(@"Posting pita status notification: %@", notifName);
-        [[NSNotificationCenter defaultCenter] postNotificationName:notifName object:nil];
+        [self emitCurrentStatusNotif];
     }
 }
 
@@ -165,7 +187,7 @@
         [self modifySleepiness:1];
     }
     
-    [self modifyHappiness:-1];
+    [self modifyHappiness:-0.25];
     [self modifyHunger:1];
 }
 

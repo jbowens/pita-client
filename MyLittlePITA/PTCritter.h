@@ -20,6 +20,5 @@
 
 + (instancetype)critterWithProperties:(NSDictionary *)properties;
 - (instancetype)initWithProperties:(NSDictionary *)properties;
-- (void)updatePitasStatistics;
 
 @end
